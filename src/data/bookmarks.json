@@ -1,0 +1,45 @@
+[
+  {
+    "name": "General",
+    "bookmarks": [
+      {
+        "name": "X",
+        "url": "https://twitter.com/home"
+      },
+      {
+        "name": "Youtube",
+        "url": "https://www.youtube.com/"
+      }
+    ]
+  },
+  {
+    "name": "Shops",
+    "bookmarks": [
+      {
+        "name": "Amazon",
+        "url": "https://www.amazon.de/"
+      },
+      {
+        "name": "OTTO",
+        "url": "https://www.otto.de/"
+      },
+      {
+        "name": "Zalando",
+        "url": "https://www.zalando.de/herren-home/"
+      },
+      {
+        "name": "About You",
+        "url": "https://www.aboutyou.de/"
+      }
+    ]
+  },
+  {
+    "name": "Utility",
+    "bookmarks": [
+      {
+        "name": "Google Translate",
+        "url": "https://translate.google.com/?hl=de"
+      }
+    ]
+  }
+]
