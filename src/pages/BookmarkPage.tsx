@@ -3,6 +3,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
   Divider,
   Stack,
   Typography,
@@ -13,18 +14,11 @@ import bookmarksJson from "../data/bookmarks.json";
 import { Banner } from "../components/Banner";
 import { Entry } from "../components/Entry";
 import SearchComboBox from "../components/SearchComboBox";
+import { BookmarkItem, isBookmark } from "../types";
+import { downloadBookmarksFile } from "../utils/fileExport";
 
-export type Bookmark = {
-  name: string;
-  url: string;
-};
-
-export type BookmarkList = {
-  name: string;
-  bookmarks: Bookmark[];
-};
-
-const bookmarkLists: BookmarkList[] = bookmarksJson;
+// TODO subfolders and toplevel bookmarks are currently not shown on this page as only top level folders are displayed
+const bookmarkFolders: BookmarkItem[] = bookmarksJson;
 
 export const BookmarkPage = () => {
   const [expanded, setExpanded] = React.useState<number | false>(0);
@@ -42,7 +36,7 @@ export const BookmarkPage = () => {
           <Box sx={{ pb: 2 }}>
             <SearchComboBox />
           </Box>
-          {bookmarkLists.map((list, index) => (
+          {bookmarkFolders.map((folder, index) => (
             <Accordion
               expanded={expanded === index}
               onChange={handleChange(index)}
@@ -50,21 +44,31 @@ export const BookmarkPage = () => {
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography variant="h5" component="div" width="900px">
-                  {list.name}
+                  {folder.name}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {list.bookmarks.map((entry, entryIndex) => (
-                  <div key={entryIndex}>
-                    <Entry url={entry.url} name={entry.name} />
-                    {entryIndex !== list.bookmarks.length - 1 ? (
-                      <Divider />
-                    ) : null}
-                  </div>
-                ))}
+                {!isBookmark(folder) &&
+                  folder.bookmarks
+                    .filter((b) => isBookmark(b))
+                    .map((entry, entryIndex) => (
+                      <div key={entryIndex}>
+                        <Entry url={entry.url} name={entry.name} />
+                        {entryIndex !== folder.bookmarks.length - 1 ? (
+                          <Divider />
+                        ) : null}
+                      </div>
+                    ))}
               </AccordionDetails>
             </Accordion>
           ))}
+          <Button
+            onClick={() => {
+              downloadBookmarksFile("bookmark_export.html");
+            }}
+          >
+            Export Bookmarks
+          </Button>
         </Stack>
       </Box>
     </>

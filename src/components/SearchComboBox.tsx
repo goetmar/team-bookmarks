@@ -1,17 +1,21 @@
 import bookmarksJson from "../data/bookmarks.json";
-import { BookmarkList, Bookmark } from "../pages/BookmarkPage";
+import { Bookmark, BookmarkItem, isBookmark } from "../types";
 import { Entry } from "./Entry";
 import { Autocomplete, TextField } from "@mui/material";
 
-const bookmarkLists: BookmarkList[] = bookmarksJson;
-let allBookmarks: Bookmark[] = [];
-bookmarkLists.forEach((list) => {
-  allBookmarks = allBookmarks.concat(
-    list.bookmarks.map((entry) => {
-      return entry;
-    })
-  );
-});
+function filterBookmarks(items: BookmarkItem[], arr?: Bookmark[]): Bookmark[] {
+  let bookmarks = arr || [];
+  items.map((item) => {
+    if (isBookmark(item)) {
+      bookmarks.push(item);
+    } else {
+      bookmarks = bookmarks.concat(filterBookmarks(item.bookmarks));
+    }
+  });
+  return bookmarks;
+}
+
+const allBookmarks = filterBookmarks(bookmarksJson);
 
 export default function SearchComboBox() {
   return (

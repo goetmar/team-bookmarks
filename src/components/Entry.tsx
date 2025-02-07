@@ -1,7 +1,7 @@
 import { Box, Button, IconButton, Snackbar, Tooltip } from "@mui/material";
 import React, { SyntheticEvent } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Bookmark } from "../pages/BookmarkPage";
+import { Bookmark } from "../types";
 
 const getBaseUrl = (url: string) => {
   const pathArray = url.split("/");
@@ -17,7 +17,7 @@ export const Entry = (entry: Bookmark) => {
   };
 
   const getFaviconByGoogleApi = () => {
-    return `https://www.google.com/s2/favicons?domain=${entry.url}&size=16`;
+    return `https://www.google.com/s2/favicons?domain=${entry.url}&size=32`;
   };
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
