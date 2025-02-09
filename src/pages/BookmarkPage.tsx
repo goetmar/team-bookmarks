@@ -9,25 +9,24 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import React from "react";
 import bookmarksJson from "../data/bookmarks.json";
 import { Banner } from "../components/Banner";
 import { Entry } from "../components/Entry";
 import SearchComboBox from "../components/SearchComboBox";
 import { BookmarkItem, isBookmark } from "../types";
 import { downloadBookmarksFile } from "../utils/fileExport";
+import { useState } from "react";
 
 // TODO subfolders and toplevel bookmarks are currently not shown on this page as only top level folders are displayed
 const bookmarkFolders: BookmarkItem[] = bookmarksJson;
 
 export const BookmarkPage = () => {
-  const [expanded, setExpanded] = React.useState<number | false>(0);
+  const [expanded, setExpanded] = useState<number | false>(0);
 
   const handleChange =
     (panel: number) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
-
   return (
     <>
       <Banner />
@@ -53,7 +52,11 @@ export const BookmarkPage = () => {
                     .filter((b) => isBookmark(b))
                     .map((entry, entryIndex) => (
                       <div key={entryIndex}>
-                        <Entry url={entry.url} name={entry.name} />
+                        <Entry
+                          url={entry.url}
+                          name={entry.name}
+                          clipboard={true}
+                        />
                         {entryIndex !== folder.bookmarks.length - 1 ? (
                           <Divider />
                         ) : null}

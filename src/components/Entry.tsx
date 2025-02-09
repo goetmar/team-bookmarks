@@ -1,7 +1,13 @@
-import { Box, Button, IconButton, Snackbar, Tooltip } from "@mui/material";
-import React, { SyntheticEvent } from "react";
+import {
+  Box,
+  Button,
+  IconButton,
+  Snackbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { SyntheticEvent, useState } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Bookmark } from "../types";
 
 const getBaseUrl = (url: string) => {
   const pathArray = url.split("/");
@@ -11,13 +17,15 @@ const getBaseUrl = (url: string) => {
   return baseUrl;
 };
 
-export const Entry = (entry: Bookmark) => {
+export type EntryProps = { name: string; url: string; clipboard?: boolean };
+
+export const Entry = (props: EntryProps) => {
   const getFaviconByUrl = () => {
-    return getBaseUrl(entry.url) + "/favicon.ico";
+    return getBaseUrl(props.url) + "/favicon.ico";
   };
 
   const getFaviconByGoogleApi = () => {
-    return `https://www.google.com/s2/favicons?domain=${entry.url}&size=32`;
+    return `https://www.google.com/s2/favicons?domain=${props.url}&size=16`;
   };
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
@@ -25,37 +33,61 @@ export const Entry = (entry: Bookmark) => {
     event.currentTarget.src = getFaviconByGoogleApi();
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <Box display="flex" justifyContent="space-between">
       <Button
-        href={entry.url}
+        href={props.url}
         target="_blank"
         fullWidth
         style={{ justifyContent: "flex-start" }}
+        sx={{
+          "& .hidden-url": {
+            display: "none",
+          },
+          "&:hover .hidden-url": {
+            display: "flex",
+          },
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          pl: 2,
+        }}
       >
-        <Box display="flex" alignItems="center" pr="8px">
+        <Box display="flex" alignItems="center" gap={2}>
           <img
             src={getFaviconByUrl()}
             alt="favicon"
-            height="16"
-            width="16"
+            height="16px"
+            width="16px"
             onError={handleImageError}
           />
+          {props.name}
+          <Typography
+            variant="body2"
+            className="hidden-url"
+            color={"text.disabled"}
+            sx={{
+              textTransform: "lowercase",
+              ml: 2,
+            }}
+          >
+            {props.url}
+          </Typography>
         </Box>
-        {entry.name}
       </Button>
-      <Tooltip title="Copy to clipboard" placement="right">
-        <IconButton
-          onClick={() => {
-            navigator.clipboard.writeText(entry.url);
-            setOpen(true);
-          }}
-        >
-          <ContentCopyIcon />
-        </IconButton>
-      </Tooltip>
+      {props.clipboard && (
+        <Tooltip title="Copy to clipboard" placement="left">
+          <IconButton
+            onClick={() => {
+              navigator.clipboard.writeText(props.url);
+              setOpen(true);
+            }}
+          >
+            <ContentCopyIcon />
+          </IconButton>
+        </Tooltip>
+      )}
       <Snackbar
         message="Copied to clipboard!"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
