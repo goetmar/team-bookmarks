@@ -1,5 +1,5 @@
-import bookmarksJson from "../data/bookmarks.json";
-import { BookmarkItem, isBookmark } from "../types";
+import { BookmarkItem } from "../types/types";
+import { isBookmark } from "./bookmarkHelper";
 
 function mapBookmarkItems(
   items: BookmarkItem[],
@@ -27,7 +27,8 @@ function mapBookmarkItems(
     .join(newLineIndent);
 }
 
-const fileContent = `<!DOCTYPE NETSCAPE-Bookmark-file-1>
+function generateFileContent(bookmarkItems: BookmarkItem[]) {
+  return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file. 
      It will be read and overwritten. 
      DO NOT EDIT! -->
@@ -35,11 +36,16 @@ const fileContent = `<!DOCTYPE NETSCAPE-Bookmark-file-1>
 <TITLE>Bookmarks</TITLE>
 <H1>Bookmarks</H1>
 <DL><p>
-    ${mapBookmarkItems(bookmarksJson, new Date().valueOf(), 1)}
+    ${mapBookmarkItems(bookmarkItems, new Date().valueOf(), 1)}
 </DL><p>
 `;
+}
 
-export function downloadBookmarksFile(filename: string) {
+export function downloadBookmarksFile(
+  filename: string,
+  bookmarkItems: BookmarkItem[]
+) {
+  const fileContent = generateFileContent(bookmarkItems);
   var element = document.createElement("a");
   element.setAttribute(
     "href",

@@ -9,7 +9,3 @@ export type BookmarkFolder = {
 };
 
 export type BookmarkItem = BookmarkFolder | Bookmark;
-
-export function isBookmark(b: BookmarkItem): b is Bookmark {
-  return (b as Bookmark).url !== undefined;
-}
