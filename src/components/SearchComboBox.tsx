@@ -22,8 +22,10 @@ export default function SearchComboBox(props: SearchComboBoxProps) {
       renderOption={(props, option) => (
         <Entry
           {...props}
-          name={option}
-          url={allBookmarks.find((bm) => bm.name === option)?.url || ""}
+          bookmark={{
+            name: option,
+            url: allBookmarks.find((bm) => bm.name === option)?.url || "",
+          }}
         />
       )}
       renderInput={(params) => (

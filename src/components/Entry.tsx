@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { Bookmark } from "../types/types";
 
 const getBaseUrl = (url: string) => {
   const pathArray = url.split("/");
@@ -17,15 +18,15 @@ const getBaseUrl = (url: string) => {
   return baseUrl;
 };
 
-export type EntryProps = { name: string; url: string; clipboard?: boolean };
+export type EntryProps = { bookmark: Bookmark; clipboard?: boolean };
 
 export const Entry = (props: EntryProps) => {
   const getFaviconByUrl = () => {
-    return getBaseUrl(props.url) + "/favicon.ico";
+    return getBaseUrl(props.bookmark.url) + "/favicon.ico";
   };
 
   const getFaviconByGoogleApi = () => {
-    return `https://www.google.com/s2/favicons?domain=${props.url}&size=16`;
+    return `https://www.google.com/s2/favicons?domain=${props.bookmark.url}&size=16`;
   };
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
@@ -38,7 +39,7 @@ export const Entry = (props: EntryProps) => {
   return (
     <Box display="flex" justifyContent="space-between">
       <Button
-        href={props.url}
+        href={props.bookmark.url}
         target="_blank"
         fullWidth
         style={{ justifyContent: "flex-start" }}
@@ -51,18 +52,25 @@ export const Entry = (props: EntryProps) => {
           },
           whiteSpace: "nowrap",
           overflow: "hidden",
-          pl: 2,
         }}
       >
         <Box display="flex" alignItems="center" gap={2}>
-          <img
-            src={getFaviconByUrl()}
-            alt="favicon"
-            height="16px"
-            width="16px"
-            onError={handleImageError}
-          />
-          {props.name}
+          <Box
+            height="24px"
+            width="24px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <img
+              src={getFaviconByUrl()}
+              alt="favicon"
+              height="16px"
+              width="16px"
+              onError={handleImageError}
+            />
+          </Box>
+          {props.bookmark.name}
           <Typography
             variant="body2"
             className="hidden-url"
@@ -72,7 +80,7 @@ export const Entry = (props: EntryProps) => {
               ml: 2,
             }}
           >
-            {props.url}
+            {props.bookmark.url}
           </Typography>
         </Box>
       </Button>
@@ -80,7 +88,7 @@ export const Entry = (props: EntryProps) => {
         <Tooltip title="Copy to clipboard" placement="left">
           <IconButton
             onClick={() => {
-              navigator.clipboard.writeText(props.url);
+              navigator.clipboard.writeText(props.bookmark.url);
               setOpen(true);
             }}
           >

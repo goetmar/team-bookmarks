@@ -1,34 +1,17 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Divider,
-  Stack,
-  Typography,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, Button, Stack } from "@mui/material";
 import bookmarksJson from "../data/bookmarks.json";
 import { Banner } from "../components/Banner";
-import { Entry } from "../components/Entry";
 import SearchComboBox from "../components/SearchComboBox";
 import { BookmarkItem } from "../types/types";
 import { downloadBookmarksFile } from "../utils/fileExport";
 import { useState } from "react";
-import { isBookmark } from "../utils/bookmarkHelper";
+import { ContentCard } from "../components/ContentCard";
 
-// TODO subfolders and toplevel bookmarks are currently not shown on this page as only top level folders are displayed
-const bookmarkFolders: BookmarkItem[] = bookmarksJson;
+// TODO subfolders are currently not shown on this page as only top level folder is displayed
+
+const bookmarkItems: BookmarkItem[] = bookmarksJson;
 
 export const BookmarkPage = () => {
-  const [expanded, setExpanded] = useState<number | false>(0);
-
-  const handleChange =
-    (panel: number) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
-
   const [blur, setBlur] = useState(false);
 
   return (
@@ -51,45 +34,22 @@ export const BookmarkPage = () => {
               setBlur(true);
             }}
           />
-          <Box className={blur ? "blur" : ""} sx={{ width: "100%" }}>
-            {bookmarkFolders.map((folder, index) => (
-              <Accordion
-                expanded={expanded === index}
-                onChange={handleChange(index)}
-                key={index}
-              >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography variant="h5" component="div">
-                    {folder.name}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  {!isBookmark(folder) &&
-                    folder.bookmarks
-                      .filter((b) => isBookmark(b))
-                      .map((entry, entryIndex) => (
-                        <div key={entryIndex}>
-                          <Entry
-                            url={entry.url}
-                            name={entry.name}
-                            clipboard={true}
-                          />
-                          {entryIndex !== folder.bookmarks.length - 1 ? (
-                            <Divider />
-                          ) : null}
-                        </div>
-                      ))}
-                </AccordionDetails>
-              </Accordion>
-            ))}
-            <Button
-              onClick={() => {
-                downloadBookmarksFile("bookmark_export.html", bookmarksJson);
-              }}
-            >
-              Export Bookmarks
-            </Button>
+          <Box
+            className={blur ? "blur" : ""}
+            display="flex"
+            justifyContent="left"
+            alignItems="left"
+            sx={{ width: "100%" }}
+          >
+            <ContentCard items={bookmarkItems} />
           </Box>
+          <Button
+            onClick={() => {
+              downloadBookmarksFile("bookmark_export.html", bookmarksJson);
+            }}
+          >
+            Export Bookmarks
+          </Button>
         </Stack>
       </Box>
     </>
