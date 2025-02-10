@@ -18,7 +18,7 @@ const getBaseUrl = (url: string) => {
   return baseUrl;
 };
 
-export type EntryProps = { bookmark: Bookmark; clipboard?: boolean };
+export type EntryProps = { bookmark: Bookmark };
 
 export const Entry = (props: EntryProps) => {
   const getFaviconByUrl = () => {
@@ -37,7 +37,7 @@ export const Entry = (props: EntryProps) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Box display="flex" justifyContent="space-between">
+    <Box sx={{ position: "relative" }}>
       <Button
         href={props.bookmark.url}
         target="_blank"
@@ -50,14 +50,20 @@ export const Entry = (props: EntryProps) => {
           "&:hover .hidden-url": {
             display: "flex",
           },
-          whiteSpace: "nowrap",
-          overflow: "hidden",
+          pr: "50px",
         }}
       >
-        <Box display="flex" alignItems="center" gap={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={2}
+          sx={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+          }}
+        >
           <Box
-            height="24px"
-            width="24px"
+            padding="2px"
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -77,25 +83,29 @@ export const Entry = (props: EntryProps) => {
             color={"text.disabled"}
             sx={{
               textTransform: "lowercase",
-              ml: 2,
             }}
           >
             {props.bookmark.url}
           </Typography>
         </Box>
       </Button>
-      {props.clipboard && (
-        <Tooltip title="Copy to clipboard" placement="left">
-          <IconButton
-            onClick={() => {
-              navigator.clipboard.writeText(props.bookmark.url);
-              setOpen(true);
-            }}
-          >
-            <ContentCopyIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      <Tooltip title="Copy to clipboard" placement="left" disableInteractive>
+        <IconButton
+          size="small"
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: "50%",
+            transform: "translate(0, -50%)",
+          }}
+          onClick={() => {
+            navigator.clipboard.writeText(props.bookmark.url);
+            setOpen(true);
+          }}
+        >
+          <ContentCopyIcon />
+        </IconButton>
+      </Tooltip>
       <Snackbar
         message="Copied to clipboard!"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
