@@ -1,7 +1,7 @@
 import { Box, Paper } from "@mui/material";
 import { BookmarkItem } from "../types/types";
 import { isBookmark } from "../utils/bookmarkHelper";
-import { Entry } from "./Entry";
+import { BookmarkEntry } from "./BookmarkEntry";
 import { Folder } from "./Folder";
 
 export type ContentCardProps = { items: BookmarkItem[] };
@@ -11,7 +11,7 @@ export const ContentCard = (props: ContentCardProps) => {
     <Paper sx={{ width: "100%" }}>
       {props.items.map((item, index) =>
         isBookmark(item) ? (
-          <Entry bookmark={item} key={index} clipboard />
+          <BookmarkEntry bookmark={item} key={index} clipboard />
         ) : (
           <Folder folder={item} key={index} />
         )

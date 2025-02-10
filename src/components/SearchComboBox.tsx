@@ -1,5 +1,5 @@
 import bookmarksJson from "../data/bookmarks.json";
-import { Entry } from "./Entry";
+import { BookmarkEntry } from "./BookmarkEntry";
 import { Autocomplete, TextField } from "@mui/material";
 import { filterBookmarks } from "../utils/bookmarkHelper";
 
@@ -20,7 +20,7 @@ export default function SearchComboBox(props: SearchComboBoxProps) {
       options={allBookmarks.map((option) => option.name).sort()}
       fullWidth
       renderOption={(props, option) => (
-        <Entry
+        <BookmarkEntry
           {...props}
           bookmark={{
             name: option,

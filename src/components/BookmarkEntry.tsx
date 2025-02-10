@@ -4,13 +4,13 @@ import { Bookmark } from "../types/types";
 import { getFaviconByGoogleApi, getFaviconByUrl } from "../utils/faviconHelper";
 import { ClipboardCopy } from "./ClipboardCopy";
 
-export type EntryProps = {
+export type BookmarkEntryProps = {
   bookmark: Bookmark;
   clipboard?: boolean;
   openInNewTab?: boolean;
 };
 
-export const Entry = (props: EntryProps) => {
+export const BookmarkEntry = (props: BookmarkEntryProps) => {
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.onerror = null;
     event.currentTarget.src = getFaviconByGoogleApi(props.bookmark.url);
