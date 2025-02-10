@@ -41,5 +41,13 @@
         "url": "https://translate.google.com/?hl=de"
       }
     ]
+  },
+  {
+    "name": "Material UI",
+    "url": "https://mui.com/"
+  },
+  {
+    "name": "ChatGPT",
+    "url": "https://chatgpt.com/"
   }
 ]
