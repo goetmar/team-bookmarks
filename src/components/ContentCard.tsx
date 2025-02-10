@@ -10,11 +10,7 @@ export const ContentCard = (props: ContentCardProps) => {
   return props.items.length > 0 ? (
     <Paper sx={{ width: "100%" }}>
       {props.items.map((item) =>
-        isBookmark(item) ? (
-          <Entry bookmark={item} clipboard />
-        ) : (
-          <Folder folder={item} />
-        )
+        isBookmark(item) ? <Entry bookmark={item} /> : <Folder folder={item} />
       )}
     </Paper>
   ) : (
