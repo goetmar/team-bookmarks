@@ -17,7 +17,7 @@ export default function SearchComboBox(props: SearchComboBoxProps) {
       onOpen={props.onOpen}
       disablePortal
       id="search-combo-box"
-      options={allBookmarks.map((option) => option.name)}
+      options={allBookmarks.map((option) => option.name).sort()}
       fullWidth
       renderOption={(props, option) => (
         <Entry
