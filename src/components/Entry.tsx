@@ -9,29 +9,14 @@ import {
 import { SyntheticEvent, useState } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Bookmark } from "../types/types";
-
-const getBaseUrl = (url: string) => {
-  const pathArray = url.split("/");
-  const protocol = pathArray[0];
-  const host = pathArray[2];
-  const baseUrl = protocol + "//" + host;
-  return baseUrl;
-};
+import { getFaviconByGoogleApi, getFaviconByUrl } from "../utils/faviconHelper";
 
 export type EntryProps = { bookmark: Bookmark };
 
 export const Entry = (props: EntryProps) => {
-  const getFaviconByUrl = () => {
-    return getBaseUrl(props.bookmark.url) + "/favicon.ico";
-  };
-
-  const getFaviconByGoogleApi = () => {
-    return `https://www.google.com/s2/favicons?domain=${props.bookmark.url}&size=16`;
-  };
-
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.onerror = null;
-    event.currentTarget.src = getFaviconByGoogleApi();
+    event.currentTarget.src = getFaviconByGoogleApi(props.bookmark.url);
   };
 
   const [open, setOpen] = useState(false);
@@ -69,7 +54,7 @@ export const Entry = (props: EntryProps) => {
             justifyContent="center"
           >
             <img
-              src={getFaviconByUrl()}
+              src={getFaviconByUrl(props.bookmark.url)}
               alt="favicon"
               height="16px"
               width="16px"
