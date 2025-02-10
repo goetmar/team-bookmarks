@@ -1,17 +1,14 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Snackbar,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import { SyntheticEvent, useState } from "react";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { Box, Button, Typography } from "@mui/material";
+import { SyntheticEvent } from "react";
 import { Bookmark } from "../types/types";
 import { getFaviconByGoogleApi, getFaviconByUrl } from "../utils/faviconHelper";
+import { ClipboardCopy } from "./ClipboardCopy";
 
-export type EntryProps = { bookmark: Bookmark };
+export type EntryProps = {
+  bookmark: Bookmark;
+  clipboard?: boolean;
+  openInNewTab?: boolean;
+};
 
 export const Entry = (props: EntryProps) => {
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
@@ -19,13 +16,11 @@ export const Entry = (props: EntryProps) => {
     event.currentTarget.src = getFaviconByGoogleApi(props.bookmark.url);
   };
 
-  const [open, setOpen] = useState(false);
-
   return (
     <Box sx={{ position: "relative" }}>
       <Button
         href={props.bookmark.url}
-        target="_blank"
+        target={props.openInNewTab ? "_blank" : undefined}
         fullWidth
         style={{ justifyContent: "flex-start" }}
         sx={{
@@ -35,7 +30,7 @@ export const Entry = (props: EntryProps) => {
           "&:hover .hidden-url": {
             display: "flex",
           },
-          pr: "50px",
+          pr: props.clipboard ? "50px" : null,
         }}
       >
         <Box
@@ -74,30 +69,7 @@ export const Entry = (props: EntryProps) => {
           </Typography>
         </Box>
       </Button>
-      <Tooltip title="Copy to clipboard" placement="left" disableInteractive>
-        <IconButton
-          size="small"
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: "50%",
-            transform: "translate(0, -50%)",
-          }}
-          onClick={() => {
-            navigator.clipboard.writeText(props.bookmark.url);
-            setOpen(true);
-          }}
-        >
-          <ContentCopyIcon />
-        </IconButton>
-      </Tooltip>
-      <Snackbar
-        message="Copied to clipboard!"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={1500}
-        onClose={() => setOpen(false)}
-        open={open}
-      />
+      {props.clipboard && <ClipboardCopy url={props.bookmark.url} />}
     </Box>
   );
 };
