@@ -23,6 +23,8 @@ export function filterFolders(items: BookmarkItem[]): BookmarkFolder[] {
       folders.push(item);
     }
   });
-  folders.forEach((folder) => filterFolders(folder.bookmarks));
+  folders.forEach(
+    (folder) => (folder.bookmarks = filterFolders(folder.bookmarks))
+  );
   return folders;
 }
