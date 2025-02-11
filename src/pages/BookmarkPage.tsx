@@ -20,10 +20,10 @@ export const BookmarkPage = () => {
       <Banner />
       <Box p={2}>
         <Grid container spacing={2}>
-          <Grid size={3} minWidth={"200px"}>
+          <Grid size={{ xs: 12, md: 4, lg: 3 }} minWidth={"180px"}>
             <FolderMenu items={bookmarkItems} />
           </Grid>
-          <Grid size={6} minWidth={"300px"}>
+          <Grid size={{ xs: 12, md: 8, lg: 6 }} minWidth={"300px"}>
             <Box display="flex" justifyContent="center" alignItems="center">
               <Stack
                 spacing={2}
@@ -64,7 +64,6 @@ export const BookmarkPage = () => {
               </Stack>
             </Box>
           </Grid>
-          <Grid size={3}>Recent</Grid>
         </Grid>
       </Box>
     </>
