@@ -20,10 +20,10 @@ export const BookmarkPage = () => {
       <Banner />
       <Box p={2}>
         <Grid container spacing={2}>
-          <Grid size={3}>
+          <Grid size={3} minWidth={"200px"}>
             <FolderMenu items={bookmarkItems} />
           </Grid>
-          <Grid size={6}>
+          <Grid size={6} minWidth={"300px"}>
             <Box display="flex" justifyContent="center" alignItems="center">
               <Stack
                 spacing={2}
@@ -32,7 +32,6 @@ export const BookmarkPage = () => {
                   "& .blur": { filter: "blur(2px)", pointerEvents: "none" },
                 }}
                 width="100%"
-                minWidth={"300px"}
               >
                 <SearchComboBox
                   items={bookmarkItems}
