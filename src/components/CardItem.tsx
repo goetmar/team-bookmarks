@@ -9,6 +9,7 @@ const itemStyle: CardItemStyle = {
     sx: {
       justifyContent: "flex-start",
       borderRadius: 0,
+      px: 2,
     },
   },
   box: {
