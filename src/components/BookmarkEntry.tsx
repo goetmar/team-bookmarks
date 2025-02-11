@@ -23,6 +23,7 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
         {...props.style.button}
         href={props.bookmark.url}
         target={props.openInNewTab ? "_blank" : undefined}
+        rel={props.openInNewTab ? "noopener" : undefined}
         sx={{
           ...props.style.button.sx,
           "& .hidden-url": {
