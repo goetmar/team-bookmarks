@@ -2,15 +2,17 @@ import bookmarksJson from "../data/bookmarks.json";
 import { Autocomplete, TextField } from "@mui/material";
 import { filterBookmarks } from "../utils/bookmarkHelper";
 import { CardItem } from "./CardItem";
-
-const allBookmarks = filterBookmarks(bookmarksJson);
+import { BookmarkItem } from "../types/types";
 
 export type SearchComboBoxProps = {
+  items: BookmarkItem[];
   onClose?: () => void;
   onOpen?: () => void;
 };
 
 export default function SearchComboBox(props: SearchComboBoxProps) {
+  const allBookmarks = filterBookmarks(bookmarksJson);
+
   return (
     <Autocomplete
       onClose={props.onClose}

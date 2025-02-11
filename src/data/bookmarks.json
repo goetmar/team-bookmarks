@@ -9,6 +9,19 @@
       {
         "name": "Youtube",
         "url": "https://www.youtube.com/"
+      },
+      {
+        "name": "Apps",
+        "bookmarks": [
+          {
+            "name": "Instagram",
+            "url": "https://www.instagram.com/"
+          },
+          {
+            "name": "WhatsApp",
+            "url": "https://web.whatsapp.com/"
+          }
+        ]
       }
     ]
   },

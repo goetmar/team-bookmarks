@@ -1,14 +1,11 @@
-import { BookmarkItem, Bookmark } from "../types/types";
+import { BookmarkItem, Bookmark, BookmarkFolder } from "../types/types";
 
 export function isBookmark(b: BookmarkItem): b is Bookmark {
   return (b as Bookmark).url !== undefined;
 }
 
-export function filterBookmarks(
-  items: BookmarkItem[],
-  arr?: Bookmark[]
-): Bookmark[] {
-  let bookmarks = arr || [];
+export function filterBookmarks(items: BookmarkItem[]): Bookmark[] {
+  let bookmarks: Bookmark[] = [];
   items.map((item) => {
     if (isBookmark(item)) {
       bookmarks.push(item);
@@ -17,4 +14,15 @@ export function filterBookmarks(
     }
   });
   return bookmarks;
+}
+
+export function filterFolders(items: BookmarkItem[]): BookmarkFolder[] {
+  const folders: BookmarkFolder[] = [];
+  items.map((item) => {
+    if (!isBookmark(item)) {
+      folders.push(item);
+    }
+  });
+  folders.forEach((folder) => filterFolders(folder.bookmarks));
+  return folders;
 }
