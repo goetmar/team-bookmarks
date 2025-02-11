@@ -1,4 +1,3 @@
-import bookmarksJson from "../data/bookmarks.json";
 import { Autocomplete, TextField } from "@mui/material";
 import { filterBookmarks } from "../utils/bookmarkHelper";
 import { CardItem } from "./CardItem";
@@ -11,25 +10,30 @@ export type SearchComboBoxProps = {
 };
 
 export default function SearchComboBox(props: SearchComboBoxProps) {
-  const allBookmarks = filterBookmarks(bookmarksJson);
+  const allBookmarks = filterBookmarks(props.items);
 
   return (
     <Autocomplete
       onClose={props.onClose}
       onOpen={props.onOpen}
+      fullWidth
       disablePortal
       id="search-combo-box"
-      options={allBookmarks.map((option) => option.name).sort()}
-      fullWidth
-      renderOption={(props, option) => (
-        <CardItem
-          {...props}
-          item={{
-            name: option,
-            url: allBookmarks.find((bm) => bm.name === option)?.url || "",
-          }}
-        />
-      )}
+      options={allBookmarks.sort((a, b) => a.name.localeCompare(b.name))}
+      getOptionLabel={(option) => option.name}
+      renderOption={(props, option) => {
+        const { key, ...optionProps } = props;
+        return (
+          <CardItem
+            key={key}
+            item={{
+              name: option.name,
+              url: option.url,
+            }}
+            {...optionProps}
+          />
+        );
+      }}
       renderInput={(params) => (
         <TextField {...params} variant="filled" label="Search" />
       )}

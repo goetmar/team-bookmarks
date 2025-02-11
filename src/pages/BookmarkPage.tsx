@@ -56,7 +56,7 @@ export const BookmarkPage = () => {
                   onClick={() => {
                     downloadBookmarksFile(
                       "bookmark_export.html",
-                      bookmarksJson
+                      bookmarkItems
                     );
                   }}
                 >
