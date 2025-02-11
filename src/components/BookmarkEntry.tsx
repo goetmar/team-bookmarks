@@ -1,11 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
 import { SyntheticEvent } from "react";
-import { Bookmark } from "../types/types";
+import { Bookmark, CardItemStyle } from "../types/types";
 import { getFaviconByGoogleApi, getFaviconByUrl } from "../utils/faviconHelper";
 import { ClipboardCopy } from "./ClipboardCopy";
 
 export type BookmarkEntryProps = {
   bookmark: Bookmark;
+  style: CardItemStyle;
   clipboard?: boolean;
   openInNewTab?: boolean;
 };
@@ -19,11 +20,11 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
   return (
     <Box sx={{ position: "relative" }}>
       <Button
+        {...props.style.button}
         href={props.bookmark.url}
         target={props.openInNewTab ? "_blank" : undefined}
-        fullWidth
-        style={{ justifyContent: "flex-start" }}
         sx={{
+          ...props.style.button.sx,
           "& .hidden-url": {
             display: "none",
           },
@@ -33,15 +34,7 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           pr: props.clipboard ? "50px" : null,
         }}
       >
-        <Box
-          display="flex"
-          alignItems="center"
-          gap={2}
-          sx={{
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-          }}
-        >
+        <Box {...props.style.box}>
           <Box
             padding="2px"
             display="flex"

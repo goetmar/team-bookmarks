@@ -1,13 +1,13 @@
 import { Box, Button } from "@mui/material";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import { BookmarkFolder } from "../types/types";
+import { BookmarkFolder, CardItemStyle } from "../types/types";
 
-export type FolderProps = { folder: BookmarkFolder };
+export type FolderProps = { folder: BookmarkFolder; style: CardItemStyle };
 
 export const Folder = (props: FolderProps) => {
   return (
-    <Button fullWidth style={{ justifyContent: "flex-start" }}>
-      <Box display="flex" alignItems="center" gap={2}>
+    <Button {...props.style.button}>
+      <Box {...props.style.box}>
         <FolderOpenIcon fontSize="small" />
         {props.folder.name}
       </Box>
