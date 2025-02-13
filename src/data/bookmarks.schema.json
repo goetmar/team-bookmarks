@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bookmarks.schema.json",
+  "title": "Bookmarks",
+  "description": "A collection of bookmarks",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Schema of the file",
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "name": { "$ref": "#/$defs/folder/properties/name" },
+    "bookmarks": { "$ref": "#/$defs/folder/properties/bookmarks" }
+  },
+  "required": ["bookmarks"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "bookmark": {
+      "description": "A bookmark object",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the bookmark",
+          "type": "string"
+        },
+        "url": {
+          "description": "Link of the bookmark",
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": ["name", "url"],
+      "additionalProperties": false
+    },
+    "folder": {
+      "description": "A folder of bookmarks",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the folder",
+          "type": "string"
+        },
+        "bookmarks": {
+          "description": "Content of the folder",
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/$defs/folder" },
+              { "$ref": "#/$defs/bookmark" }
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": ["name", "bookmarks"],
+      "additionalProperties": false
+    }
+  }
+}

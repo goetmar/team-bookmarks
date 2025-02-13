@@ -1,66 +1,70 @@
-[
-  {
-    "name": "General",
-    "bookmarks": [
-      {
-        "name": "X",
-        "url": "https://twitter.com/home"
-      },
-      {
-        "name": "Youtube",
-        "url": "https://www.youtube.com/"
-      },
-      {
-        "name": "Apps",
-        "bookmarks": [
-          {
-            "name": "Instagram",
-            "url": "https://www.instagram.com/"
-          },
-          {
-            "name": "WhatsApp",
-            "url": "https://web.whatsapp.com/"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Shops",
-    "bookmarks": [
-      {
-        "name": "Amazon",
-        "url": "https://www.amazon.de/"
-      },
-      {
-        "name": "OTTO",
-        "url": "https://www.otto.de/"
-      },
-      {
-        "name": "Zalando",
-        "url": "https://www.zalando.de/herren-home/"
-      },
-      {
-        "name": "About You",
-        "url": "https://www.aboutyou.de/"
-      }
-    ]
-  },
-  {
-    "name": "Utility",
-    "bookmarks": [
-      {
-        "name": "Google Translate",
-        "url": "https://translate.google.com/?hl=de"
-      }
-    ]
-  },
-  {
-    "name": "Material UI",
-    "url": "https://mui.com/"
-  },
-  {
-    "name": "ChatGPT",
-    "url": "https://chatgpt.com/"
-  }
-]
+{
+  "$schema": "bookmarks.schema.json",
+  "name": "Bookmarks",
+  "bookmarks": [
+    {
+      "name": "General",
+      "bookmarks": [
+        {
+          "name": "X",
+          "url": "https://x.com/home"
+        },
+        {
+          "name": "Youtube",
+          "url": "https://www.youtube.com/"
+        },
+        {
+          "name": "Apps",
+          "bookmarks": [
+            {
+              "name": "Instagram",
+              "url": "https://www.instagram.com/"
+            },
+            {
+              "name": "WhatsApp",
+              "url": "https://web.whatsapp.com/"
+            },
+            {
+              "name": "Utility",
+              "bookmarks": [
+                {
+                  "name": "Google Translate",
+                  "url": "https://translate.google.com/?hl=de"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shops",
+      "bookmarks": [
+        {
+          "name": "Amazon",
+          "url": "https://www.amazon.de/"
+        },
+        {
+          "name": "OTTO",
+          "url": "https://www.otto.de/"
+        },
+        {
+          "name": "Zalando",
+          "url": "https://www.zalando.de/herren-home/"
+        },
+        {
+          "name": "About You",
+          "url": "https://www.aboutyou.de/"
+        }
+      ]
+    },
+    {
+      "name": "Material UI",
+      "url": "https://mui.com/"
+    },
+    {
+      "name": "ChatGPT",
+      "url": "https://chatgpt.com/"
+    }
+  ]
+}
