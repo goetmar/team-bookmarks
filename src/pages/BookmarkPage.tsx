@@ -1,18 +1,15 @@
 import { Box, Button, Grid2 as Grid, Stack } from "@mui/material";
-import bookmarksJson from "../data/bookmarks.json";
 import { Banner } from "../components/Banner";
 import SearchComboBox from "../components/SearchComboBox";
-import { BookmarkItem } from "../types/types";
 import { downloadBookmarksFile } from "../utils/fileExport";
 import { useState } from "react";
 import { ContentCard } from "../components/ContentCard";
-import { FolderMenu } from "../components/FolderMenu";
-
-// TODO subfolders are currently not shown on this page as only top level folder is displayed
-
-const bookmarkItems: BookmarkItem[] = bookmarksJson;
+import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import { FolderList } from "../components/FolderList";
+import { filterFolders } from "../utils/bookmarkHelper";
 
 export const BookmarkPage = () => {
+  const rootFolder = useBookmarkStore((state) => state.rootFolder);
   const [blur, setBlur] = useState(false);
 
   return (
@@ -21,7 +18,7 @@ export const BookmarkPage = () => {
       <Box p={2}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 4, lg: 3 }} minWidth={"180px"}>
-            <FolderMenu items={bookmarkItems} />
+            <FolderList folders={filterFolders([rootFolder])} />
           </Grid>
           <Grid size={{ xs: 12, md: 8, lg: 6 }} minWidth={"300px"}>
             <Box display="flex" justifyContent="center" alignItems="center">
@@ -34,7 +31,6 @@ export const BookmarkPage = () => {
                 width="100%"
               >
                 <SearchComboBox
-                  items={bookmarkItems}
                   onClose={() => {
                     setBlur(false);
                   }}
@@ -49,13 +45,13 @@ export const BookmarkPage = () => {
                   alignItems="left"
                   sx={{ width: "100%" }}
                 >
-                  <ContentCard items={bookmarkItems} />
+                  <ContentCard />
                 </Box>
                 <Button
                   onClick={() => {
                     downloadBookmarksFile(
                       "bookmark_export.html",
-                      bookmarkItems
+                      rootFolder.bookmarks
                     );
                   }}
                 >

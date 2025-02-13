@@ -1,12 +1,23 @@
-import { BookmarkItem, Bookmark, BookmarkFolder } from "../types/types";
+import {
+  BookmarkItem,
+  Bookmark,
+  BookmarkFolder,
+  BookmarkItemRaw,
+  BookmarkRaw,
+} from "../types/types";
 
 export function isBookmark(b: BookmarkItem): b is Bookmark {
   return (b as Bookmark).url !== undefined;
 }
 
+export function isBookmarkRaw(b: BookmarkItemRaw): b is BookmarkRaw {
+  return (b as BookmarkRaw).url !== undefined;
+}
+
 export function filterBookmarks(items: BookmarkItem[]): Bookmark[] {
+  const itemsCopy: BookmarkItem[] = JSON.parse(JSON.stringify(items));
   let bookmarks: Bookmark[] = [];
-  items.map((item) => {
+  itemsCopy.forEach((item) => {
     if (isBookmark(item)) {
       bookmarks.push(item);
     } else {
@@ -17,8 +28,9 @@ export function filterBookmarks(items: BookmarkItem[]): Bookmark[] {
 }
 
 export function filterFolders(items: BookmarkItem[]): BookmarkFolder[] {
+  const itemsCopy: BookmarkItem[] = JSON.parse(JSON.stringify(items));
   const folders: BookmarkFolder[] = [];
-  items.map((item) => {
+  itemsCopy.forEach((item) => {
     if (!isBookmark(item)) {
       folders.push(item);
     }
@@ -27,4 +39,46 @@ export function filterFolders(items: BookmarkItem[]): BookmarkFolder[] {
     (folder) => (folder.bookmarks = filterFolders(folder.bookmarks))
   );
   return folders;
+}
+
+export function indexBookmarks(
+  items: BookmarkItemRaw[],
+  startId?: number
+): [BookmarkItem[], number] {
+  const itemsCopy: BookmarkItemRaw[] = JSON.parse(JSON.stringify(items));
+  let bookmarks: BookmarkItem[] = [];
+  let index = startId || 0;
+  itemsCopy.forEach((item) => {
+    if (isBookmarkRaw(item)) {
+      bookmarks.push({ ...item, id: index++ });
+    } else {
+      const [subfolder, prevId] = indexBookmarks(item.bookmarks, index);
+      index = prevId;
+      bookmarks.push({
+        id: index++,
+        name: item.name,
+        bookmarks: subfolder,
+      });
+    }
+  });
+  return [bookmarks, index];
+}
+
+export function findFolderById(
+  folder: BookmarkFolder,
+  id: number
+): BookmarkFolder | null {
+  if (folder.id === id) {
+    return folder;
+  }
+  let result = null;
+  folder.bookmarks.forEach((item) => {
+    if (!isBookmark(item)) {
+      const folder = findFolderById(item, id);
+      if (folder) {
+        result = folder;
+      }
+    }
+  });
+  return result;
 }

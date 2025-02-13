@@ -1,15 +1,15 @@
-import { BookmarkItem } from "../types/types";
-import { isBookmark } from "./bookmarkHelper";
+import { BookmarkItemRaw } from "../types/types";
+import { isBookmarkRaw } from "./bookmarkHelper";
 
 function mapBookmarkItems(
-  items: BookmarkItem[],
+  items: BookmarkItemRaw[],
   unixTimestamp: number,
   indentTimes: number = 0
 ): string {
   const newLineIndent = "\n" + "    ".repeat(indentTimes);
   return items
     .map((item) => {
-      if (isBookmark(item)) {
+      if (isBookmarkRaw(item)) {
         return `<DT><A HREF="${item.url}" ADD_DATE="${unixTimestamp}">${item.name}</A>`;
       } else {
         return (
@@ -27,7 +27,7 @@ function mapBookmarkItems(
     .join(newLineIndent);
 }
 
-function generateFileContent(bookmarkItems: BookmarkItem[]) {
+function generateFileContent(bookmarkItems: BookmarkItemRaw[]) {
   return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file. 
      It will be read and overwritten. 
@@ -43,7 +43,7 @@ function generateFileContent(bookmarkItems: BookmarkItem[]) {
 
 export function downloadBookmarksFile(
   filename: string,
-  bookmarkItems: BookmarkItem[]
+  bookmarkItems: BookmarkItemRaw[]
 ) {
   const fileContent = generateFileContent(bookmarkItems);
   var element = document.createElement("a");

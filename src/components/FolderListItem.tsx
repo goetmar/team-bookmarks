@@ -3,6 +3,7 @@ import { MenuItem, ListItemIcon, ListItemText, Collapse } from "@mui/material";
 import { BookmarkFolder } from "../types/types";
 import { FolderList } from "./FolderList";
 import { ReactNode, useState } from "react";
+import { useBookmarkStore } from "../hooks/useBookmarkStore";
 
 type FolderMenuItemProps = {
   name: string;
@@ -33,13 +34,21 @@ const FolderMenuItem = (props: FolderMenuItemProps) => (
 export type FolderListItemProps = { folder: BookmarkFolder; inset?: number };
 
 export const FolderListItem = (props: FolderListItemProps) => {
+  const currentFolderId = useBookmarkStore((state) => state.currentFolderId);
+  const setCurrentFolderId = useBookmarkStore(
+    (state) => state.setCurrentFolderId
+  );
   const inset = props.inset || 2;
 
   if (props.folder.bookmarks.length > 0) {
     const [open, setOpen] = useState(true);
 
     const handleClick = () => {
-      setOpen(!open);
+      if (currentFolderId === props.folder.id) {
+        setOpen(!open);
+      } else {
+        setCurrentFolderId(props.folder.id);
+      }
     };
     return (
       <>
@@ -64,6 +73,14 @@ export const FolderListItem = (props: FolderListItemProps) => {
       </>
     );
   } else {
-    return <FolderMenuItem name={props.folder.name} inset={inset + 4.5} />;
+    return (
+      <FolderMenuItem
+        name={props.folder.name}
+        inset={inset + 4.5}
+        onClick={() => {
+          setCurrentFolderId(props.folder.id);
+        }}
+      />
+    );
   }
 };

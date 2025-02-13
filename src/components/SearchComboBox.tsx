@@ -1,16 +1,16 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { filterBookmarks } from "../utils/bookmarkHelper";
 import { CardItem } from "./CardItem";
-import { BookmarkItem } from "../types/types";
+import { useBookmarkStore } from "../hooks/useBookmarkStore";
 
 export type SearchComboBoxProps = {
-  items: BookmarkItem[];
   onClose?: () => void;
   onOpen?: () => void;
 };
 
 export default function SearchComboBox(props: SearchComboBoxProps) {
-  const allBookmarks = filterBookmarks(props.items);
+  const rootFolder = useBookmarkStore((state) => state.rootFolder);
+  const allBookmarks = filterBookmarks([rootFolder]);
 
   return (
     <Autocomplete
@@ -27,6 +27,7 @@ export default function SearchComboBox(props: SearchComboBoxProps) {
           <CardItem
             key={key}
             item={{
+              id: option.id,
               name: option.name,
               url: option.url,
             }}
