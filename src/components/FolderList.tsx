@@ -7,10 +7,10 @@ export type FolderListProps = { folders: BookmarkItem[]; inset?: number };
 
 export const FolderList = (props: FolderListProps) => (
   <MenuList disablePadding>
-    {props.folders.map((item) => {
+    {props.folders.map((item, index) => {
       return (
         !isBookmark(item) && (
-          <FolderListItem key={item.name} folder={item} inset={props.inset} />
+          <FolderListItem key={index} folder={item} inset={props.inset} />
         )
       );
     })}
