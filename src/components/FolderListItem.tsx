@@ -8,8 +8,9 @@ import {
 } from "@mui/material";
 import { BookmarkFolder } from "../types/types";
 import { FolderList } from "./FolderList";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import { findFolderById } from "../utils/bookmarkHelper";
 
 type FolderMenuItemProps = {
   name: string;
@@ -62,6 +63,16 @@ export const FolderListItem = (props: FolderListItemProps) => {
   if (props.folder.bookmarks.length > 0) {
     const [open, setOpen] = useState(true);
 
+    useEffect(() => {
+      if (
+        !open &&
+        currentFolderId !== props.folder.id &&
+        findFolderById(props.folder, currentFolderId)
+      ) {
+        setOpen(true);
+      }
+    }, [currentFolderId]);
+
     const handleDoubleClick = () => {
       setOpen(!open);
     };
@@ -84,7 +95,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
             </ListItemIcon>
           )}
         </FolderMenuItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout="auto">
           <FolderList folders={props.folder.bookmarks} inset={inset + 2} />
         </Collapse>
       </>
