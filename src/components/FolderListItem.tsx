@@ -7,12 +7,14 @@ import { useBookmarkStore } from "../hooks/useBookmarkStore";
 
 type FolderMenuItemProps = {
   name: string;
+  selected: boolean;
   inset?: number;
   onClick?: () => void;
   children?: ReactNode;
 };
 const FolderMenuItem = (props: FolderMenuItemProps) => (
   <MenuItem
+    selected={props.selected}
     onClick={props.onClick}
     sx={{ pl: props.inset, borderRadius: "5px" }}
   >
@@ -39,12 +41,13 @@ export const FolderListItem = (props: FolderListItemProps) => {
     (state) => state.setCurrentFolderId
   );
   const inset = props.inset || 2;
+  const selected = currentFolderId === props.folder.id;
 
   if (props.folder.bookmarks.length > 0) {
     const [open, setOpen] = useState(true);
 
     const handleClick = () => {
-      if (currentFolderId === props.folder.id) {
+      if (selected) {
         setOpen(!open);
       } else {
         setCurrentFolderId(props.folder.id);
@@ -54,6 +57,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
       <>
         <FolderMenuItem
           name={props.folder.name}
+          selected={selected}
           inset={inset}
           onClick={handleClick}
         >
@@ -76,6 +80,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
     return (
       <FolderMenuItem
         name={props.folder.name}
+        selected={selected}
         inset={inset + 4.5}
         onClick={() => {
           setCurrentFolderId(props.folder.id);
