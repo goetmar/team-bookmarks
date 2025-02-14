@@ -1,5 +1,11 @@
 import { ExpandLess, ExpandMore, FolderOpen } from "@mui/icons-material";
-import { MenuItem, ListItemIcon, ListItemText, Collapse } from "@mui/material";
+import {
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  Typography,
+} from "@mui/material";
 import { BookmarkFolder } from "../types/types";
 import { FolderList } from "./FolderList";
 import { ReactNode, useState } from "react";
@@ -24,13 +30,16 @@ const FolderMenuItem = (props: FolderMenuItemProps) => (
     <ListItemIcon>
       <FolderOpen fontSize="small" />
     </ListItemIcon>
-    <ListItemText
-      sx={{
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-      }}
-    >
-      {props.name}
+    <ListItemText>
+      <Typography
+        color="textSecondary"
+        sx={{
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+        }}
+      >
+        {props.name}
+      </Typography>
     </ListItemText>
   </MenuItem>
 );
