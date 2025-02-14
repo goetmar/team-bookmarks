@@ -54,7 +54,7 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           <Typography
             variant="body2"
             className="hidden-url"
-            color={"text.disabled"}
+            color={"text.secondary"}
             sx={{
               textTransform: "lowercase",
             }}
