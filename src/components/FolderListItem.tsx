@@ -10,12 +10,14 @@ type FolderMenuItemProps = {
   selected: boolean;
   inset?: number;
   onClick?: () => void;
+  onDoubleClick?: () => void;
   children?: ReactNode;
 };
 const FolderMenuItem = (props: FolderMenuItemProps) => (
   <MenuItem
     selected={props.selected}
     onClick={props.onClick}
+    onDoubleClick={props.onDoubleClick}
     sx={{ pl: props.inset, borderRadius: "5px" }}
   >
     {props.children}
@@ -42,16 +44,17 @@ export const FolderListItem = (props: FolderListItemProps) => {
   );
   const inset = props.inset || 2;
   const selected = currentFolderId === props.folder.id;
+  const handleClick = () => {
+    if (!selected) {
+      setCurrentFolderId(props.folder.id);
+    }
+  };
 
   if (props.folder.bookmarks.length > 0) {
     const [open, setOpen] = useState(true);
 
-    const handleClick = () => {
-      if (selected) {
-        setOpen(!open);
-      } else {
-        setCurrentFolderId(props.folder.id);
-      }
+    const handleDoubleClick = () => {
+      setOpen(!open);
     };
     return (
       <>
@@ -60,6 +63,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
           selected={selected}
           inset={inset}
           onClick={handleClick}
+          onDoubleClick={handleDoubleClick}
         >
           {open ? (
             <ListItemIcon>
@@ -82,9 +86,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
         name={props.folder.name}
         selected={selected}
         inset={inset + 4.5}
-        onClick={() => {
-          setCurrentFolderId(props.folder.id);
-        }}
+        onClick={handleClick}
       />
     );
   }
