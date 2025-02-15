@@ -29,11 +29,10 @@ const FolderMenuItem = (props: FolderMenuItemProps) => (
   >
     {props.children}
     <ListItemIcon>
-      <FolderOpen fontSize="small" />
+      <FolderOpen fontSize="small" sx={{ color: "text.primary" }} />
     </ListItemIcon>
     <ListItemText>
       <Typography
-        color="textSecondary"
         sx={{
           whiteSpace: "nowrap",
           overflow: "hidden",
@@ -87,11 +86,11 @@ export const FolderListItem = (props: FolderListItemProps) => {
         >
           {open ? (
             <ListItemIcon>
-              <ExpandLess />
+              <ExpandLess sx={{ color: "text.primary" }} />
             </ListItemIcon>
           ) : (
             <ListItemIcon>
-              <ExpandMore />
+              <ExpandMore sx={{ color: "text.primary" }} />
             </ListItemIcon>
           )}
         </FolderMenuItem>

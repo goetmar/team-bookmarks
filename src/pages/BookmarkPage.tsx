@@ -7,6 +7,7 @@ import { ContentCard } from "../components/ContentCard";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { FolderList } from "../components/FolderList";
 import { filterFolders } from "../utils/bookmarkHelper";
+import { ColorModeToggle } from "../components/ColorModeToggle";
 
 export const BookmarkPage = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
@@ -60,6 +61,7 @@ export const BookmarkPage = () => {
               </Stack>
             </Box>
           </Grid>
+          <ColorModeToggle />
         </Grid>
       </Box>
     </>
