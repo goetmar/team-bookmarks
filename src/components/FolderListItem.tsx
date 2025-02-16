@@ -12,6 +12,8 @@ import { ReactNode, useEffect, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { findFolderById } from "../utils/bookmarkHelper";
 
+const textColor = "text.secondary";
+
 type FolderMenuItemProps = {
   name: string;
   selected: boolean;
@@ -20,6 +22,7 @@ type FolderMenuItemProps = {
   onDoubleClick?: () => void;
   children?: ReactNode;
 };
+
 const FolderMenuItem = (props: FolderMenuItemProps) => (
   <MenuItem
     selected={props.selected}
@@ -29,10 +32,11 @@ const FolderMenuItem = (props: FolderMenuItemProps) => (
   >
     {props.children}
     <ListItemIcon>
-      <FolderOpen fontSize="small" sx={{ color: "text.primary" }} />
+      <FolderOpen fontSize="small" sx={{ color: textColor }} />
     </ListItemIcon>
     <ListItemText>
       <Typography
+        color={textColor}
         sx={{
           whiteSpace: "nowrap",
           overflow: "hidden",
@@ -86,11 +90,11 @@ export const FolderListItem = (props: FolderListItemProps) => {
         >
           {open ? (
             <ListItemIcon>
-              <ExpandLess sx={{ color: "text.primary" }} />
+              <ExpandLess sx={{ color: textColor }} />
             </ListItemIcon>
           ) : (
             <ListItemIcon>
-              <ExpandMore sx={{ color: "text.primary" }} />
+              <ExpandMore sx={{ color: textColor }} />
             </ListItemIcon>
           )}
         </FolderMenuItem>

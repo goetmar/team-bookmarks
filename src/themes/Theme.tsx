@@ -5,7 +5,7 @@ import { useMemo } from "react";
 const lightTheme: ThemeOptions = {
   palette: {
     background: {
-      default: deepPurple[50],
+      default: "#eef0f2",
     },
     primary: {
       main: deepPurple[500],
