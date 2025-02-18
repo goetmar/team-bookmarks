@@ -1,12 +1,10 @@
-import { Box, Button, Grid2 as Grid, Stack } from "@mui/material";
+import { Box, Grid2 as Grid, Stack } from "@mui/material";
 import SearchComboBox from "../components/SearchComboBox";
-import { downloadBookmarksFile } from "../utils/fileExport";
 import { useState } from "react";
 import { ContentCard } from "../components/ContentCard";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { FolderList } from "../components/FolderList";
 import { filterFolders } from "../utils/bookmarkHelper";
-import { ColorModeToggle } from "../components/ColorModeToggle";
 import MenuAppBar from "../components/AppNavBar";
 
 export const BookmarkPage = () => {
@@ -48,20 +46,9 @@ export const BookmarkPage = () => {
                 >
                   <ContentCard />
                 </Box>
-                <Button
-                  onClick={() => {
-                    downloadBookmarksFile(
-                      "bookmark_export.html",
-                      rootFolder.bookmarks
-                    );
-                  }}
-                >
-                  Export Bookmarks
-                </Button>
               </Stack>
             </Box>
           </Grid>
-          <ColorModeToggle />
         </Grid>
       </Box>
     </>

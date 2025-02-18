@@ -7,15 +7,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
 import {
+  Button,
   capitalize,
   ListItemIcon,
   ListItemText,
   useColorScheme,
 } from "@mui/material";
 import { Check } from "@mui/icons-material";
+import { downloadBookmarksFile } from "../utils/fileExport";
+import { useBookmarkStore } from "../hooks/useBookmarkStore";
 
 export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const rootFolder = useBookmarkStore((state) => state.rootFolder);
   const { mode, setMode } = useColorScheme();
 
   type Mode = NonNullable<typeof mode>;
@@ -41,6 +46,17 @@ export default function MenuAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Bookmarks
           </Typography>
+
+          <Button
+            onClick={() => {
+              downloadBookmarksFile(
+                "bookmark_export.html",
+                rootFolder.bookmarks
+              );
+            }}
+          >
+            Export Bookmarks
+          </Button>
 
           <div>
             <IconButton
