@@ -1,5 +1,4 @@
 import { Box, Button, Grid2 as Grid, Stack } from "@mui/material";
-import { Banner } from "../components/Banner";
 import SearchComboBox from "../components/SearchComboBox";
 import { downloadBookmarksFile } from "../utils/fileExport";
 import { useState } from "react";
@@ -8,6 +7,7 @@ import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { FolderList } from "../components/FolderList";
 import { filterFolders } from "../utils/bookmarkHelper";
 import { ColorModeToggle } from "../components/ColorModeToggle";
+import MenuAppBar from "../components/AppNavBar";
 
 export const BookmarkPage = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
@@ -15,7 +15,7 @@ export const BookmarkPage = () => {
 
   return (
     <>
-      <Banner />
+      <MenuAppBar />
       <Box p={2}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 4, lg: 3 }} minWidth={"180px"}>
