@@ -5,6 +5,7 @@ import {
   ListItemText,
   Collapse,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { BookmarkFolder } from "../types/types";
 import { FolderList } from "./FolderList";
@@ -23,30 +24,34 @@ type FolderMenuItemProps = {
   children?: ReactNode;
 };
 
-const FolderMenuItem = (props: FolderMenuItemProps) => (
-  <MenuItem
-    selected={props.selected}
-    onClick={props.onClick}
-    onDoubleClick={props.onDoubleClick}
-    sx={{ pl: props.inset, borderRadius: "5px" }}
-  >
-    {props.children}
-    <ListItemIcon>
-      <FolderOpen fontSize="small" sx={{ color: textColor }} />
-    </ListItemIcon>
-    <ListItemText>
-      <Typography
-        color={textColor}
-        sx={{
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-        }}
-      >
-        {props.name}
-      </Typography>
-    </ListItemText>
-  </MenuItem>
-);
+const FolderMenuItem = (props: FolderMenuItemProps) => {
+  const theme = useTheme();
+  return (
+    <MenuItem
+      selected={props.selected}
+      onClick={props.onClick}
+      onDoubleClick={props.onDoubleClick}
+      style={{ borderRadius: theme.shape.borderRadius }}
+      sx={{ pl: props.inset }}
+    >
+      {props.children}
+      <ListItemIcon>
+        <FolderOpen fontSize="small" sx={{ color: textColor }} />
+      </ListItemIcon>
+      <ListItemText>
+        <Typography
+          color={textColor}
+          sx={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+          }}
+        >
+          {props.name}
+        </Typography>
+      </ListItemText>
+    </MenuItem>
+  );
+};
 
 export type FolderListItemProps = { folder: BookmarkFolder; inset?: number };
 
