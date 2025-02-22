@@ -23,7 +23,7 @@ export const ClipboardCopy = (props: ClipboardCopyProps) => {
             setOpen(true);
           }}
         >
-          <ContentCopyIcon />
+          <ContentCopyIcon fontSize="small" />
         </IconButton>
       </Tooltip>
       <Snackbar
