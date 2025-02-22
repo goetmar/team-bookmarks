@@ -1,4 +1,4 @@
-import { Grid2 as Grid } from "@mui/material";
+import { Box, Drawer, Toolbar } from "@mui/material";
 import { ContentCard } from "../components/ContentCard";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { FolderList } from "../components/FolderList";
@@ -9,17 +9,44 @@ export const BookmarkPage = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
   const cardItems = useBookmarkStore((state) => state.getCardItems());
 
+  const drawerWidth = 300;
+
   return (
-    <>
+    <Box display={"flex"}>
       <AppNavBar />
-      <Grid container spacing={2} p={2}>
-        <Grid size={{ xs: 12, md: 4, lg: 3 }} minWidth={"180px"}>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            border: "none",
+            backgroundColor: (theme) => theme.palette.background.default,
+          },
+        }}
+      >
+        <Toolbar />
+        <Box
+          sx={{
+            p: 3,
+            overflowY: "auto",
+          }}
+        >
           <FolderList folders={filterFolders([rootFolder])} />
-        </Grid>
-        <Grid size={{ xs: 12, md: 8, lg: 6 }} minWidth={"300px"}>
-          <ContentCard items={cardItems} />
-        </Grid>
-      </Grid>
-    </>
+        </Box>
+      </Drawer>
+      <Box
+        component="main"
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+        sx={{ flexGrow: 1, p: 3 }}
+      >
+        <Toolbar />
+        <ContentCard items={cardItems} />
+      </Box>
+    </Box>
   );
 };

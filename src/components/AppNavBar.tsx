@@ -42,81 +42,72 @@ export default function AppNavBar() {
   };
 
   return (
-    <>
-      <AppBar
-        position="fixed"
-        color="transparent"
-        elevation={0}
-        sx={{ backdropFilter: "blur(10px)" }}
-      >
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Bookmarks
-          </Typography>
+    <AppBar
+      position="fixed"
+      color="transparent"
+      elevation={0}
+      sx={{
+        backdropFilter: "blur(10px)",
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+      }}
+    >
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Bookmarks
+        </Typography>
 
-          <SearchField />
+        <SearchField />
 
+        <IconButton
+          size="large"
+          aria-label="file export"
+          onClick={() => {
+            downloadBookmarksFile("bookmark_export.html", rootFolder.bookmarks);
+          }}
+          color="inherit"
+        >
+          <FileDownloadIcon />
+        </IconButton>
+
+        <div>
           <IconButton
             size="large"
-            aria-label="file export"
-            onClick={() => {
-              downloadBookmarksFile(
-                "bookmark_export.html",
-                rootFolder.bookmarks
-              );
-            }}
+            aria-label="color mode"
+            aria-controls="menu-app-bar"
+            aria-haspopup="true"
+            onClick={handleMenu}
             color="inherit"
           >
-            <FileDownloadIcon />
+            <Brightness4Icon />
           </IconButton>
-
-          <div>
-            <IconButton
-              size="large"
-              aria-label="color mode"
-              aria-controls="menu-app-bar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <Brightness4Icon />
-            </IconButton>
-            <Menu
-              id="menu-app-bar"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {modes.map((modeValue, index) => {
-                if (modeValue !== mode) {
-                  return (
-                    <MenuItem
-                      key={index}
-                      onClick={() => handleClick(modeValue)}
-                    >
-                      <ListItemText inset>{capitalize(modeValue)}</ListItemText>
-                    </MenuItem>
-                  );
-                } else {
-                  return (
-                    <MenuItem
-                      key={index}
-                      onClick={() => handleClick(modeValue)}
-                    >
-                      <ListItemIcon>
-                        <Check />
-                      </ListItemIcon>
-                      <ListItemText>{capitalize(modeValue)}</ListItemText>
-                    </MenuItem>
-                  );
-                }
-              })}
-            </Menu>
-          </div>
-        </Toolbar>
-        <Divider />
-      </AppBar>
-      <Toolbar />
-    </>
+          <Menu
+            id="menu-app-bar"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {modes.map((modeValue, index) => {
+              if (modeValue !== mode) {
+                return (
+                  <MenuItem key={index} onClick={() => handleClick(modeValue)}>
+                    <ListItemText inset>{capitalize(modeValue)}</ListItemText>
+                  </MenuItem>
+                );
+              } else {
+                return (
+                  <MenuItem key={index} onClick={() => handleClick(modeValue)}>
+                    <ListItemIcon>
+                      <Check />
+                    </ListItemIcon>
+                    <ListItemText>{capitalize(modeValue)}</ListItemText>
+                  </MenuItem>
+                );
+              }
+            })}
+          </Menu>
+        </div>
+      </Toolbar>
+      <Divider />
+    </AppBar>
   );
 }
