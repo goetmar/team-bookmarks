@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   capitalize,
@@ -17,10 +17,9 @@ import {
 import { Check } from "@mui/icons-material";
 import { downloadBookmarksFile } from "../utils/fileExport";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import { SearchField } from "./SearchField";
 
-export type AppNavBarProps = { searchField: ReactNode };
-
-export default function AppNavBar(props: AppNavBarProps) {
+export default function AppNavBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
@@ -55,7 +54,7 @@ export default function AppNavBar(props: AppNavBarProps) {
             Bookmarks
           </Typography>
 
-          {props.searchField}
+          <SearchField />
 
           <Button
             onClick={() => {
