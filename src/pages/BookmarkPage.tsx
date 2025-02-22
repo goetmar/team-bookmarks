@@ -35,6 +35,7 @@ export const BookmarkPage = () => {
           sx={{
             p: 3,
             overflowY: "auto",
+            height: "100%",
             borderRight: "solid 1px",
             borderColor: (theme) => theme.palette.divider,
           }}
