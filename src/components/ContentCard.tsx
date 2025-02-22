@@ -8,7 +8,7 @@ export type ContentCardProps = { items: BookmarkItem[] };
 export const ContentCard = (props: ContentCardProps) => {
   const isSearching = useBookmarkStore((state) => state.isSearching);
   return props.items.length > 0 ? (
-    <Paper sx={{ width: "100%", maxWidth: "900px", py: 1 }}>
+    <Paper sx={{ width: "100%", maxWidth: "900px", minWidth: "200px", py: 1 }}>
       {props.items.map((item, index) => (
         <CardItem item={item} key={index} clipboard openInNewTab />
       ))}

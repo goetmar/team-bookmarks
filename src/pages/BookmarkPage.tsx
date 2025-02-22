@@ -9,7 +9,8 @@ export const BookmarkPage = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
   const cardItems = useBookmarkStore((state) => state.getCardItems());
 
-  const drawerWidth = 300;
+  const drawerWidth = "25%";
+  const drawerMinWidth = "249px";
 
   return (
     <Box display={"flex"}>
@@ -18,9 +19,11 @@ export const BookmarkPage = () => {
         variant="permanent"
         sx={{
           width: drawerWidth,
+          minWidth: drawerMinWidth,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
+            minWidth: drawerMinWidth,
             boxSizing: "border-box",
             border: "none",
             backgroundColor: (theme) => theme.palette.background.default,
@@ -32,20 +35,24 @@ export const BookmarkPage = () => {
           sx={{
             p: 3,
             overflowY: "auto",
+            borderRight: "solid 1px",
+            borderColor: (theme) => theme.palette.divider,
           }}
         >
           <FolderList folders={filterFolders([rootFolder])} />
         </Box>
       </Drawer>
-      <Box
-        component="main"
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        sx={{ flexGrow: 1, p: 3 }}
-      >
+      <Box sx={{ flexGrow: 1 }}>
         <Toolbar />
-        <ContentCard items={cardItems} />
+        <Box
+          component="main"
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          sx={{ width: "100%", p: 3 }}
+        >
+          <ContentCard items={cardItems} />
+        </Box>
       </Box>
     </Box>
   );

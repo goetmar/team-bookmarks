@@ -19,6 +19,8 @@ const itemStyle: CardItemStyle = {
     sx: {
       whiteSpace: "nowrap",
       overflow: "hidden",
+      minWidth: "100%",
+      width: 0,
     },
   },
 };
