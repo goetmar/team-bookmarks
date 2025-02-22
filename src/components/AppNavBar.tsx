@@ -5,10 +5,11 @@ import IconButton from "@mui/material/IconButton";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import {
   Button,
   capitalize,
+  Divider,
   ListItemIcon,
   ListItemText,
   useColorScheme,
@@ -17,7 +18,9 @@ import { Check } from "@mui/icons-material";
 import { downloadBookmarksFile } from "../utils/fileExport";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 
-export default function MenuAppBar() {
+export type AppNavBarProps = { searchField: ReactNode };
+
+export default function AppNavBar(props: AppNavBarProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
@@ -41,11 +44,18 @@ export default function MenuAppBar() {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar
+        position="fixed"
+        color="transparent"
+        elevation={0}
+        sx={{ backdropFilter: "blur(10px)" }}
+      >
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Bookmarks
           </Typography>
+
+          {props.searchField}
 
           <Button
             onClick={() => {
@@ -102,6 +112,7 @@ export default function MenuAppBar() {
             </Menu>
           </div>
         </Toolbar>
+        <Divider />
       </AppBar>
       <Toolbar />
     </>

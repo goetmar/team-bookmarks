@@ -1,12 +1,13 @@
 import { Box, Paper } from "@mui/material";
 import { CardItem } from "./CardItem";
-import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import { BookmarkItem } from "../types/types";
 
-export const ContentCard = () => {
-  const currentFolder = useBookmarkStore((state) => state.getCurrentFolder());
-  return currentFolder.bookmarks.length > 0 ? (
+export type ContentCardProps = { items: BookmarkItem[] };
+
+export const ContentCard = (props: ContentCardProps) => {
+  return props.items.length > 0 ? (
     <Paper sx={{ width: "100%", py: 1 }}>
-      {currentFolder.bookmarks.map((item, index) => (
+      {props.items.map((item, index) => (
         <CardItem item={item} key={index} clipboard openInNewTab />
       ))}
     </Paper>

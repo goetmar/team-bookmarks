@@ -57,12 +57,15 @@ export type FolderListItemProps = { folder: BookmarkFolder; inset?: number };
 
 export const FolderListItem = (props: FolderListItemProps) => {
   const currentFolderId = useBookmarkStore((state) => state.currentFolderId);
+  const isSearching = useBookmarkStore((state) => state.isSearching);
+  const setIsSearching = useBookmarkStore((state) => state.setIsSearching);
   const setCurrentFolderId = useBookmarkStore(
     (state) => state.setCurrentFolderId
   );
   const inset = props.inset || 2;
-  const selected = currentFolderId === props.folder.id;
+  const selected = !isSearching && currentFolderId === props.folder.id;
   const handleClick = () => {
+    setIsSearching(false);
     if (!selected) {
       setCurrentFolderId(props.folder.id);
     }
