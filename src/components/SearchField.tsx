@@ -51,6 +51,7 @@ export const SearchField = () => {
       inputRef={textInput}
       sx={{
         mx: 2,
+        width: 300,
         "input::-webkit-search-cancel-button": {
           "-webkit-appearance": "none",
         },

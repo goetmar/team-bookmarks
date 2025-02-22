@@ -3,11 +3,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
 import {
-  Button,
   capitalize,
   Divider,
   ListItemIcon,
@@ -56,16 +56,19 @@ export default function AppNavBar() {
 
           <SearchField />
 
-          <Button
+          <IconButton
+            size="large"
+            aria-label="file export"
             onClick={() => {
               downloadBookmarksFile(
                 "bookmark_export.html",
                 rootFolder.bookmarks
               );
             }}
+            color="inherit"
           >
-            Export Bookmarks
-          </Button>
+            <FileDownloadIcon />
+          </IconButton>
 
           <div>
             <IconButton
