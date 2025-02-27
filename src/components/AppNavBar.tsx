@@ -2,19 +2,23 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
 import {
+  Box,
   capitalize,
   Divider,
   ListItemIcon,
   ListItemText,
   useColorScheme,
 } from "@mui/material";
-import { Check } from "@mui/icons-material";
+import {
+  Brightness4,
+  Check,
+  FileDownload,
+  Settings,
+} from "@mui/icons-material";
 import { downloadBookmarksFile } from "../utils/fileExport";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { SearchField } from "./SearchField";
@@ -58,54 +62,75 @@ export default function AppNavBar() {
 
         <SearchField />
 
-        <IconButton
-          size="large"
-          aria-label="file export"
-          onClick={() => {
-            downloadBookmarksFile("bookmark_export.html", rootFolder.bookmarks);
-          }}
-          color="inherit"
-        >
-          <FileDownloadIcon />
-        </IconButton>
-
-        <div>
+        <Box display={"flex"} alignItems={"center"} gap={0.5}>
           <IconButton
-            size="large"
-            aria-label="color mode"
-            aria-controls="menu-app-bar"
-            aria-haspopup="true"
-            onClick={handleMenu}
+            color="inherit"
+            sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+          >
+            <Settings />
+          </IconButton>
+
+          <IconButton
+            sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+            aria-label="file export"
+            onClick={() => {
+              downloadBookmarksFile(
+                "bookmark_export.html",
+                rootFolder.bookmarks
+              );
+            }}
             color="inherit"
           >
-            <Brightness4Icon />
+            <FileDownload />
           </IconButton>
-          <Menu
-            id="menu-app-bar"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {modes.map((modeValue, index) => {
-              if (modeValue !== mode) {
-                return (
-                  <MenuItem key={index} onClick={() => handleClick(modeValue)}>
-                    <ListItemText inset>{capitalize(modeValue)}</ListItemText>
-                  </MenuItem>
-                );
-              } else {
-                return (
-                  <MenuItem key={index} onClick={() => handleClick(modeValue)}>
-                    <ListItemIcon>
-                      <Check />
-                    </ListItemIcon>
-                    <ListItemText>{capitalize(modeValue)}</ListItemText>
-                  </MenuItem>
-                );
-              }
-            })}
-          </Menu>
-        </div>
+
+          <div>
+            <IconButton
+              sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+              aria-label="color mode"
+              aria-controls="menu-app-bar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <Brightness4 />
+            </IconButton>
+            <Menu
+              id="menu-app-bar"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              MenuListProps={{
+                sx: { py: (theme) => theme.shape.borderRadius + "px" },
+              }}
+            >
+              {modes.map((modeValue, index) => {
+                if (modeValue !== mode) {
+                  return (
+                    <MenuItem
+                      key={index}
+                      onClick={() => handleClick(modeValue)}
+                    >
+                      <ListItemText inset>{capitalize(modeValue)}</ListItemText>
+                    </MenuItem>
+                  );
+                } else {
+                  return (
+                    <MenuItem
+                      key={index}
+                      onClick={() => handleClick(modeValue)}
+                    >
+                      <ListItemIcon>
+                        <Check />
+                      </ListItemIcon>
+                      <ListItemText>{capitalize(modeValue)}</ListItemText>
+                    </MenuItem>
+                  );
+                }
+              })}
+            </Menu>
+          </div>
+        </Box>
       </Toolbar>
       <Divider />
     </AppBar>
