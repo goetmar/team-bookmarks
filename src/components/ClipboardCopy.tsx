@@ -16,6 +16,10 @@ export const ClipboardCopy = (props: ClipboardCopyProps) => {
             right: 8,
             top: "50%",
             transform: "translate(0, -50%)",
+            color: "text.secondary",
+            "&:hover": {
+              color: "text.primary",
+            },
           }}
           onClick={() => {
             navigator.clipboard.writeText(props.url);
