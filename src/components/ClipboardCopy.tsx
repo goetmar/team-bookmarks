@@ -11,7 +11,6 @@ export const ClipboardCopy = (props: ClipboardCopyProps) => {
     <>
       <Tooltip title="Copy to clipboard" placement="left" disableInteractive>
         <IconButton
-          size="small"
           sx={{
             position: "absolute",
             right: 8,
