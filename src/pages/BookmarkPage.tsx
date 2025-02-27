@@ -33,7 +33,8 @@ export const BookmarkPage = () => {
         <Toolbar />
         <Box
           sx={{
-            p: 3,
+            px: 2,
+            py: 3,
             overflowY: "auto",
             height: "100%",
             borderRight: "solid 1px",
