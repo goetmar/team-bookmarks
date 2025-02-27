@@ -4,7 +4,6 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
-  Typography,
   Theme,
 } from "@mui/material";
 import { BookmarkFolder } from "../types/types";
@@ -37,13 +36,15 @@ const FolderMenuItem = (props: FolderMenuItemProps) => {
 
   return (
     <MenuItem
+      dense
       selected={props.selected}
       onClick={props.onClick}
-      dense
       onDoubleClick={props.onDoubleClick}
       sx={[
         {
           pl: props.inset,
+          width: "fit-content",
+          minWidth: "100%",
           borderRadius: (theme) => theme.shape.borderRadius + "px",
           "*": { color: props.selected ? "primary.main" : "text.secondary" },
         },
@@ -53,17 +54,10 @@ const FolderMenuItem = (props: FolderMenuItemProps) => {
     >
       {props.children}
       <ListItemIcon>
-        <FolderOpen fontSize="small" />
+        <FolderOpen />
       </ListItemIcon>
-      <ListItemText>
-        <Typography
-          sx={{
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-          }}
-        >
-          {props.name}
-        </Typography>
+      <ListItemText slotProps={{ primary: { fontWeight: 500 } }}>
+        {props.name}
       </ListItemText>
     </MenuItem>
   );
