@@ -16,7 +16,7 @@ const lightTheme: ThemeOptions = {
       selectedOpacity: 0.16,
     },
   },
-  shape: { borderRadius: 8 },
+  shape: { borderRadius: 12 },
   typography: {
     fontFamily: ["Montserrat"].join(","),
   },
