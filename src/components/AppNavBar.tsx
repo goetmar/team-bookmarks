@@ -100,8 +100,10 @@ export default function AppNavBar() {
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
               onClose={handleClose}
-              MenuListProps={{
-                sx: { py: (theme) => theme.shape.borderRadius + "px" },
+              slotProps={{
+                list: {
+                  sx: { py: (theme) => theme.shape.borderRadius + "px" },
+                },
               }}
             >
               {modes.map((modeValue, index) => {
