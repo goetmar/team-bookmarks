@@ -5,15 +5,13 @@ import {
   ListItemText,
   Collapse,
   Typography,
-  useTheme,
+  Theme,
 } from "@mui/material";
 import { BookmarkFolder } from "../types/types";
 import { FolderList } from "./FolderList";
 import { ReactNode, useEffect, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { findFolderById } from "../utils/bookmarkHelper";
-
-const textColor = "text.secondary";
 
 type FolderMenuItemProps = {
   name: string;
@@ -25,22 +23,40 @@ type FolderMenuItemProps = {
 };
 
 const FolderMenuItem = (props: FolderMenuItemProps) => {
-  const theme = useTheme();
+  const hoverStyle = (theme: Theme, mode: "light" | "dark") => {
+    return {
+      "&:hover *": {
+        color: props.selected
+          ? mode === "light"
+            ? theme.palette.primary.dark
+            : theme.palette.primary.light
+          : theme.palette.text.primary,
+      },
+    };
+  };
+
   return (
     <MenuItem
       selected={props.selected}
       onClick={props.onClick}
+      dense
       onDoubleClick={props.onDoubleClick}
-      style={{ borderRadius: theme.shape.borderRadius }}
-      sx={{ pl: props.inset }}
+      sx={[
+        {
+          pl: props.inset,
+          borderRadius: (theme) => theme.shape.borderRadius + "px",
+          "*": { color: props.selected ? "primary.main" : "text.secondary" },
+        },
+        (theme) => hoverStyle(theme, "light"),
+        (theme) => theme.applyStyles("dark", hoverStyle(theme, "dark")),
+      ]}
     >
       {props.children}
       <ListItemIcon>
-        <FolderOpen fontSize="small" sx={{ color: textColor }} />
+        <FolderOpen fontSize="small" />
       </ListItemIcon>
       <ListItemText>
         <Typography
-          color={textColor}
           sx={{
             whiteSpace: "nowrap",
             overflow: "hidden",
@@ -98,11 +114,11 @@ export const FolderListItem = (props: FolderListItemProps) => {
         >
           {open ? (
             <ListItemIcon>
-              <ExpandLess sx={{ color: textColor }} />
+              <ExpandLess />
             </ListItemIcon>
           ) : (
             <ListItemIcon>
-              <ExpandMore sx={{ color: textColor }} />
+              <ExpandMore />
             </ListItemIcon>
           )}
         </FolderMenuItem>
