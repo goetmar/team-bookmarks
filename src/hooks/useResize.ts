@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 type Resize = {
   width: number | string;
@@ -6,39 +6,22 @@ type Resize = {
 };
 
 const useResize = (initialWidth: number | string): Resize => {
-  const [isResizing, setIsResizing] = useState(false);
   const [width, setWidth] = useState<number | string>(initialWidth);
 
   const enableResize = useCallback(() => {
-    setIsResizing(true);
+    document.addEventListener("mousemove", resize);
+    document.addEventListener("mouseup", disableResize);
   }, []);
 
   const disableResize = useCallback(() => {
-    setIsResizing(false);
+    document.removeEventListener("mousemove", resize);
+    document.removeEventListener("mouseup", disableResize);
   }, []);
 
-  const resize = useCallback(
-    (e: MouseEvent) => {
-      if (isResizing) {
-        const newWidth = e.clientX + 1;
-        setWidth(newWidth + "px");
-      }
-    },
-    [isResizing]
-  );
-
-  useEffect(() => {
-    console.log("effect");
-    if (isResizing) {
-      document.addEventListener("mousemove", resize);
-      document.addEventListener("mouseup", disableResize);
-    }
-
-    return () => {
-      document.removeEventListener("mousemove", resize);
-      document.removeEventListener("mouseup", disableResize);
-    };
-  }, [isResizing]);
+  const resize = useCallback((e: MouseEvent) => {
+    const newWidth = e.clientX + 1;
+    setWidth(newWidth + "px");
+  }, []);
 
   return { width, enableResize };
 };
