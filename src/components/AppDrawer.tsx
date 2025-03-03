@@ -7,12 +7,15 @@ import useResize from "../hooks/useResize";
 export const AppDrawer = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
 
-  const initialWidth = "25%";
+  const minWidth = 250;
+  const maxWidth = 1 / 3;
+  const initialWidth = minWidth;
+
   const { width, enableResize } = useResize(initialWidth);
   const drawerWidth = {
     width: width,
-    minWidth: 250,
-    maxWidth: 1 / 3,
+    minWidth: minWidth,
+    maxWidth: maxWidth,
   };
 
   return (
