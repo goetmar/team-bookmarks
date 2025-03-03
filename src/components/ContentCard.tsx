@@ -21,6 +21,8 @@ export const ContentCard = (props: ContentCardProps) => {
       ))}
     </Paper>
   ) : (
-    <Box textAlign={"center"}>{isSearching ? "No Results" : "No Content"}</Box>
+    <Box height="100%" alignContent="center">
+      {isSearching ? "No Results" : "No Content"}
+    </Box>
   );
 };

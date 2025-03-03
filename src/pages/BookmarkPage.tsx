@@ -1,58 +1,26 @@
-import { Box, Drawer, Toolbar } from "@mui/material";
+import { Box, Toolbar } from "@mui/material";
 import { ContentCard } from "../components/ContentCard";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
-import { FolderList } from "../components/FolderList";
-import { filterFolders } from "../utils/bookmarkHelper";
 import AppNavBar from "../components/AppNavBar";
+import { AppDrawer } from "../components/AppDrawer";
 
 export const BookmarkPage = () => {
-  const rootFolder = useBookmarkStore((state) => state.rootFolder);
   const cardItems = useBookmarkStore((state) => state.getCardItems());
-
-  const drawerWidth = "25%";
-  const drawerMinWidth = "249px";
 
   return (
     <Box display={"flex"}>
       <AppNavBar />
-      <Drawer
-        variant="permanent"
+      <AppDrawer />
+      <Box
         sx={{
-          width: drawerWidth,
-          minWidth: drawerMinWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            minWidth: drawerMinWidth,
-            boxSizing: "border-box",
-            border: "none",
-            backgroundColor: (theme) => theme.palette.background.default,
-          },
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "100vh",
         }}
       >
         <Toolbar />
-        <Box
-          sx={{
-            pr: 2,
-            py: 3,
-            overflowY: "auto",
-            height: "100%",
-            borderRight: "solid 1px",
-            borderColor: (theme) => theme.palette.divider,
-          }}
-        >
-          <FolderList folders={filterFolders([rootFolder])} />
-        </Box>
-      </Drawer>
-      <Box sx={{ flexGrow: 1 }}>
-        <Toolbar />
-        <Box
-          component="main"
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          sx={{ width: "100%", p: 3 }}
-        >
+        <Box component="main" justifyItems="center" sx={{ flexGrow: 1, p: 3 }}>
           <ContentCard items={cardItems} />
         </Box>
       </Box>
