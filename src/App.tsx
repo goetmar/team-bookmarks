@@ -9,7 +9,7 @@ function AppContent() {
   }
   return (
     <>
-      <CssBaseline />
+      <CssBaseline enableColorScheme />
       <BookmarkPage />
     </>
   );
