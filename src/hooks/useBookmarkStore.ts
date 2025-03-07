@@ -18,7 +18,6 @@ type BookmarkStoreState = {
 
 type BookmarkStoreActions = {
   getCurrentFolder: () => BookmarkFolder;
-  getCardItems: () => BookmarkItem[];
   setCurrentFolderId: (id: number) => void;
   setIsSearching: (searching: boolean) => void;
   setSearchResults: (results: BookmarkItem[]) => void;
@@ -36,11 +35,6 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
       findFolderById(get().rootFolder, get().currentFolderId) ||
       get().rootFolder
     );
-  },
-  getCardItems: () => {
-    return get().isSearching
-      ? get().searchResults
-      : get().getCurrentFolder().bookmarks;
   },
   setCurrentFolderId: (id: number) => {
     set(() => ({

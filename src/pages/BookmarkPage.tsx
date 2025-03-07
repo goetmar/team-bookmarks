@@ -2,11 +2,8 @@ import { Box, Toolbar } from "@mui/material";
 import { AppDrawer } from "../components/AppDrawer";
 import AppNavBar from "../components/AppNavBar";
 import { ContentCard } from "../components/ContentCard";
-import { useBookmarkStore } from "../hooks/useBookmarkStore";
 
 export const BookmarkPage = () => {
-  const cardItems = useBookmarkStore((state) => state.getCardItems());
-
   return (
     <Box display={"flex"}>
       <AppNavBar />
@@ -21,7 +18,7 @@ export const BookmarkPage = () => {
       >
         <Toolbar />
         <Box component="main" justifyItems="center" sx={{ flexGrow: 1, p: 3 }}>
-          <ContentCard items={cardItems} />
+          <ContentCard />
         </Box>
       </Box>
     </Box>

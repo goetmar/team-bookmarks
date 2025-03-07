@@ -5,7 +5,7 @@ import {
   TextField,
   useAutocomplete,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { filterBookmarks } from "../utils/bookmarkHelper";
 
@@ -14,9 +14,11 @@ export const SearchField = () => {
   const setIsSearching = useBookmarkStore((state) => state.setIsSearching);
   const setSearchResults = useBookmarkStore((state) => state.setSearchResults);
 
-  const allBookmarksSorted = filterBookmarks([rootFolder]).sort((a, b) =>
-    a.name.localeCompare(b.name)
-  );
+  const allBookmarksSorted = useMemo(() => {
+    return filterBookmarks([rootFolder]).sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+  }, [rootFolder]);
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -39,7 +41,7 @@ export const SearchField = () => {
     }
   }, [searchValue]);
 
-  const textInput = useRef<HTMLInputElement>(null);
+  const textInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <TextField
@@ -48,7 +50,7 @@ export const SearchField = () => {
       label="Search"
       value={searchValue}
       onChange={(e) => setSearchValue(e.target.value)}
-      inputRef={textInput}
+      inputRef={textInputRef}
       sx={{
         width: 300,
         "input::-webkit-search-cancel-button": {
@@ -65,7 +67,7 @@ export const SearchField = () => {
                 size="small"
                 onClick={() => {
                   setSearchValue("");
-                  textInput.current?.focus();
+                  textInputRef.current?.focus();
                 }}
               >
                 <CloseIcon fontSize="small" />

@@ -1,13 +1,18 @@
 import { Box, Paper } from "@mui/material";
+import { useMemo } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
-import { BookmarkItem } from "../types/types";
 import { CardItem } from "./CardItem";
 
-export type ContentCardProps = { items: BookmarkItem[] };
+export const ContentCard = () => {
+  const { isSearching, searchResults, currentFolderId, getCurrentFolder } =
+    useBookmarkStore();
+  const currentFolder = useMemo(() => {
+    return getCurrentFolder().bookmarks;
+  }, [currentFolderId]);
 
-export const ContentCard = (props: ContentCardProps) => {
-  const isSearching = useBookmarkStore((state) => state.isSearching);
-  return props.items.length > 0 ? (
+  const cardItems = isSearching ? searchResults : currentFolder;
+
+  return cardItems.length > 0 ? (
     <Paper
       sx={{
         width: "100%",
@@ -16,7 +21,7 @@ export const ContentCard = (props: ContentCardProps) => {
         py: (theme) => theme.shape.borderRadius + "px",
       }}
     >
-      {props.items.map((item, index) => (
+      {cardItems.map((item, index) => (
         <CardItem item={item} key={index} clipboard openInNewTab />
       ))}
     </Paper>

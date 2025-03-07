@@ -1,5 +1,5 @@
 import { Box, Drawer, Toolbar } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { FolderList } from "../components/FolderList";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import useResize from "../hooks/useResize";
@@ -7,6 +7,9 @@ import { filterFolders } from "../utils/bookmarkHelper";
 
 export const AppDrawer = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
+  const filteredFolders = useMemo(() => {
+    return filterFolders([rootFolder]);
+  }, [rootFolder]);
 
   const minWidth = 250;
   const maxWidth = "40%";
@@ -33,8 +36,13 @@ export const AppDrawer = () => {
   const observer = new ResizeObserver(trackResize);
   useEffect(() => {
     if (ref.current) {
-      observer.observe(ref.current);
+      observer.observe(ref.current, { box: "border-box" });
     }
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
   }, []);
 
   return (
@@ -65,7 +73,7 @@ export const AppDrawer = () => {
           borderColor: (theme) => theme.palette.divider,
         }}
       >
-        <FolderList folders={filterFolders([rootFolder])} />
+        <FolderList folders={filteredFolders} />
       </Box>
       <Box
         onDragStart={(e) => {

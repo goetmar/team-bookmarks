@@ -71,12 +71,13 @@ export function findFolderById(
   if (folder.id === id) {
     return folder;
   }
-  let result = null;
-  folder.bookmarks.forEach((item) => {
+  let result: BookmarkFolder | null = null;
+  folder.bookmarks.some((item) => {
     if (!isBookmark(item)) {
       const folder = findFolderById(item, id);
       if (folder) {
         result = folder;
+        return true;
       }
     }
   });
