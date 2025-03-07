@@ -17,7 +17,7 @@ export const ContentCard = () => {
       sx={{
         width: "100%",
         maxWidth: "900px",
-        minWidth: "200px",
+
         py: (theme) => theme.shape.borderRadius + "px",
       }}
     >
