@@ -5,8 +5,8 @@ type Resize = {
   enableResize: () => void;
 };
 
-const useResize = (initialWidth: number | string): Resize => {
-  const [width, setWidth] = useState<number | string>(initialWidth);
+const useResize = (initialWidth?: number | string): Resize => {
+  const [width, setWidth] = useState<number | string>(initialWidth || 0);
 
   const enableResize = useCallback(() => {
     document.addEventListener("mousemove", resize);

@@ -11,22 +11,16 @@ export const AppDrawer = () => {
     return filterFolders([rootFolder]);
   }, [rootFolder]);
 
-  const minWidth = 250;
-  const maxWidth = "40%";
-  const initialWidth = minWidth;
-
-  const { width, enableResize } = useResize(initialWidth);
-  const drawerWidth = {
-    width: width,
-    minWidth: minWidth,
-    maxWidth: maxWidth,
+  const { width, enableResize } = useResize();
+  const widthRange = {
+    minWidth: 250,
+    maxWidth: "40%",
   };
 
   const ref = useRef<Element>(null);
   const trackResize = () => {
     if (ref.current) {
-      const { current } = ref;
-      const boundingRect = current.getBoundingClientRect();
+      const boundingRect = ref.current.getBoundingClientRect();
       const { width } = boundingRect;
       const root = document.documentElement;
       root.style.setProperty("--drawer-width", Math.round(width) + "px");
@@ -48,11 +42,13 @@ export const AppDrawer = () => {
   return (
     <Drawer
       variant="permanent"
-      sx={{ ...drawerWidth, flexShrink: 0 }}
+      style={{ width }}
+      sx={{ ...widthRange }}
       slotProps={{
         paper: {
+          style: { width },
           sx: {
-            ...drawerWidth,
+            ...widthRange,
             border: "none",
             backgroundColor: (theme) => theme.palette.background.default,
             overflowY: "visible",
