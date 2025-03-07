@@ -3,12 +3,13 @@ import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { FolderList } from "../components/FolderList";
 import { filterFolders } from "../utils/bookmarkHelper";
 import useResize from "../hooks/useResize";
+import { useEffect, useRef } from "react";
 
 export const AppDrawer = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
 
   const minWidth = 250;
-  const maxWidth = 1 / 3;
+  const maxWidth = "40%";
   const initialWidth = minWidth;
 
   const { width, enableResize } = useResize(initialWidth);
@@ -17,6 +18,24 @@ export const AppDrawer = () => {
     minWidth: minWidth,
     maxWidth: maxWidth,
   };
+
+  const ref = useRef<Element>(null);
+  const trackResize = () => {
+    if (ref.current) {
+      const { current } = ref;
+      const boundingRect = current.getBoundingClientRect();
+      const { width } = boundingRect;
+      const root = document.documentElement;
+      root.style.setProperty("--drawer-width", Math.round(width) + "px");
+    }
+  };
+
+  const observer = new ResizeObserver(trackResize);
+  useEffect(() => {
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+  }, []);
 
   return (
     <Drawer
@@ -35,8 +54,9 @@ export const AppDrawer = () => {
     >
       <Toolbar />
       <Box
+        ref={ref}
         sx={{
-          pr: 2,
+          pr: 1,
           py: 3,
           height: "100%",
           overflowY: "auto",

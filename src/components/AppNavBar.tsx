@@ -55,14 +55,37 @@ export default function AppNavBar() {
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Bookmarks
-        </Typography>
+      <Toolbar sx={{ gap: 1 }}>
+        <Box
+          sx={{
+            flex: "1 1 var(--drawer-width, 0)",
+            whiteSpace: "nowrap",
+            //maybe hide text overflow
+            //overflowX: "hidden",
+          }}
+        >
+          <Typography variant="h6">Team Bookmarks</Typography>
+        </Box>
 
-        <SearchField />
+        <Box
+          sx={{
+            display: "flex",
+            minWidth: 200,
+            flex: "1 1 auto",
+            justifyContent: "center",
+          }}
+        >
+          <SearchField />
+        </Box>
 
-        <Box display={"flex"} alignItems={"center"} gap={0.5}>
+        <Box
+          sx={{
+            display: "inline-flex",
+            flex: "1 1 0",
+            justifyContent: "end",
+          }}
+          gap={1}
+        >
           <IconButton
             color="inherit"
             sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}

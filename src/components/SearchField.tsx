@@ -50,10 +50,9 @@ export const SearchField = () => {
       onChange={(e) => setSearchValue(e.target.value)}
       inputRef={textInput}
       sx={{
-        mx: 2,
         width: 300,
         "input::-webkit-search-cancel-button": {
-          "-webkit-appearance": "none",
+          WebkitAppearance: "none",
         },
       }}
       slotProps={{
