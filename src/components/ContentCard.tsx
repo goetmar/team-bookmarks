@@ -1,7 +1,7 @@
 import { Box, Paper } from "@mui/material";
-import { CardItem } from "./CardItem";
-import { BookmarkItem } from "../types/types";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import { BookmarkItem } from "../types/types";
+import { CardItem } from "./CardItem";
 
 export type ContentCardProps = { items: BookmarkItem[] };
 

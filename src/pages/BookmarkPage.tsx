@@ -1,8 +1,8 @@
 import { Box, Toolbar } from "@mui/material";
+import { AppDrawer } from "../components/AppDrawer";
+import AppNavBar from "../components/AppNavBar";
 import { ContentCard } from "../components/ContentCard";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
-import AppNavBar from "../components/AppNavBar";
-import { AppDrawer } from "../components/AppDrawer";
 
 export const BookmarkPage = () => {
   const cardItems = useBookmarkStore((state) => state.getCardItems());

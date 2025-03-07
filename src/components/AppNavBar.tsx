@@ -1,10 +1,9 @@
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import { useState } from "react";
+import {
+  Brightness4,
+  Check,
+  FileDownload,
+  Settings,
+} from "@mui/icons-material";
 import {
   Box,
   capitalize,
@@ -13,14 +12,15 @@ import {
   ListItemText,
   useColorScheme,
 } from "@mui/material";
-import {
-  Brightness4,
-  Check,
-  FileDownload,
-  Settings,
-} from "@mui/icons-material";
-import { downloadBookmarksFile } from "../utils/fileExport";
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import { downloadBookmarksFile } from "../utils/fileExport";
 import { SearchField } from "./SearchField";
 
 export default function AppNavBar() {

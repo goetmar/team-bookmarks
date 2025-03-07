@@ -1,16 +1,16 @@
 import { ExpandLess, ExpandMore, FolderOpen } from "@mui/icons-material";
 import {
-  MenuItem,
+  Collapse,
   ListItemIcon,
   ListItemText,
-  Collapse,
+  MenuItem,
   Theme,
 } from "@mui/material";
-import { BookmarkFolder } from "../types/types";
-import { FolderList } from "./FolderList";
 import { ReactNode, useEffect, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import { BookmarkFolder } from "../types/types";
 import { findFolderById } from "../utils/bookmarkHelper";
+import { FolderList } from "./FolderList";
 
 type FolderMenuItemProps = {
   name: string;

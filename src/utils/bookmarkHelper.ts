@@ -1,7 +1,7 @@
 import {
-  BookmarkItem,
   Bookmark,
   BookmarkFolder,
+  BookmarkItem,
   BookmarkItemRaw,
   BookmarkRaw,
 } from "../types/types";

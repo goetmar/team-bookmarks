@@ -1,9 +1,9 @@
 import { Box, Drawer, Toolbar } from "@mui/material";
-import { useBookmarkStore } from "../hooks/useBookmarkStore";
-import { FolderList } from "../components/FolderList";
-import { filterFolders } from "../utils/bookmarkHelper";
-import useResize from "../hooks/useResize";
 import { useEffect, useRef } from "react";
+import { FolderList } from "../components/FolderList";
+import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import useResize from "../hooks/useResize";
+import { filterFolders } from "../utils/bookmarkHelper";
 
 export const AppDrawer = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
