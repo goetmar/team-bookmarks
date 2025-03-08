@@ -4,11 +4,16 @@ import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { CardItem } from "./CardItem";
 
 export const ContentCard = () => {
-  const { isSearching, searchResults, currentFolderId, getCurrentFolder } =
-    useBookmarkStore();
+  const {
+    isSearching,
+    searchResults,
+    rootFolder,
+    currentFolderId,
+    getCurrentFolder,
+  } = useBookmarkStore();
   const currentFolder = useMemo(() => {
     return getCurrentFolder().bookmarks;
-  }, [currentFolderId]);
+  }, [rootFolder, currentFolderId]);
 
   const cardItems = isSearching ? searchResults : currentFolder;
 

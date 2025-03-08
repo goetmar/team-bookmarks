@@ -18,28 +18,32 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { downloadBookmarksFile } from "../utils/fileExport";
 import { SearchField } from "./SearchField";
 
 export default function AppNavBar() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
-  const { mode, setMode } = useColorScheme();
+  const sortBookmarks = useBookmarkStore((state) => state.sortBookmarks);
+  const [isSorted, setIsSorted] = useState<boolean>(false);
 
+  //TODO should not sort on first render
+  useEffect(() => {
+    sortBookmarks(isSorted);
+  }, [isSorted]);
+
+  const { mode, setMode } = useColorScheme();
   type Mode = NonNullable<typeof mode>;
   const modes: Mode[] = ["light", "system", "dark"];
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const handleClick = (modeValue: Mode) => {
     setMode(modeValue);
     handleClose();
@@ -87,14 +91,17 @@ export default function AppNavBar() {
           gap={1}
         >
           <IconButton
-            color="inherit"
             sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+            color="inherit"
+            aria-label="settings"
+            onClick={() => setIsSorted((isSorted) => !isSorted)}
           >
             <Settings />
           </IconButton>
 
           <IconButton
             sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+            color="inherit"
             aria-label="file export"
             onClick={() => {
               downloadBookmarksFile(
@@ -102,7 +109,6 @@ export default function AppNavBar() {
                 rootFolder.bookmarks
               );
             }}
-            color="inherit"
           >
             <FileDownload />
           </IconButton>

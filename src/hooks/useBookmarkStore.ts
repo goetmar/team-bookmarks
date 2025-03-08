@@ -1,12 +1,19 @@
 import { create } from "zustand";
 import bookmarksJson from "../data/bookmarks.json";
 import { BookmarkFolder, BookmarkItem } from "../types/types";
-import { findFolderById, indexBookmarks } from "../utils/bookmarkHelper";
+import {
+  findFolderById,
+  indexBookmarks,
+  sortBookmarks,
+} from "../utils/bookmarkHelper";
+
+const indexedBookmarks = indexBookmarks(bookmarksJson.bookmarks)[0];
+const sortedBookmarks = sortBookmarks(indexedBookmarks);
 
 const rootFolder: BookmarkFolder = {
   id: -1,
   name: bookmarksJson.name || "Bookmarks",
-  bookmarks: indexBookmarks(bookmarksJson.bookmarks)[0],
+  bookmarks: indexedBookmarks,
 };
 
 type BookmarkStoreState = {
@@ -21,6 +28,7 @@ type BookmarkStoreActions = {
   setCurrentFolderId: (id: number) => void;
   setIsSearching: (searching: boolean) => void;
   setSearchResults: (results: BookmarkItem[]) => void;
+  sortBookmarks: (sort: boolean) => void;
 };
 
 type BookmarkStore = BookmarkStoreState & BookmarkStoreActions;
@@ -32,7 +40,7 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   searchResults: [],
   getCurrentFolder: () => {
     return (
-      findFolderById(get().rootFolder, get().currentFolderId) ||
+      findFolderById([get().rootFolder], get().currentFolderId) ||
       get().rootFolder
     );
   },
@@ -49,6 +57,14 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   setSearchResults: (results: BookmarkItem[]) => {
     set(() => ({
       searchResults: results,
+    }));
+  },
+  sortBookmarks: (sort: boolean) => {
+    set(() => ({
+      rootFolder: {
+        ...get().rootFolder,
+        bookmarks: sort ? sortedBookmarks : indexedBookmarks,
+      },
     }));
   },
 }));

@@ -65,21 +65,38 @@ export function indexBookmarks(
 }
 
 export function findFolderById(
-  folder: BookmarkFolder,
+  items: BookmarkItem[],
   id: number
-): BookmarkFolder | null {
-  if (folder.id === id) {
-    return folder;
-  }
-  let result: BookmarkFolder | null = null;
-  folder.bookmarks.some((item) => {
+): BookmarkFolder | undefined {
+  let result: BookmarkFolder | undefined;
+  items.some((item) => {
     if (!isBookmark(item)) {
-      const folder = findFolderById(item, id);
-      if (folder) {
-        result = folder;
-        return true;
+      if (item.id === id) {
+        return (result = item);
       }
+      return (result = findFolderById(item.bookmarks, id));
     }
   });
+  return result;
+}
+
+export function sortBookmarks(
+  items: BookmarkItem[],
+  copy = true
+): BookmarkItem[] {
+  const result: BookmarkItem[] = copy
+    ? JSON.parse(JSON.stringify(items))
+    : items;
+  result.sort((a, b) => {
+    if (isBookmark(a) && !isBookmark(b)) {
+      return 1;
+    } else if (!isBookmark(a) && isBookmark(b)) {
+      return -1;
+    }
+    return a.name.localeCompare(b.name);
+  });
+  result.forEach(
+    (item) => !isBookmark(item) && sortBookmarks(item.bookmarks, false)
+  );
   return result;
 }

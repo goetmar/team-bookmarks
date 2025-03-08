@@ -82,19 +82,18 @@ export const FolderListItem = (props: FolderListItemProps) => {
     }
   };
 
+  // TODO refactor component structure
+  const [open, setOpen] = useState(true);
+  useEffect(() => {
+    if (
+      !open &&
+      currentFolderId !== props.folder.id &&
+      findFolderById(props.folder.bookmarks, currentFolderId)
+    ) {
+      setOpen(true);
+    }
+  }, [currentFolderId]);
   if (props.folder.bookmarks.length > 0) {
-    const [open, setOpen] = useState(true);
-
-    useEffect(() => {
-      if (
-        !open &&
-        currentFolderId !== props.folder.id &&
-        findFolderById(props.folder, currentFolderId)
-      ) {
-        setOpen(true);
-      }
-    }, [currentFolderId]);
-
     const handleDoubleClick = () => {
       setOpen(!open);
     };
