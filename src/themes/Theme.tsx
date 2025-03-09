@@ -1,8 +1,19 @@
 import { deepPurple } from "@mui/material/colors";
-import { ThemeOptions, createTheme } from "@mui/material/styles";
+import {
+  ColorSystemOptions,
+  ThemeOptions,
+  createTheme,
+} from "@mui/material/styles";
 import { useMemo } from "react";
 
-const lightTheme: ThemeOptions = {
+const defaultTheme: ThemeOptions = {
+  shape: { borderRadius: 12 },
+  typography: {
+    fontFamily: ["Montserrat"].join(","),
+  },
+};
+
+const lightScheme: ColorSystemOptions = {
   palette: {
     background: {
       default: "#eef0f2",
@@ -16,20 +27,13 @@ const lightTheme: ThemeOptions = {
       selectedOpacity: 0.16,
     },
   },
-  shape: { borderRadius: 12 },
-  typography: {
-    fontFamily: ["Montserrat"].join(","),
-  },
 };
 
-const darkTheme: ThemeOptions = {
+const darkScheme: ColorSystemOptions = {
   palette: {
     primary: {
       main: deepPurple[200],
     },
-  },
-  typography: {
-    fontFamily: ["Montserrat"].join(","),
   },
 };
 
@@ -37,9 +41,10 @@ export const useDefaultTheme = () => {
   const theme = useMemo(
     () =>
       createTheme({
-        ...lightTheme,
+        ...defaultTheme,
         colorSchemes: {
-          dark: darkTheme,
+          light: lightScheme,
+          dark: darkScheme,
         },
       }),
     []
