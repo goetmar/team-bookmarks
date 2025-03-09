@@ -23,7 +23,8 @@ export const ContentCard = () => {
     ? searchResults
     : currentFolder?.bookmarks || [];
 
-  return (showParent && currentFolder) || cardItems.length > 0 ? (
+  return (!isSearching && showParent && currentFolder) ||
+    cardItems.length > 0 ? (
     <Paper
       sx={{
         width: "100%",
@@ -31,7 +32,7 @@ export const ContentCard = () => {
         py: (theme) => theme.shape.borderRadius + "px",
       }}
     >
-      {showParent && (
+      {!isSearching && showParent && (
         <>
           {parentFolder && <FolderEntry folder={parentFolder} variant={"up"} />}
           {currentFolder && (
