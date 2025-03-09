@@ -26,13 +26,13 @@ export type CardItemProps = {
 export const CardItem = (props: CardItemProps) => {
   return (
     <Button
-      {...props.buttonProps}
       fullWidth
+      {...props.buttonProps}
       sx={{
-        ...props.buttonProps?.sx,
         justifyContent: "flex-start",
         borderRadius: 0,
         px: 2,
+        ...props.buttonProps?.sx,
       }}
     >
       <Box {...boxProps}>{props.children}</Box>
