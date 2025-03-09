@@ -24,6 +24,7 @@ type FolderMenuItemProps = {
   onClick?: () => void;
   onDoubleClick?: () => void;
   children?: ReactNode;
+  open: boolean;
 };
 
 const FolderMenuItem = (props: FolderMenuItemProps) => {
@@ -59,9 +60,7 @@ const FolderMenuItem = (props: FolderMenuItemProps) => {
       ]}
     >
       {props.children}
-      <ListItemIcon>
-        {props.selected ? <FolderOpen /> : <Folder />}
-      </ListItemIcon>
+      <ListItemIcon>{props.open ? <FolderOpen /> : <Folder />}</ListItemIcon>
       <ListItemText slotProps={{ primary: { fontWeight: 500 } }}>
         {props.name}
       </ListItemText>
@@ -110,6 +109,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
           inset={inset}
           onClick={handleClick}
           onDoubleClick={handleDoubleClick}
+          open={open}
         >
           {open ? (
             <ListItemIcon>
@@ -133,6 +133,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
         selected={selected}
         inset={inset + 4.5}
         onClick={handleClick}
+        open={open}
       />
     );
   }
