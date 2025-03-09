@@ -22,6 +22,7 @@ type BookmarkStoreState = {
   currentFolderId: number;
   isSearching: boolean;
   searchResults: BookmarkItem[];
+  showParent: boolean;
   //TODO add isSorted: boolean;
 };
 
@@ -31,6 +32,7 @@ type BookmarkStoreActions = {
   setCurrentFolderId: (id: number) => void;
   setIsSearching: (searching: boolean) => void;
   setSearchResults: (results: BookmarkItem[]) => void;
+  toggleShowParent: () => void;
   sortBookmarks: (sort: boolean) => void;
 };
 
@@ -41,6 +43,7 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   currentFolderId: -1,
   isSearching: false,
   searchResults: [],
+  showParent: false,
   getParentFolder: () => {
     return findParentFolderById(get().rootFolder, get().currentFolderId);
   },
@@ -60,6 +63,11 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   setSearchResults: (results: BookmarkItem[]) => {
     set(() => ({
       searchResults: results,
+    }));
+  },
+  toggleShowParent: () => {
+    set(() => ({
+      showParent: !get().showParent,
     }));
   },
   sortBookmarks: (sort: boolean) => {

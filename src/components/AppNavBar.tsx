@@ -2,7 +2,8 @@ import {
   Brightness4,
   Check,
   FileDownload,
-  Settings,
+  FolderOpen,
+  Sort,
 } from "@mui/icons-material";
 import {
   Box,
@@ -26,6 +27,7 @@ import { SearchField } from "./SearchField";
 export default function AppNavBar() {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
   const sortBookmarks = useBookmarkStore((state) => state.sortBookmarks);
+  const toggleShowParent = useBookmarkStore((state) => state.toggleShowParent);
   const [isSorted, setIsSorted] = useState<boolean>(false);
 
   //TODO should not sort on first render
@@ -94,9 +96,18 @@ export default function AppNavBar() {
             sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
             color="inherit"
             aria-label="settings"
+            onClick={() => toggleShowParent()}
+          >
+            <FolderOpen />
+          </IconButton>
+
+          <IconButton
+            sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+            color="inherit"
+            aria-label="settings"
             onClick={() => setIsSorted((isSorted) => !isSorted)}
           >
-            <Settings />
+            <Sort />
           </IconButton>
 
           <IconButton

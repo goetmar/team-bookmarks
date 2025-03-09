@@ -1,4 +1,9 @@
-import { ExpandLess, ExpandMore, FolderOpen } from "@mui/icons-material";
+import {
+  ExpandLess,
+  ExpandMore,
+  Folder,
+  FolderOpen,
+} from "@mui/icons-material";
 import {
   Collapse,
   ListItemIcon,
@@ -55,7 +60,7 @@ const FolderMenuItem = (props: FolderMenuItemProps) => {
     >
       {props.children}
       <ListItemIcon>
-        <FolderOpen />
+        {props.selected ? <FolderOpen /> : <Folder />}
       </ListItemIcon>
       <ListItemText slotProps={{ primary: { fontWeight: 500 } }}>
         {props.name}
