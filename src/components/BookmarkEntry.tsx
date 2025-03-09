@@ -18,7 +18,6 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
     event.currentTarget.src = getFaviconByGoogleApi(props.bookmark.url);
   };
 
-  // TODO add transition to the hidden url
   return (
     <Box sx={{ position: "relative" }}>
       <CardItem
@@ -28,10 +27,10 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           rel: props.openInNewTab ? "noopener" : undefined,
           sx: {
             "& .hidden-url": {
-              display: "none",
+              opacity: 0,
             },
             "&:hover .hidden-url": {
-              display: "flex",
+              opacity: 1,
             },
             pr: props.clipboard ? "50px" : null,
           },
@@ -56,7 +55,13 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           variant="body2"
           className="hidden-url"
           color={"text.secondary"}
-          sx={{ textTransform: "lowercase" }}
+          sx={{
+            textTransform: "lowercase",
+            transition: (theme) =>
+              theme.transitions.create(["opacity"], {
+                duration: theme.transitions.duration.short,
+              }),
+          }}
         >
           {props.bookmark.url}
         </Typography>
