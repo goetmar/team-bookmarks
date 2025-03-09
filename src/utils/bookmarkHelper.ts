@@ -80,6 +80,22 @@ export function findFolderById(
   return result;
 }
 
+export function findParentFolderById(
+  folder: BookmarkFolder,
+  id: number
+): BookmarkFolder | undefined {
+  let result: BookmarkFolder | undefined;
+  folder.bookmarks.some((item) => {
+    if (!isBookmark(item)) {
+      if (item.id === id) {
+        return (result = folder);
+      }
+      return (result = findParentFolderById(item, id));
+    }
+  });
+  return result;
+}
+
 export function sortBookmarks(
   items: BookmarkItem[],
   copy = true

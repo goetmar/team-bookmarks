@@ -1,5 +1,3 @@
-import { BoxProps, ButtonOwnProps } from "@mui/material";
-
 export type Bookmark = {
   id: number;
   name: string;
@@ -25,8 +23,3 @@ export type BookmarkFolderRaw = {
 };
 
 export type BookmarkItemRaw = BookmarkFolderRaw | BookmarkRaw;
-
-export type CardItemStyle = {
-  button: ButtonOwnProps;
-  box: BoxProps;
-};

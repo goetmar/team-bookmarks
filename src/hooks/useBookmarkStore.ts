@@ -3,6 +3,7 @@ import bookmarksJson from "../data/bookmarks.json";
 import { BookmarkFolder, BookmarkItem } from "../types/types";
 import {
   findFolderById,
+  findParentFolderById,
   indexBookmarks,
   sortBookmarks,
 } from "../utils/bookmarkHelper";
@@ -21,10 +22,12 @@ type BookmarkStoreState = {
   currentFolderId: number;
   isSearching: boolean;
   searchResults: BookmarkItem[];
+  //TODO add isSorted: boolean;
 };
 
 type BookmarkStoreActions = {
-  getCurrentFolder: () => BookmarkFolder;
+  getParentFolder: () => BookmarkFolder | undefined;
+  getCurrentFolder: () => BookmarkFolder | undefined;
   setCurrentFolderId: (id: number) => void;
   setIsSearching: (searching: boolean) => void;
   setSearchResults: (results: BookmarkItem[]) => void;
@@ -38,11 +41,11 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   currentFolderId: -1,
   isSearching: false,
   searchResults: [],
+  getParentFolder: () => {
+    return findParentFolderById(get().rootFolder, get().currentFolderId);
+  },
   getCurrentFolder: () => {
-    return (
-      findFolderById([get().rootFolder], get().currentFolderId) ||
-      get().rootFolder
-    );
+    return findFolderById([get().rootFolder], get().currentFolderId);
   },
   setCurrentFolderId: (id: number) => {
     set(() => ({

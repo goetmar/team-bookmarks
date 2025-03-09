@@ -1,45 +1,41 @@
-import { BookmarkItem, CardItemStyle } from "../types/types";
-import { isBookmark } from "../utils/bookmarkHelper";
-import { BookmarkEntry } from "./BookmarkEntry";
-import { Folder } from "./Folder";
+import { Box, BoxProps, Button, ButtonProps } from "@mui/material";
+import { ReactNode } from "react";
 
-const itemStyle: CardItemStyle = {
-  button: {
-    fullWidth: true,
-    sx: {
-      justifyContent: "flex-start",
-      borderRadius: 0,
-      px: 2,
-    },
-  },
-  box: {
-    display: "flex",
-    alignItems: "center",
-    gap: 2,
-    sx: {
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      minWidth: "100%",
-      width: 0,
-    },
+const boxProps: BoxProps = {
+  display: "flex",
+  alignItems: "center",
+  gap: 2,
+  sx: {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    minWidth: "100%",
+    width: 0,
   },
 };
 
+// target and rel are only valid if href is set
+type LinkProps =
+  | { href?: never; target?: never; rel?: never }
+  | { href: string; target?: string; rel?: string };
+
 export type CardItemProps = {
-  item: BookmarkItem;
-  clipboard?: boolean;
-  openInNewTab?: boolean;
+  buttonProps?: ButtonProps & LinkProps;
+  children?: ReactNode;
 };
 
 export const CardItem = (props: CardItemProps) => {
-  return isBookmark(props.item) ? (
-    <BookmarkEntry
-      bookmark={props.item}
-      style={itemStyle}
-      clipboard={props.clipboard}
-      openInNewTab={props.openInNewTab}
-    />
-  ) : (
-    <Folder folder={props.item} style={itemStyle} />
+  return (
+    <Button
+      {...props.buttonProps}
+      fullWidth
+      sx={{
+        ...props.buttonProps?.sx,
+        justifyContent: "flex-start",
+        borderRadius: 0,
+        px: 2,
+      }}
+    >
+      <Box {...boxProps}>{props.children}</Box>
+    </Button>
   );
 };

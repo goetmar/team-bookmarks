@@ -1,7 +1,9 @@
-import { Box, Paper } from "@mui/material";
+import { Box, Divider, Paper } from "@mui/material";
 import { useMemo } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
-import { CardItem } from "./CardItem";
+import { isBookmark } from "../utils/bookmarkHelper";
+import { BookmarkEntry } from "./BookmarkEntry";
+import { FolderEntry } from "./FolderEntry";
 
 export const ContentCard = () => {
   const {
@@ -10,25 +12,35 @@ export const ContentCard = () => {
     rootFolder,
     currentFolderId,
     getCurrentFolder,
+    getParentFolder,
   } = useBookmarkStore();
-  const currentFolder = useMemo(() => {
-    return getCurrentFolder().bookmarks;
+  const [currentFolder, parentFolder] = useMemo(() => {
+    return [getCurrentFolder(), getParentFolder()];
   }, [rootFolder, currentFolderId]);
 
-  const cardItems = isSearching ? searchResults : currentFolder;
+  const cardItems = isSearching
+    ? searchResults
+    : currentFolder?.bookmarks || [];
 
+  // TODO display parent and current folder optionally
   return cardItems.length > 0 ? (
     <Paper
       sx={{
         width: "100%",
         maxWidth: "900px",
-
         py: (theme) => theme.shape.borderRadius + "px",
       }}
     >
-      {cardItems.map((item, index) => (
-        <CardItem item={item} key={index} clipboard openInNewTab />
-      ))}
+      {parentFolder && <FolderEntry folder={parentFolder} variant={"up"} />}
+      {currentFolder && <FolderEntry folder={currentFolder} variant={"open"} />}
+      <Divider />
+      {cardItems.map((item) =>
+        isBookmark(item) ? (
+          <BookmarkEntry bookmark={item} key={item.id} clipboard openInNewTab />
+        ) : (
+          <FolderEntry folder={item} variant={"close"} />
+        )
+      )}
     </Paper>
   ) : (
     <Box height="100%" alignContent="center">
