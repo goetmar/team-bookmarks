@@ -23,7 +23,7 @@ type FolderMenuItemProps = {
   inset?: number;
   onClick?: () => void;
   onDoubleClick?: () => void;
-  children?: ReactNode;
+  expandIcon?: ReactNode;
   open: boolean;
 };
 
@@ -59,7 +59,7 @@ const FolderMenuItem = (props: FolderMenuItemProps) => {
         (theme) => theme.applyStyles("dark", hoverStyle(theme, "dark")),
       ]}
     >
-      {props.children}
+      <ListItemIcon>{props.expandIcon}</ListItemIcon>
       <ListItemIcon>{props.open ? <FolderOpen /> : <Folder />}</ListItemIcon>
       <ListItemText slotProps={{ primary: { fontWeight: 500 } }}>
         {props.name}
@@ -110,17 +110,8 @@ export const FolderListItem = (props: FolderListItemProps) => {
           onClick={handleClick}
           onDoubleClick={handleDoubleClick}
           open={open}
-        >
-          {open ? (
-            <ListItemIcon>
-              <ExpandLess />
-            </ListItemIcon>
-          ) : (
-            <ListItemIcon>
-              <ExpandMore />
-            </ListItemIcon>
-          )}
-        </FolderMenuItem>
+          expandIcon={open ? <ExpandLess /> : <ExpandMore />}
+        ></FolderMenuItem>
         <Collapse in={open} timeout="auto">
           <FolderList folders={props.folder.bookmarks} inset={inset + 2} />
         </Collapse>
@@ -131,7 +122,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
       <FolderMenuItem
         name={props.folder.name}
         selected={selected}
-        inset={inset + 4.5}
+        inset={inset}
         onClick={handleClick}
         open={open}
       />
