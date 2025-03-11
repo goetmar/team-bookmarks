@@ -42,9 +42,9 @@ export const ContentCard = () => {
       )}
       {cardItems.map((item) =>
         isBookmark(item) ? (
-          <BookmarkEntry bookmark={item} key={item.id} clipboard openInNewTab />
+          <BookmarkEntry key={item.id} bookmark={item} clipboard openInNewTab />
         ) : (
-          <FolderEntry folder={item} variant={"close"} />
+          <FolderEntry key={item.id} folder={item} variant={"close"} />
         )
       )}
     </Paper>
