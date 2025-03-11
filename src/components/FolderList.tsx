@@ -10,7 +10,11 @@ export const FolderList = (props: FolderListProps) => (
     {props.folders.map((item) => {
       return (
         !isBookmark(item) && (
-          <FolderListItem key={item.id} folder={item} inset={props.inset} />
+          <FolderListItem
+            key={item.id}
+            folder={item}
+            inset={props.inset || 2}
+          />
         )
       );
     })}

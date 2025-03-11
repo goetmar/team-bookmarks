@@ -11,27 +11,41 @@ import {
   MenuItem,
   Theme,
 } from "@mui/material";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { BookmarkFolder } from "../types/types";
 import { findFolderById } from "../utils/bookmarkHelper";
 import { FolderList } from "./FolderList";
 
-type FolderMenuItemProps = {
-  name: string;
-  selected: boolean;
-  inset?: number;
-  onClick?: () => void;
-  onDoubleClick?: () => void;
-  expandIcon?: ReactNode;
-  open: boolean;
-};
+export type FolderListItemProps = { folder: BookmarkFolder; inset: number };
 
-const FolderMenuItem = (props: FolderMenuItemProps) => {
+export const FolderListItem = (props: FolderListItemProps) => {
+  const { currentFolderId, isSearching, setIsSearching, setCurrentFolderId } =
+    useBookmarkStore();
+  const hasSubfolders = props.folder.bookmarks.length > 0;
+  const isSelected = !isSearching && currentFolderId === props.folder.id;
+  const handleClick = () => {
+    isSearching && setIsSearching(false);
+    !isSelected && setCurrentFolderId(props.folder.id);
+  };
+
+  const [open, setOpen] = useState(true);
+  useEffect(() => {
+    if (hasSubfolders && !open) {
+      const isParentOfCurrentFolder =
+        currentFolderId !== props.folder.id &&
+        findFolderById(props.folder.bookmarks, currentFolderId);
+      isParentOfCurrentFolder && setOpen(true);
+    }
+  }, [currentFolderId]);
+  const handleDoubleClick = () => {
+    setOpen((open) => !open);
+  };
+
   const hoverStyle = (theme: Theme, mode: "light" | "dark") => {
     return {
       "&:hover *": {
-        color: props.selected
+        color: isSelected
           ? mode === "light"
             ? theme.palette.primary.dark
             : theme.palette.primary.light
@@ -41,91 +55,41 @@ const FolderMenuItem = (props: FolderMenuItemProps) => {
   };
 
   return (
-    <MenuItem
-      dense
-      selected={props.selected}
-      onClick={props.onClick}
-      onDoubleClick={props.onDoubleClick}
-      sx={[
-        {
-          pl: props.inset,
-          width: "fit-content",
-          minWidth: "100%",
-          borderTopRightRadius: (theme) => theme.shape.borderRadius + "px",
-          borderBottomRightRadius: (theme) => theme.shape.borderRadius + "px",
-          "*": { color: props.selected ? "primary.main" : "text.secondary" },
-        },
-        (theme) => hoverStyle(theme, "light"),
-        (theme) => theme.applyStyles("dark", hoverStyle(theme, "dark")),
-      ]}
-    >
-      <ListItemIcon>{props.expandIcon}</ListItemIcon>
-      <ListItemIcon>{props.open ? <FolderOpen /> : <Folder />}</ListItemIcon>
-      <ListItemText slotProps={{ primary: { fontWeight: 500 } }}>
-        {props.name}
-      </ListItemText>
-    </MenuItem>
-  );
-};
-
-export type FolderListItemProps = { folder: BookmarkFolder; inset?: number };
-
-export const FolderListItem = (props: FolderListItemProps) => {
-  const currentFolderId = useBookmarkStore((state) => state.currentFolderId);
-  const isSearching = useBookmarkStore((state) => state.isSearching);
-  const setIsSearching = useBookmarkStore((state) => state.setIsSearching);
-  const setCurrentFolderId = useBookmarkStore(
-    (state) => state.setCurrentFolderId
-  );
-  const inset = props.inset || 2;
-  const selected = !isSearching && currentFolderId === props.folder.id;
-  const handleClick = () => {
-    setIsSearching(false);
-    if (!selected) {
-      setCurrentFolderId(props.folder.id);
-    }
-  };
-
-  // TODO refactor component structure
-  const [open, setOpen] = useState(true);
-  useEffect(() => {
-    if (
-      !open &&
-      currentFolderId !== props.folder.id &&
-      findFolderById(props.folder.bookmarks, currentFolderId)
-    ) {
-      setOpen(true);
-    }
-  }, [currentFolderId]);
-  if (props.folder.bookmarks.length > 0) {
-    const handleDoubleClick = () => {
-      setOpen(!open);
-    };
-    return (
-      <>
-        <FolderMenuItem
-          name={props.folder.name}
-          selected={selected}
-          inset={inset}
-          onClick={handleClick}
-          onDoubleClick={handleDoubleClick}
-          open={open}
-          expandIcon={open ? <ExpandLess /> : <ExpandMore />}
-        ></FolderMenuItem>
-        <Collapse in={open} timeout="auto">
-          <FolderList folders={props.folder.bookmarks} inset={inset + 2} />
-        </Collapse>
-      </>
-    );
-  } else {
-    return (
-      <FolderMenuItem
-        name={props.folder.name}
-        selected={selected}
-        inset={inset}
+    <>
+      <MenuItem
+        dense
+        selected={isSelected}
         onClick={handleClick}
-        open={open}
-      />
-    );
-  }
+        onDoubleClick={hasSubfolders ? handleDoubleClick : undefined}
+        sx={[
+          {
+            pl: props.inset,
+            width: "fit-content",
+            minWidth: "100%",
+            borderTopRightRadius: (theme) => theme.shape.borderRadius + "px",
+            borderBottomRightRadius: (theme) => theme.shape.borderRadius + "px",
+            "*": { color: isSelected ? "primary.main" : "text.secondary" },
+          },
+          (theme) => hoverStyle(theme, "light"),
+          (theme) => theme.applyStyles("dark", hoverStyle(theme, "dark")),
+        ]}
+      >
+        <ListItemIcon>
+          {hasSubfolders && (open ? <ExpandLess /> : <ExpandMore />)}
+        </ListItemIcon>
+        <ListItemIcon>{open ? <FolderOpen /> : <Folder />}</ListItemIcon>
+        <ListItemText slotProps={{ primary: { fontWeight: 500 } }}>
+          {props.folder.name}
+        </ListItemText>
+      </MenuItem>
+      {hasSubfolders && (
+        <Collapse in={open} timeout="auto">
+          <FolderList
+            folders={props.folder.bookmarks}
+            inset={props.inset + 2}
+          />
+        </Collapse>
+      )}
+    </>
+  );
 };
