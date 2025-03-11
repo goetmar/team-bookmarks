@@ -26,11 +26,11 @@ export const ContentCard = () => {
   return (!isSearching && showParent && currentFolder) ||
     cardItems.length > 0 ? (
     <Paper
-      sx={{
+      sx={theme => ({
         width: "100%",
         maxWidth: "900px",
-        py: (theme) => theme.shape.borderRadius + "px",
-      }}
+        py: theme.shape.borderRadius + "px"
+      })}
     >
       {!isSearching && showParent && (
         <>

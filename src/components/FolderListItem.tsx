@@ -42,6 +42,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
     setOpen((open) => !open);
   };
 
+  const color = isSelected ? "primary.main" : "text.secondary";
   const hoverStyle = (theme: Theme, mode: "light" | "dark") => {
     return {
       "&:hover *": {
@@ -62,14 +63,14 @@ export const FolderListItem = (props: FolderListItemProps) => {
         onClick={handleClick}
         onDoubleClick={hasSubfolders ? handleDoubleClick : undefined}
         sx={[
-          {
+          (theme) => ({
             pl: props.inset,
             width: "fit-content",
             minWidth: "100%",
-            borderTopRightRadius: (theme) => theme.shape.borderRadius + "px",
-            borderBottomRightRadius: (theme) => theme.shape.borderRadius + "px",
-            "*": { color: isSelected ? "primary.main" : "text.secondary" },
-          },
+            borderTopRightRadius: theme.shape.borderRadius + "px",
+            borderBottomRightRadius: theme.shape.borderRadius + "px",
+            "*": { color },
+          }),
           (theme) => hoverStyle(theme, "light"),
           (theme) => theme.applyStyles("dark", hoverStyle(theme, "dark")),
         ]}

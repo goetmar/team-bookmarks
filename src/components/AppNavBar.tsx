@@ -56,10 +56,10 @@ export default function AppNavBar() {
       position="fixed"
       color="transparent"
       elevation={0}
-      sx={{
+      sx={(theme) => ({
         backdropFilter: "blur(10px)",
-        zIndex: (theme) => theme.zIndex.drawer + 1,
-      }}
+        zIndex: theme.zIndex.drawer + 1,
+      })}
     >
       <Toolbar sx={{ gap: 1 }}>
         <Box
@@ -93,7 +93,9 @@ export default function AppNavBar() {
           gap={1}
         >
           <IconButton
-            sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+            sx={(theme) => ({
+              borderRadius: theme.shape.borderRadius + "px",
+            })}
             color="inherit"
             aria-label="settings"
             onClick={() => toggleShowParent()}
@@ -102,7 +104,9 @@ export default function AppNavBar() {
           </IconButton>
 
           <IconButton
-            sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+            sx={(theme) => ({
+              borderRadius: theme.shape.borderRadius + "px",
+            })}
             color="inherit"
             aria-label="settings"
             onClick={() => setIsSorted((isSorted) => !isSorted)}
@@ -111,7 +115,9 @@ export default function AppNavBar() {
           </IconButton>
 
           <IconButton
-            sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+            sx={(theme) => ({
+              borderRadius: theme.shape.borderRadius + "px",
+            })}
             color="inherit"
             aria-label="file export"
             onClick={() => {
@@ -126,7 +132,9 @@ export default function AppNavBar() {
 
           <div>
             <IconButton
-              sx={{ borderRadius: (theme) => theme.shape.borderRadius + "px" }}
+              sx={(theme) => ({
+                borderRadius: theme.shape.borderRadius + "px",
+              })}
               aria-label="color mode"
               aria-controls="menu-app-bar"
               aria-haspopup="true"
@@ -142,7 +150,9 @@ export default function AppNavBar() {
               onClose={handleClose}
               slotProps={{
                 list: {
-                  sx: { py: (theme) => theme.shape.borderRadius + "px" },
+                  sx: (theme) => ({
+                    py: theme.shape.borderRadius + "px",
+                  }),
                 },
               }}
             >

@@ -47,27 +47,27 @@ export const AppDrawer = () => {
       slotProps={{
         paper: {
           style: { width },
-          sx: {
+          sx: (theme) => ({
             ...widthRange,
             border: "none",
-            backgroundColor: (theme) => theme.palette.background.default,
+            backgroundColor: theme.palette.background.default,
             overflowY: "visible",
-          },
+          }),
         },
       }}
     >
       <Toolbar />
       <Box
         ref={ref}
-        sx={{
+        sx={(theme) => ({
           pr: 1,
           py: 3,
           height: "100%",
           overflowY: "auto",
           boxSizing: "border-box",
           borderRight: "solid 1px",
-          borderColor: (theme) => theme.palette.divider,
-        }}
+          borderColor: theme.palette.divider,
+        })}
       >
         <FolderList folders={filteredFolders} />
       </Box>
