@@ -46,14 +46,10 @@ export function downloadBookmarksFile(
   bookmarkItems: BookmarkItemRaw[]
 ) {
   const fileContent = generateFileContent(bookmarkItems);
-  var element = document.createElement("a");
-  element.setAttribute(
-    "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(fileContent)
-  );
-  element.setAttribute("download", filename);
-  element.style.display = "none";
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
+  const link = document.createElement("a");
+  link.href =
+    "data:text/plain;charset=utf-8," + encodeURIComponent(fileContent);
+  link.download = filename;
+  link.click();
+  // TODO I might need to put the element in the DOM for firefox, need to check that
 }
