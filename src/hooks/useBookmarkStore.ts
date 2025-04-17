@@ -17,6 +17,25 @@ const rootFolder: BookmarkFolder = {
   bookmarks: indexedBookmarks,
 };
 
+const defaultSettings: Record<DisplaySetting, boolean> = {
+  sort: true,
+  parent: false,
+  copy: false,
+};
+
+const storedSettings: Record<DisplaySetting, boolean> = {
+  sort: getLocalSetting("sort"),
+  parent: getLocalSetting("parent"),
+  copy: getLocalSetting("copy"),
+};
+
+function getLocalSetting(key: DisplaySetting): boolean {
+  const localSetting = localStorage.getItem(key);
+  return localSetting !== null
+    ? Boolean(JSON.parse(localSetting))
+    : defaultSettings[key];
+}
+
 type BookmarkStoreState = {
   rootFolder: BookmarkFolder;
   currentFolderId: number;
@@ -42,7 +61,7 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   currentFolderId: -1,
   isSearching: false,
   searchResults: [],
-  settings: { sort: true, parent: false, copy: false },
+  settings: storedSettings,
   getParentFolder: () => {
     return findParentFolderById(get().rootFolder, get().currentFolderId);
   },
@@ -71,6 +90,7 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
         [setting]: !get().settings[setting],
       },
     }));
+    localStorage.setItem(setting, JSON.stringify(get().settings[setting]));
   },
   sortBookmarks: (sort: boolean) => {
     set(() => ({
