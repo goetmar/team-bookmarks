@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import bookmarksJson from "../data/bookmarks.json";
-import { BookmarkFolder, BookmarkItem } from "../types/types";
+import { BookmarkFolder, BookmarkItem, DisplaySetting } from "../types/types";
 import {
   findFolderById,
   findParentFolderById,
@@ -22,8 +22,7 @@ type BookmarkStoreState = {
   currentFolderId: number;
   isSearching: boolean;
   searchResults: BookmarkItem[];
-  showParent: boolean;
-  //TODO add isSorted: boolean;
+  settings: Record<DisplaySetting, boolean>;
 };
 
 type BookmarkStoreActions = {
@@ -32,7 +31,7 @@ type BookmarkStoreActions = {
   setCurrentFolderId: (id: number) => void;
   setIsSearching: (searching: boolean) => void;
   setSearchResults: (results: BookmarkItem[]) => void;
-  toggleShowParent: () => void;
+  toggleSetting: (setting: DisplaySetting) => void;
   sortBookmarks: (sort: boolean) => void;
 };
 
@@ -43,7 +42,7 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   currentFolderId: -1,
   isSearching: false,
   searchResults: [],
-  showParent: false,
+  settings: { sort: true, parent: false, copy: false },
   getParentFolder: () => {
     return findParentFolderById(get().rootFolder, get().currentFolderId);
   },
@@ -65,9 +64,12 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
       searchResults: results,
     }));
   },
-  toggleShowParent: () => {
+  toggleSetting: (setting: DisplaySetting) => {
     set(() => ({
-      showParent: !get().showParent,
+      settings: {
+        ...get().settings,
+        [setting]: !get().settings[setting],
+      },
     }));
   },
   sortBookmarks: (sort: boolean) => {

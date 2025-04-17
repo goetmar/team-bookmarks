@@ -9,7 +9,7 @@ export const ContentCard = () => {
   const {
     isSearching,
     searchResults,
-    showParent,
+    settings,
     rootFolder,
     currentFolderId,
     getCurrentFolder,
@@ -19,6 +19,7 @@ export const ContentCard = () => {
     return [getCurrentFolder(), getParentFolder()];
   }, [rootFolder, currentFolderId]);
 
+  const showParent = settings.parent;
   const cardItems = isSearching
     ? searchResults
     : currentFolder?.bookmarks || [];
@@ -26,10 +27,10 @@ export const ContentCard = () => {
   return (!isSearching && showParent && currentFolder) ||
     cardItems.length > 0 ? (
     <Paper
-      sx={theme => ({
+      sx={(theme) => ({
         width: "100%",
         maxWidth: "900px",
-        py: theme.shape.borderRadius + "px"
+        py: theme.shape.borderRadius + "px",
       })}
     >
       {!isSearching && showParent && (
@@ -42,7 +43,12 @@ export const ContentCard = () => {
       )}
       {cardItems.map((item) =>
         isBookmark(item) ? (
-          <BookmarkEntry key={item.id} bookmark={item} clipboard openInNewTab />
+          <BookmarkEntry
+            key={item.id}
+            bookmark={item}
+            clipboard={settings.copy}
+            openInNewTab
+          />
         ) : (
           <FolderEntry key={item.id} folder={item} variant={"close"} />
         )
