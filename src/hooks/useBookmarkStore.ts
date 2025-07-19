@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import bookmarksJson from "../data/bookmarks.json";
-import { BookmarkFolder, BookmarkItem, DisplaySetting } from "../types/types";
+import { AppSetting, BookmarkFolder, BookmarkItem } from "../types/types";
 import {
   findFolderById,
   findParentFolderById,
@@ -17,21 +17,21 @@ const rootFolder: BookmarkFolder = {
   bookmarks: indexedBookmarks,
 };
 
-const defaultSettings: Record<DisplaySetting, boolean> = {
+const defaultSettings: Record<AppSetting, boolean> = {
   sort: true,
   parent: false,
   copy: false,
   openInNewTab: false,
 };
 
-const storedSettings: Record<DisplaySetting, boolean> = {
+const storedSettings: Record<AppSetting, boolean> = {
   sort: getLocalSetting("sort"),
   parent: getLocalSetting("parent"),
   copy: getLocalSetting("copy"),
   openInNewTab: getLocalSetting("openInNewTab"),
 };
 
-function getLocalSetting(key: DisplaySetting): boolean {
+function getLocalSetting(key: AppSetting): boolean {
   const localSetting = localStorage.getItem(key);
   return localSetting !== null
     ? Boolean(JSON.parse(localSetting))
@@ -43,7 +43,7 @@ type BookmarkStoreState = {
   currentFolderId: number;
   isSearching: boolean;
   searchResults: BookmarkItem[];
-  settings: Record<DisplaySetting, boolean>;
+  settings: Record<AppSetting, boolean>;
 };
 
 type BookmarkStoreActions = {
@@ -52,7 +52,7 @@ type BookmarkStoreActions = {
   setCurrentFolderId: (id: number) => void;
   setIsSearching: (searching: boolean) => void;
   setSearchResults: (results: BookmarkItem[]) => void;
-  toggleSetting: (setting: DisplaySetting) => void;
+  toggleSetting: (setting: AppSetting) => void;
   sortBookmarks: (sort: boolean) => void;
 };
 
@@ -85,7 +85,7 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
       searchResults: results,
     }));
   },
-  toggleSetting: (setting: DisplaySetting) => {
+  toggleSetting: (setting: AppSetting) => {
     set(() => ({
       settings: {
         ...get().settings,

@@ -1,8 +1,8 @@
-import { DisplaySettings } from "@mui/icons-material";
+import { Settings } from "@mui/icons-material";
 import { ListItemText, MenuItem, Switch } from "@mui/material";
 import { useEffect } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
-import { DisplaySetting } from "../types/types";
+import { AppSetting } from "../types/types";
 import { MenuButton } from "./MenuButton";
 
 export const SettingsButton = () => {
@@ -14,7 +14,7 @@ export const SettingsButton = () => {
     sortBookmarks(settings.sort);
   }, [settings.sort]);
 
-  const labels: Record<DisplaySetting, string> = {
+  const labels: Record<AppSetting, string> = {
     sort: "Sort by Name",
     parent: "Show Parent Folder",
     copy: "Show Copy Button",
@@ -22,34 +22,32 @@ export const SettingsButton = () => {
   };
 
   return (
-    <MenuButton label="Display Settings" icon={<DisplaySettings />}>
-      {(Object.keys(settings) as Array<DisplaySetting>).map(
-        (setting, index) => {
-          return (
-            <MenuItem
-              key={index}
-              sx={{ gap: 2 }}
-              onClick={() => toggleSetting(setting)}
-            >
-              <ListItemText
-                id={setting}
-                primary={labels[setting]}
-                sx={{ m: 0 }}
-              />
-              <Switch
-                size="small"
-                edge="end"
-                checked={settings[setting]}
-                slotProps={{
-                  input: {
-                    "aria-labelledby": labels[setting],
-                  },
-                }}
-              />
-            </MenuItem>
-          );
-        }
-      )}
+    <MenuButton label="Settings" icon={<Settings />}>
+      {(Object.keys(settings) as Array<AppSetting>).map((setting, index) => {
+        return (
+          <MenuItem
+            key={index}
+            sx={{ gap: 2 }}
+            onClick={() => toggleSetting(setting)}
+          >
+            <ListItemText
+              id={setting}
+              primary={labels[setting]}
+              sx={{ m: 0 }}
+            />
+            <Switch
+              size="small"
+              edge="end"
+              checked={settings[setting]}
+              slotProps={{
+                input: {
+                  "aria-labelledby": labels[setting],
+                },
+              }}
+            />
+          </MenuItem>
+        );
+      })}
     </MenuButton>
   );
 };
