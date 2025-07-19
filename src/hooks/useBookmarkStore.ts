@@ -21,12 +21,14 @@ const defaultSettings: Record<DisplaySetting, boolean> = {
   sort: true,
   parent: false,
   copy: false,
+  openInNewTab: false,
 };
 
 const storedSettings: Record<DisplaySetting, boolean> = {
   sort: getLocalSetting("sort"),
   parent: getLocalSetting("parent"),
   copy: getLocalSetting("copy"),
+  openInNewTab: getLocalSetting("openInNewTab"),
 };
 
 function getLocalSetting(key: DisplaySetting): boolean {

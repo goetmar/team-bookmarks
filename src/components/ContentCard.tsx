@@ -47,7 +47,7 @@ export const ContentCard = () => {
             key={item.id}
             bookmark={item}
             clipboard={settings.copy}
-            openInNewTab
+            openInNewTab={settings.openInNewTab}
           />
         ) : (
           <FolderEntry key={item.id} folder={item} variant={"close"} />

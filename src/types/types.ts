@@ -24,4 +24,4 @@ export type BookmarkFolderRaw = {
 
 export type BookmarkItemRaw = BookmarkFolderRaw | BookmarkRaw;
 
-export type DisplaySetting = "sort" | "parent" | "copy";
+export type DisplaySetting = "sort" | "parent" | "copy" | "openInNewTab";
