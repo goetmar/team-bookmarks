@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { AppContent } from "../components/AppContent";
 import { AppDrawer } from "../components/AppDrawer";
 import AppNavBar from "../components/AppNavBar";
+import { MainContent } from "../components/MainContent";
 
 export const BookmarkPage = () => {
   return (
@@ -9,7 +9,7 @@ export const BookmarkPage = () => {
       <AppNavBar />
       <Box display={"flex"} flexDirection={"row"}>
         <AppDrawer />
-        <AppContent />
+        <MainContent />
       </Box>
     </Box>
   );

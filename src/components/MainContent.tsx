@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { ContentCard } from "./ContentCard";
 
-export const AppContent = () => {
+export const MainContent = () => {
   return (
     <Box
       component="main"

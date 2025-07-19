@@ -18,7 +18,7 @@ export const ColorModeButton = () => {
   };
 
   return (
-    <MenuButton label="Set Color Mode" icon={<Brightness4 />}>
+    <MenuButton label="Color Mode" icon={<Brightness4 />}>
       {modes.map((modeValue, index) => {
         if (modeValue !== mode) {
           return (

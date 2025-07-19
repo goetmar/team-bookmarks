@@ -56,7 +56,7 @@ export const AppDrawer = () => {
         },
       }}
     >
-      {/* Placeholder for the AppNavBar */}
+      {/* Offset for the AppNavBar */}
       <Toolbar />
       <Divider />
       <Box
