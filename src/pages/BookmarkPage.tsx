@@ -5,10 +5,12 @@ import AppNavBar from "../components/AppNavBar";
 
 export const BookmarkPage = () => {
   return (
-    <Box display={"flex"}>
+    <Box display={"flex"} flexDirection={"column"}>
       <AppNavBar />
-      <AppDrawer />
-      <AppContent />
+      <Box display={"flex"} flexDirection={"row"}>
+        <AppDrawer />
+        <AppContent />
+      </Box>
     </Box>
   );
 };

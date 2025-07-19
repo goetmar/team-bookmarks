@@ -1,4 +1,4 @@
-import { Box, Drawer, Toolbar } from "@mui/material";
+import { Box, Divider, Drawer, Toolbar } from "@mui/material";
 import { useEffect, useMemo, useRef } from "react";
 import { FolderList } from "../components/FolderList";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
@@ -56,14 +56,16 @@ export const AppDrawer = () => {
         },
       }}
     >
+      {/* Placeholder for the AppNavBar */}
       <Toolbar />
+      <Divider />
       <Box
         ref={ref}
         sx={(theme) => ({
           pr: 1,
           py: 3,
           height: "100%",
-          overflowY: "auto",
+          overflow: "auto",
           boxSizing: "border-box",
           borderRight: "solid 1px",
           borderColor: theme.palette.divider,

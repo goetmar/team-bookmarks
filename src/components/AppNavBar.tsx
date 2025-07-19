@@ -10,11 +10,11 @@ import { SettingsButton } from "./SettingsButton";
 export default function AppNavBar() {
   return (
     <AppBar
-      position="fixed"
+      position="sticky"
       color="transparent"
       elevation={0}
       sx={(theme) => ({
-        backdropFilter: "blur(10px)",
+        backdropFilter: "blur(8px)",
         zIndex: theme.zIndex.drawer + 1,
       })}
     >
