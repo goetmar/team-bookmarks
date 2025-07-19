@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import bookmarksJson from "../data/bookmarks.json";
+import bookmarksJson from "../data/example.bookmarks.json";
 import { AppSetting, BookmarkFolder, BookmarkItem } from "../types/types";
 import {
   findFolderById,
