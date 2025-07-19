@@ -17,7 +17,11 @@ import { BookmarkFolder } from "../types/types";
 import { findFolderById } from "../utils/bookmarkHelper";
 import { FolderList } from "./FolderList";
 
-export type FolderListItemProps = { folder: BookmarkFolder; inset: number };
+export type FolderListItemProps = {
+  folder: BookmarkFolder;
+  inset: number;
+  isRoot?: boolean;
+};
 
 export const FolderListItem = (props: FolderListItemProps) => {
   const { currentFolderId, isSearching, setIsSearching, setCurrentFolderId } =
@@ -29,7 +33,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
     !isSelected && setCurrentFolderId(props.folder.id);
   };
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(props.isRoot || !hasSubfolders);
   useEffect(() => {
     if (hasSubfolders && !open) {
       const isParentOfCurrentFolder =

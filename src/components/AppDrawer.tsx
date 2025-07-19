@@ -71,7 +71,7 @@ export const AppDrawer = () => {
           borderColor: theme.palette.divider,
         })}
       >
-        <FolderList folders={filteredFolders} />
+        <FolderList folders={filteredFolders} isRoot />
       </Box>
       <Box
         onDragStart={(e) => {
