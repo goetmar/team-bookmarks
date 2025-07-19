@@ -32,6 +32,7 @@ export const CardItem = (props: CardItemProps) => {
         justifyContent: "flex-start",
         borderRadius: 0,
         px: 2,
+        textTransform: "none",
         ...props.buttonProps?.sx,
       }}
     >

@@ -55,11 +55,11 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           variant="body2"
           className="hidden-url"
           color={"text.secondary"}
-          sx={theme => ({
+          sx={(theme) => ({
             textTransform: "lowercase",
             transition: theme.transitions.create(["opacity"], {
               duration: theme.transitions.duration.short,
-            })
+            }),
           })}
         >
           {props.bookmark.url}
