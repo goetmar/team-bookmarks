@@ -5,8 +5,21 @@ type Resize = {
   enableResize: () => void;
 };
 
+const getLocalWidth = (): number | null => {
+  const localDrawerWidth = localStorage.getItem("drawerWidth");
+  return localDrawerWidth !== null
+    ? Number(JSON.parse(localDrawerWidth))
+    : null;
+};
+
+const setLocalWidth = (width: number) => {
+  localStorage.setItem("drawerWidth", JSON.stringify(width));
+};
+
 const useResize = (initialWidth?: number | string): Resize => {
-  const [width, setWidth] = useState<number | string>(initialWidth || 0);
+  const [width, setWidth] = useState<number | string>(
+    getLocalWidth() || initialWidth || 0
+  );
 
   const enableResize = useCallback(() => {
     document.addEventListener("mousemove", resize);
@@ -21,6 +34,7 @@ const useResize = (initialWidth?: number | string): Resize => {
   const resize = useCallback((e: MouseEvent) => {
     const newWidth = e.clientX + 1;
     setWidth(newWidth + "px");
+    setLocalWidth(newWidth);
   }, []);
 
   return { width, enableResize };
