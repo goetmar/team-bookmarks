@@ -1,0 +1,327 @@
+{
+  "$schema": "bookmarks.schema.json",
+  "name": "Test Bookmarks",
+  "bookmarks": [
+    {
+      "name": "Example Folders",
+      "bookmarks": [
+        {
+          "name": "Social Media",
+          "bookmarks": [
+            {
+              "name": "Instagram",
+              "url": "https://www.instagram.com/"
+            },
+            {
+              "name": "WhatsApp",
+              "url": "https://web.whatsapp.com/"
+            },
+            {
+              "name": "X",
+              "url": "https://x.com/home"
+            },
+            {
+              "name": "Bluesky",
+              "url": "https://bsky.app/"
+            }
+          ]
+        },
+        {
+          "name": "Google Apps",
+          "bookmarks": [
+            {
+              "name": "Google Translate",
+              "url": "https://translate.google.com/?authuser=0"
+            },
+            {
+              "name": "Gmail",
+              "url": "https://mail.google.com/mail/?authuser=0"
+            },
+            {
+              "name": "Google Drive",
+              "url": "https://drive.google.com/?authuser=0"
+            },
+            {
+              "name": "Google Search",
+              "url": "https://www.google.com/?authuser=0"
+            },
+            {
+              "name": "Google Calendar",
+              "url": "https://calendar.google.com/calendar?authuser=0"
+            },
+            {
+              "name": "Gemini",
+              "url": "https://gemini.google.com/?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all&authuser=0"
+            },
+            {
+              "name": "Youtube",
+              "url": "https://www.youtube.com/?authuser=0"
+            },
+            {
+              "name": "Google News",
+              "url": "https://news.google.com/?authuser=0"
+            },
+            {
+              "name": "Google Meet",
+              "url": "https://meet.google.com/?hs=197&authuser=0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Edge Cases",
+      "bookmarks": [
+        {
+          "name": "Nested Folders",
+          "bookmarks": [
+            {
+              "name": "Nested Folder 1",
+              "bookmarks": [
+                {
+                  "name": "Nested Folder 2",
+                  "bookmarks": [
+                    {
+                      "name": "Nested Folder 3",
+                      "bookmarks": [
+                        {
+                          "name": "Nested Folder 4",
+                          "bookmarks": [
+                            {
+                              "name": "Verzeichnisstruktur",
+                              "url": "https://de.wikipedia.org/wiki/Verzeichnisstruktur"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Long Name",
+          "bookmarks": [
+            {
+              "name": "Folder with a long name | This name is kinda very long. I repeat, This name is kinda very long. I repeat, This name is kinda very long.",
+              "bookmarks": [
+                {
+                  "name": "Hubert Blaine Wolfeschlegelsteinhausenbergerdorff, Sr.",
+                  "url": "https://de.wikipedia.org/wiki/Hubert_Blaine_Wolfeschlegelsteinhausenbergerdorff,_Sr."
+                }
+              ]
+            },
+            {
+              "name": "Bookmark with a long name | This name is kinda very long. I repeat, This name is kinda very long. I repeat, This name is kinda very long.",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Bookmark with a long url",
+              "url": "https://translate.google.com/?hl=de&sl=en&tl=de&text=This%20name%20is%20kinda%20very%20long.%20I%20repeat%2C%20This%20name%20is%20kinda%20very%20long.&op=translate"
+            }
+          ]
+        },
+        {
+          "name": "Many Links",
+          "bookmarks": [
+            {
+              "name": "Copy 1",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 2",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 3",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 4",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 5",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 6",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 7",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 8",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 9",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 10",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 11",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 12",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 13",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 14",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 15",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 16",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 17",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 18",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 19",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 20",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 21",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 22",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 23",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 24",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 25",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 26",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 27",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 28",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 29",
+              "url": "http://localhost:5173/"
+            },
+            {
+              "name": "Copy 30",
+              "url": "http://localhost:5173/"
+            }
+          ]
+        },
+        {
+          "name": "Many Folders",
+          "bookmarks": [
+            {
+              "name": "Empty Folder A",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder B",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder C",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder D",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder E",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder F",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder G",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder H",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder I",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder J",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder K",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder L",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder M",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder N",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder O",
+              "bookmarks": []
+            },
+            {
+              "name": "Empty Folder P",
+              "bookmarks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Link in root Folder",
+      "url": "http://localhost:5173/"
+    }
+  ]
+}

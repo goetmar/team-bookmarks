@@ -3,72 +3,98 @@
   "name": "Bookmarks",
   "bookmarks": [
     {
-      "name": "General",
+      "name": "Examples",
       "bookmarks": [
         {
-          "name": "X",
-          "url": "https://x.com/home"
-        },
-        {
-          "name": "Youtube",
-          "url": "https://www.youtube.com/"
-        },
-        {
-          "name": "Apps",
+          "name": "Web Development",
           "bookmarks": [
             {
-              "name": "Instagram",
-              "url": "https://www.instagram.com/"
+              "name": "MDN Web Docs",
+              "url": "https://developer.mozilla.org/"
             },
             {
-              "name": "WhatsApp",
-              "url": "https://web.whatsapp.com/"
+              "name": "Can I use",
+              "url": "https://caniuse.com/"
             },
             {
-              "name": "Utility",
-              "bookmarks": [
-                {
-                  "name": "Google Translate",
-                  "url": "https://translate.google.com/?hl=de"
-                }
-              ]
+              "name": "React Documentation",
+              "url": "https://reactjs.org/docs/getting-started.html"
+            },
+            {
+              "name": "Tailwind CSS",
+              "url": "https://tailwindcss.com/"
+            }
+          ]
+        },
+        {
+          "name": "Design & UX",
+          "bookmarks": [
+            {
+              "name": "Figma",
+              "url": "https://www.figma.com/"
+            },
+            {
+              "name": "Laws of UX",
+              "url": "https://lawsofux.com/"
+            },
+            {
+              "name": "Dribbble",
+              "url": "https://dribbble.com/"
+            },
+            {
+              "name": "CSS Gradient",
+              "url": "https://cssgradient.io/"
+            }
+          ]
+        },
+        {
+          "name": "Tools",
+          "bookmarks": [
+            {
+              "name": "Trello",
+              "url": "https://trello.com/"
+            },
+            {
+              "name": "ChatGPT",
+              "url": "https://chat.openai.com/"
             }
           ]
         }
       ]
     },
     {
-      "name": "Shops",
+      "name": "About",
       "bookmarks": [
         {
-          "name": "Amazon",
-          "url": "https://www.amazon.de/"
+          "name": "Project GitHub Repository",
+          "url": "https://github.com/goetmar/team-bookmarks"
         },
         {
-          "name": "OTTO",
-          "url": "https://www.otto.de/"
-        },
-        {
-          "name": "Zalando",
-          "url": "https://www.zalando.de/herren-home/"
-        },
-        {
-          "name": "About You",
-          "url": "https://www.aboutyou.de/"
-        },
-        {
-          "name": "Empty",
-          "bookmarks": []
+          "name": "Project Stack",
+          "bookmarks": [
+            {
+              "name": "Typescript",
+              "url": "https://www.typescriptlang.org/"
+            },
+            {
+              "name": "React",
+              "url": "https://react.dev/"
+            },
+            {
+              "name": "Vite",
+              "url": "https://vite.dev/"
+            },
+            {
+              "name": "Material UI",
+              "url": "https://mui.com/"
+            },
+            {
+              "name": "Zustand",
+              "url": "https://zustand-demo.pmnd.rs/"
+            }
+          ]
         }
       ]
-    },
-    {
-      "name": "Material UI",
-      "url": "https://mui.com/"
-    },
-    {
-      "name": "ChatGPT",
-      "url": "https://chatgpt.com/"
     }
   ]
 }
