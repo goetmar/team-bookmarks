@@ -18,7 +18,7 @@ export const SettingsButton = () => {
     sort: "Sort by Name",
     parent: "Show Parent Folder",
     copy: "Show Copy Button",
-    openInNewTab: "Open in new Tab",
+    openInNewTab: "Open Links in new Tab",
   };
 
   return (

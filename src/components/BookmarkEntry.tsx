@@ -19,19 +19,26 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
   };
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box
+      sx={(theme) => ({
+        position: "relative",
+        "& .hidden-element": {
+          opacity: 0,
+          transition: theme.transitions.create(["opacity"], {
+            duration: theme.transitions.duration.short,
+          }),
+        },
+        "&:hover .hidden-element": {
+          opacity: 1,
+        },
+      })}
+    >
       <CardItem
         buttonProps={{
           href: props.bookmark.url,
           target: props.openInNewTab ? "_blank" : undefined,
           rel: props.openInNewTab ? "noopener" : undefined,
           sx: {
-            "& .hidden-url": {
-              opacity: 0,
-            },
-            "&:hover .hidden-url": {
-              opacity: 1,
-            },
             pr: props.clipboard ? "50px" : null,
           },
         }}
@@ -53,19 +60,16 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
         {props.bookmark.name}
         <Typography
           variant="body2"
-          className="hidden-url"
+          className="hidden-element"
           color={"text.secondary"}
-          sx={(theme) => ({
-            textTransform: "lowercase",
-            transition: theme.transitions.create(["opacity"], {
-              duration: theme.transitions.duration.short,
-            }),
-          })}
+          textTransform={"lowercase"}
         >
           {props.bookmark.url}
         </Typography>
       </CardItem>
-      {props.clipboard && <ClipboardCopy url={props.bookmark.url} />}
+      {props.clipboard && (
+        <ClipboardCopy url={props.bookmark.url} className="hidden-element" />
+      )}
     </Box>
   );
 };
