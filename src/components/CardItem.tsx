@@ -1,4 +1,5 @@
-import { Box, BoxProps, Button, ButtonProps } from "@mui/material";
+import Box, { BoxProps } from "@mui/material/Box";
+import Button, { ButtonProps } from "@mui/material/Button";
 import { ReactNode } from "react";
 
 const boxProps: BoxProps = {

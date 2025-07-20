@@ -1,5 +1,7 @@
-import { Settings } from "@mui/icons-material";
-import { ListItemText, MenuItem, Switch } from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Switch from "@mui/material/Switch";
 import { useEffect } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { AppSetting } from "../types/types";
@@ -21,7 +23,7 @@ export const SettingsButton = () => {
   };
 
   return (
-    <MenuButton label="Settings" icon={<Settings />}>
+    <MenuButton label="Settings" icon={<SettingsIcon />}>
       {(Object.keys(settings) as Array<AppSetting>).map((setting, index) => {
         return (
           <MenuItem

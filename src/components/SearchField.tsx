@@ -1,11 +1,9 @@
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  alpha,
-  IconButton,
-  InputAdornment,
-  TextField,
-  useAutocomplete,
-} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import { alpha } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import useAutocomplete from "@mui/material/useAutocomplete";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { filterBookmarks } from "../utils/bookmarkHelper";

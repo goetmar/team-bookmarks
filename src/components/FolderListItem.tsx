@@ -1,16 +1,12 @@
-import {
-  ExpandLess,
-  ExpandMore,
-  Folder,
-  FolderOpen,
-} from "@mui/icons-material";
-import {
-  Collapse,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  Theme,
-} from "@mui/material";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FolderIcon from "@mui/icons-material/Folder";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import Collapse from "@mui/material/Collapse";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import { Theme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { BookmarkFolder } from "../types/types";
@@ -80,9 +76,11 @@ export const FolderListItem = (props: FolderListItemProps) => {
         ]}
       >
         <ListItemIcon>
-          {hasSubfolders && (open ? <ExpandLess /> : <ExpandMore />)}
+          {hasSubfolders && (open ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
         </ListItemIcon>
-        <ListItemIcon>{open ? <FolderOpen /> : <Folder />}</ListItemIcon>
+        <ListItemIcon>
+          {open ? <FolderOpenIcon /> : <FolderIcon />}
+        </ListItemIcon>
         <ListItemText slotProps={{ primary: { fontWeight: 500 } }}>
           {props.folder.name}
         </ListItemText>

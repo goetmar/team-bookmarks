@@ -1,4 +1,6 @@
-import { IconButton, Menu, Tooltip } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import Tooltip from "@mui/material/Tooltip";
 import { ReactElement, ReactNode, useState } from "react";
 
 export type MenuButtonProps = {

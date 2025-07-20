@@ -1,11 +1,10 @@
-import { Brightness4, Check } from "@mui/icons-material";
-import {
-  capitalize,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  useColorScheme,
-} from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import CheckIcon from "@mui/icons-material/Check";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import { useColorScheme } from "@mui/material/styles";
+import { capitalize } from "@mui/material/utils";
 import { MenuButton } from "./MenuButton";
 
 export const ColorModeButton = () => {
@@ -18,7 +17,7 @@ export const ColorModeButton = () => {
   };
 
   return (
-    <MenuButton label="Color Mode" icon={<Brightness4 />}>
+    <MenuButton label="Color Mode" icon={<Brightness4Icon />}>
       {modes.map((modeValue, index) => {
         if (modeValue !== mode) {
           return (
@@ -30,7 +29,7 @@ export const ColorModeButton = () => {
           return (
             <MenuItem key={index} onClick={() => handleClick(modeValue)}>
               <ListItemIcon>
-                <Check />
+                <CheckIcon />
               </ListItemIcon>
               <ListItemText>{capitalize(modeValue)}</ListItemText>
             </MenuItem>

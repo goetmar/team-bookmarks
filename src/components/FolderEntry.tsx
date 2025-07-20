@@ -1,8 +1,6 @@
-import {
-  DriveFolderUploadRounded,
-  Folder,
-  FolderOpen,
-} from "@mui/icons-material";
+import DriveFolderUploadRoundedIcon from "@mui/icons-material/DriveFolderUploadRounded";
+import FolderIcon from "@mui/icons-material/Folder";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { BookmarkFolder } from "../types/types";
 import { CardItem } from "./CardItem";
@@ -34,9 +32,11 @@ export const FolderEntry = (props: FolderEntryProps) => {
             }
       }
     >
-      {props.variant === "up" && <DriveFolderUploadRounded fontSize="small" />}
-      {props.variant === "open" && <FolderOpen fontSize="small" />}
-      {props.variant === "close" && <Folder fontSize="small" />}
+      {props.variant === "up" && (
+        <DriveFolderUploadRoundedIcon fontSize="small" />
+      )}
+      {props.variant === "open" && <FolderOpenIcon fontSize="small" />}
+      {props.variant === "close" && <FolderIcon fontSize="small" />}
       {props.folder.name}
     </CardItem>
   );

@@ -1,4 +1,5 @@
-import { CssBaseline, ThemeProvider, useColorScheme } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, useColorScheme } from "@mui/material/styles";
 import { BookmarkPage } from "./pages/BookmarkPage";
 import { useDefaultTheme } from "./themes/Theme";
 

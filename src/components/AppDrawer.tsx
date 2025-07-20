@@ -1,4 +1,7 @@
-import { Box, Divider, Drawer, Toolbar } from "@mui/material";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import Toolbar from "@mui/material/Toolbar";
 import { useEffect, useMemo, useRef } from "react";
 import { FolderList } from "../components/FolderList";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";

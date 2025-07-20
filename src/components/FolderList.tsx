@@ -1,4 +1,4 @@
-import { MenuList } from "@mui/material";
+import MenuList from "@mui/material/MenuList";
 import { BookmarkItem } from "../types/types";
 import { isBookmark } from "../utils/bookmarkHelper";
 import { FolderListItem } from "./FolderListItem";

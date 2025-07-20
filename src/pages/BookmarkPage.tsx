@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 import { AppDrawer } from "../components/AppDrawer";
 import AppNavBar from "../components/AppNavBar";
 import { MainContent } from "../components/MainContent";
