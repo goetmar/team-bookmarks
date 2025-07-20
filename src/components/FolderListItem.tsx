@@ -3,11 +3,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FolderIcon from "@mui/icons-material/Folder";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import { Theme } from "@mui/material/styles";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { BookmarkFolder } from "../types/types";
 import { findFolderById } from "../utils/bookmarkHelper";
@@ -24,21 +25,25 @@ export const FolderListItem = (props: FolderListItemProps) => {
     useBookmarkStore();
   const hasSubfolders = props.folder.bookmarks.length > 0;
   const isSelected = !isSearching && currentFolderId === props.folder.id;
-  const handleClick = () => {
+  const selectFolder = () => {
     isSearching && setIsSearching(false);
     !isSelected && setCurrentFolderId(props.folder.id);
   };
 
+  const isParentOfCurrentFolder = useMemo(() => {
+    return (
+      currentFolderId !== props.folder.id &&
+      findFolderById(props.folder.bookmarks, currentFolderId) !== undefined
+    );
+  }, [currentFolderId]);
+
   const [open, setOpen] = useState(props.isRoot || !hasSubfolders);
   useEffect(() => {
     if (hasSubfolders && !open) {
-      const isParentOfCurrentFolder =
-        currentFolderId !== props.folder.id &&
-        findFolderById(props.folder.bookmarks, currentFolderId);
       isParentOfCurrentFolder && setOpen(true);
     }
   }, [currentFolderId]);
-  const handleDoubleClick = () => {
+  const toggleOpen = () => {
     setOpen((open) => !open);
   };
 
@@ -60,11 +65,12 @@ export const FolderListItem = (props: FolderListItemProps) => {
       <MenuItem
         dense
         selected={isSelected}
-        onClick={handleClick}
-        onDoubleClick={hasSubfolders ? handleDoubleClick : undefined}
+        onClick={selectFolder}
+        onDoubleClick={hasSubfolders ? toggleOpen : undefined}
         sx={[
           (theme) => ({
             pl: props.inset,
+            py: 0,
             width: "fit-content",
             minWidth: "100%",
             borderTopRightRadius: theme.shape.borderRadius + "px",
@@ -76,7 +82,21 @@ export const FolderListItem = (props: FolderListItemProps) => {
         ]}
       >
         <ListItemIcon>
-          {hasSubfolders && (open ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
+          {hasSubfolders && (
+            <IconButton
+              size="small"
+              onMouseDown={(e) => {
+                e.stopPropagation();
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                open && isParentOfCurrentFolder && selectFolder();
+                toggleOpen();
+              }}
+            >
+              {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          )}
         </ListItemIcon>
         <ListItemIcon>
           {open ? <FolderOpenIcon /> : <FolderIcon />}
