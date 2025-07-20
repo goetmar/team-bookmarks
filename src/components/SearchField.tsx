@@ -1,5 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  alpha,
   IconButton,
   InputAdornment,
   TextField,
@@ -61,6 +62,9 @@ export const SearchField = () => {
         inputLabel: { ...getInputLabelProps() },
         htmlInput: { ...getInputProps() },
         input: {
+          sx: (theme) => ({
+            backgroundColor: alpha(theme.palette.background.default, 0.6),
+          }),
           endAdornment: searchValue && (
             <InputAdornment position="end">
               <IconButton
