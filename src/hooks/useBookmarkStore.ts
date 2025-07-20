@@ -20,14 +20,12 @@ const rootFolder: BookmarkFolder = {
 const defaultSettings: Record<AppSetting, boolean> = {
   sort: true,
   parent: false,
-  copy: false,
   openInNewTab: false,
 };
 
 const storedSettings: Record<AppSetting, boolean> = {
   sort: getLocalSetting("sort"),
   parent: getLocalSetting("parent"),
-  copy: getLocalSetting("copy"),
   openInNewTab: getLocalSetting("openInNewTab"),
 };
 

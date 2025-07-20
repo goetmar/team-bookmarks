@@ -46,7 +46,7 @@ export const ContentCard = () => {
           <BookmarkEntry
             key={item.id}
             bookmark={item}
-            clipboard={settings.copy}
+            clipboard
             openInNewTab={settings.openInNewTab}
           />
         ) : (

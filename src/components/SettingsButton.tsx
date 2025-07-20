@@ -17,7 +17,6 @@ export const SettingsButton = () => {
   const labels: Record<AppSetting, string> = {
     sort: "Sort by Name",
     parent: "Show Parent Folder",
-    copy: "Show Copy Button",
     openInNewTab: "Open Links in new Tab",
   };
 
