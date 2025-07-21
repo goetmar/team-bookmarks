@@ -11,6 +11,7 @@ import { filterBookmarks } from "../utils/bookmarkHelper";
 
 export const SearchField = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
+  const isSearching = useBookmarkStore((state) => state.isSearching);
   const setIsSearching = useBookmarkStore((state) => state.setIsSearching);
   const setSearchResults = useBookmarkStore((state) => state.setSearchResults);
 
@@ -20,7 +21,8 @@ export const SearchField = () => {
     );
   }, [rootFolder]);
 
-  const [searchValue, setSearchValue] = useState("");
+  const initialValue = "";
+  const [searchValue, setSearchValue] = useState(initialValue);
 
   const { groupedOptions, getInputLabelProps, getInputProps } = useAutocomplete(
     {
@@ -40,6 +42,10 @@ export const SearchField = () => {
       setIsSearching(false);
     }
   }, [searchValue]);
+
+  useEffect(() => {
+    if (!isSearching) setSearchValue(initialValue);
+  }, [isSearching]);
 
   const textInputRef = useRef<HTMLInputElement>(null);
 
