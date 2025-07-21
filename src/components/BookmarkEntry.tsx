@@ -28,6 +28,9 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           transition: theme.transitions.create(["opacity"], {
             duration: theme.transitions.duration.short,
           }),
+          "&:focus-visible": {
+            opacity: 1,
+          },
         },
         "&:hover .hidden-element": {
           opacity: 1,
@@ -41,6 +44,9 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           rel: props.openInNewTab ? "noopener" : undefined,
           sx: {
             pr: props.clipboard ? "50px" : null,
+            "&:focus-visible .hidden-element": {
+              opacity: 1,
+            },
           },
         }}
       >
