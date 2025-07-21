@@ -25,3 +25,11 @@ export type BookmarkFolderRaw = {
 export type BookmarkItemRaw = BookmarkFolderRaw | BookmarkRaw;
 
 export type AppSetting = "sort" | "parent" | "openInNewTab";
+
+export function generateTypeCheck<T extends object, K extends T>(
+  requiredFields: [string, ...string[]]
+) {
+  return (value: T): value is K => {
+    return requiredFields.every((field) => field in value);
+  };
+}

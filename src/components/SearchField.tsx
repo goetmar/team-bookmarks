@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import useAutocomplete from "@mui/material/useAutocomplete";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
+import useKeyboardShortcut from "../hooks/useKeyboardShortcut";
 import { filterBookmarks } from "../utils/bookmarkHelper";
 
 export const SearchField = () => {
@@ -42,6 +43,15 @@ export const SearchField = () => {
 
   const textInputRef = useRef<HTMLInputElement>(null);
 
+  const focusSearch = (e: KeyboardEvent) => {
+    if (!(document.activeElement === textInputRef.current)) {
+      textInputRef.current?.focus();
+      e.preventDefault();
+    }
+  };
+
+  useKeyboardShortcut(focusSearch, { key: "/" });
+
   return (
     <TextField
       size="small"
@@ -49,6 +59,7 @@ export const SearchField = () => {
       label="Search"
       value={searchValue}
       onChange={(e) => setSearchValue(e.target.value)}
+      autoFocus
       inputRef={textInputRef}
       sx={{
         width: 300,
