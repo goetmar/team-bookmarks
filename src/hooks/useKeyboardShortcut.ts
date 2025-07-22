@@ -41,5 +41,5 @@ export default function useKeyboardShortcut(
   useEffect(() => {
     targetElement.addEventListener("keydown" as const, eventHandler);
     return () => targetElement.removeEventListener("keydown", eventHandler);
-  }, [document, eventHandler]);
+  }, [targetElement, eventHandler]);
 }

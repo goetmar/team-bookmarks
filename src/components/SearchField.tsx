@@ -41,6 +41,8 @@ export const SearchField = () => {
     } else {
       setIsSearching(false);
     }
+    // TODO check if all deps can be included
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
   useEffect(() => {

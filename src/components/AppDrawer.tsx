@@ -30,14 +30,16 @@ export const AppDrawer = () => {
     }
   };
 
-  const observer = new ResizeObserver(trackResize);
   useEffect(() => {
+    const observer = new ResizeObserver(trackResize);
+    let observerRefValue = null;
     if (ref.current) {
       observer.observe(ref.current, { box: "border-box" });
+      observerRefValue = ref.current;
     }
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (observerRefValue) {
+        observer.unobserve(observerRefValue);
       }
     };
   }, []);

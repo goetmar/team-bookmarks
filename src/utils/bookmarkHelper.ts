@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {
   Bookmark,
   BookmarkFolder,
@@ -15,7 +16,7 @@ export function isBookmarkRaw(b: BookmarkItemRaw): b is BookmarkRaw {
 }
 
 export function filterBookmarks(items: BookmarkItem[]): Bookmark[] {
-  const itemsCopy: BookmarkItem[] = JSON.parse(JSON.stringify(items));
+  const itemsCopy = cloneDeep(items);
   let bookmarks: Bookmark[] = [];
   itemsCopy.forEach((item) => {
     if (isBookmark(item)) {
@@ -28,7 +29,7 @@ export function filterBookmarks(items: BookmarkItem[]): Bookmark[] {
 }
 
 export function filterFolders(items: BookmarkItem[]): BookmarkFolder[] {
-  const itemsCopy: BookmarkItem[] = JSON.parse(JSON.stringify(items));
+  const itemsCopy = cloneDeep(items);
   const folders: BookmarkFolder[] = [];
   itemsCopy.forEach((item) => {
     if (!isBookmark(item)) {
@@ -45,8 +46,8 @@ export function indexBookmarks(
   items: BookmarkItemRaw[],
   startId?: number
 ): [BookmarkItem[], number] {
-  const itemsCopy: BookmarkItemRaw[] = JSON.parse(JSON.stringify(items));
-  let bookmarks: BookmarkItem[] = [];
+  const itemsCopy = cloneDeep(items);
+  const bookmarks: BookmarkItem[] = [];
   let index = startId || 0;
   itemsCopy.forEach((item) => {
     if (isBookmarkRaw(item)) {
@@ -100,9 +101,7 @@ export function sortBookmarks(
   items: BookmarkItem[],
   copy = true
 ): BookmarkItem[] {
-  const result: BookmarkItem[] = copy
-    ? JSON.parse(JSON.stringify(items))
-    : items;
+  const result: BookmarkItem[] = copy ? cloneDeep(items) : items;
   result.sort((a, b) => {
     if (isBookmark(a) && !isBookmark(b)) {
       return 1;

@@ -18,7 +18,9 @@ export const ContentCard = () => {
   } = useBookmarkStore();
   const [currentFolder, parentFolder] = useMemo(() => {
     return [getCurrentFolder(), getParentFolder()];
-  }, [rootFolder, currentFolderId]);
+    // TODO check alternatives
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rootFolder, currentFolderId, getCurrentFolder, getParentFolder]);
 
   const showParent = settings.parent;
   const cardItems = isSearching

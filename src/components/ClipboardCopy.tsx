@@ -36,8 +36,12 @@ export const ClipboardCopy = (props: ClipboardCopyProps) => {
           },
         }}
         onClick={() => {
-          navigator.clipboard.writeText(props.url);
-          setCopied(true);
+          navigator.clipboard.writeText(props.url).then(
+            () => setCopied(true),
+            (reason) => {
+              console.error(reason);
+            }
+          );
         }}
       >
         <ContentCopyIcon fontSize="small" />

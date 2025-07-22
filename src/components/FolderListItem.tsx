@@ -26,8 +26,8 @@ export const FolderListItem = (props: FolderListItemProps) => {
   const hasSubfolders = props.folder.bookmarks.length > 0;
   const isSelected = !isSearching && currentFolderId === props.folder.id;
   const selectFolder = () => {
-    isSearching && setIsSearching(false);
-    !isSelected && setCurrentFolderId(props.folder.id);
+    if (isSearching) setIsSearching(false);
+    if (!isSelected) setCurrentFolderId(props.folder.id);
   };
 
   const isParentOfCurrentFolder = useMemo(() => {
@@ -35,13 +35,17 @@ export const FolderListItem = (props: FolderListItemProps) => {
       currentFolderId !== props.folder.id &&
       findFolderById(props.folder.bookmarks, currentFolderId) !== undefined
     );
+    // TODO check if all deps can be included
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFolderId]);
 
   const [open, setOpen] = useState(props.isRoot || !hasSubfolders);
   useEffect(() => {
     if (hasSubfolders && !open) {
-      isParentOfCurrentFolder && setOpen(true);
+      if (isParentOfCurrentFolder) setOpen(true);
     }
+    // TODO check if all deps can be included
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentFolderId]);
   const toggleOpen = () => {
     setOpen((open) => !open);
@@ -90,7 +94,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
               }}
               onClick={(e) => {
                 e.stopPropagation();
-                open && isParentOfCurrentFolder && selectFolder();
+                if (open && isParentOfCurrentFolder) selectFolder();
                 toggleOpen();
               }}
             >

@@ -21,21 +21,21 @@ const useResize = (initialWidth?: number | string): Resize => {
     getLocalWidth() || initialWidth || 0
   );
 
-  const enableResize = useCallback(() => {
-    document.addEventListener("mousemove", resize);
-    document.addEventListener("mouseup", disableResize);
-  }, []);
-
-  const disableResize = useCallback(() => {
-    document.removeEventListener("mousemove", resize);
-    document.removeEventListener("mouseup", disableResize);
-  }, []);
-
   const resize = useCallback((e: MouseEvent) => {
     const newWidth = e.clientX + 1;
     setWidth(newWidth + "px");
     setLocalWidth(newWidth);
   }, []);
+
+  const disableResize = useCallback(() => {
+    document.removeEventListener("mousemove", resize);
+    document.removeEventListener("mouseup", disableResize);
+  }, [resize]);
+
+  const enableResize = useCallback(() => {
+    document.addEventListener("mousemove", resize);
+    document.addEventListener("mouseup", disableResize);
+  }, [resize, disableResize]);
 
   return { width, enableResize };
 };

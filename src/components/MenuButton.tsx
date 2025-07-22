@@ -24,7 +24,7 @@ export const MenuButton = (props: MenuButtonProps) => {
         <IconButton
           sx={(theme) => ({
             borderRadius: theme.shape.borderRadius + "px",
-            backgroundColor: Boolean(anchorEl)
+            backgroundColor: anchorEl
               ? theme.palette.action.hover
               : null,
           })}
