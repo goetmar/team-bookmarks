@@ -5,7 +5,8 @@ export const MainContent = () => {
   return (
     <Box
       component="main"
-      justifyItems="center"
+      display="flex"
+      justifyContent="center"
       sx={{
         p: 3,
         flex: "1 1 0",
