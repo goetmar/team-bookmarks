@@ -16,7 +16,6 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-// TODO make react-refresh optional
 export default defineConfig([
   {
     files: ["**/*.ts", "**/*.tsx"],
@@ -30,9 +29,6 @@ export default defineConfig([
         tsconfigRootDir: __dirname,
       },
     },
-    plugins: {
-      "react-refresh": reactRefresh,
-    },
     settings: {
       react: {
         version: "detect",
@@ -40,10 +36,6 @@ export default defineConfig([
     },
     rules: {
       "react/prop-types": "off",
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
       "no-restricted-imports": [
         "error",
         {
@@ -69,4 +61,5 @@ export default defineConfig([
   {
     ignores: ["dist/**", ".eslintrc.cjs"],
   },
+  reactRefresh.configs.vite,
 ]);
