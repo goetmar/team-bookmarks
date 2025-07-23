@@ -51,5 +51,4 @@ export function downloadBookmarksFile(
     "data:text/plain;charset=utf-8," + encodeURIComponent(fileContent);
   link.download = filename;
   link.click();
-  // TODO I might need to put the element in the DOM for firefox, need to check that
 }
