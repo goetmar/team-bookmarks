@@ -1,30 +1,62 @@
-# React + TypeScript + Vite
+# 📚 Team Bookmarks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight, static bookmark organizer for developer teams.
+Manage and share your essential links via a simple JSON file.
 
-Currently, two official plugins are available:
+## 🖼️ Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![App Screenshot](./src/assets/demo.png)
 
-## Expanding the ESLint configuration
+## ✨ Core Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Intuitive folder navigation**
+- **Fast search across all bookmarks**
+- **Export and store bookmarks in the browser**
+- **Dark mode support**
+- **Locally stored user settings**
 
-- Configure the top-level `parserOptions` property like this:
+## 🛠️ Technical Advantages
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **No database or backend required**
+- **Statically hostable**
+- **Collaborative via Git**
+- **Easily customizable to fit your team’s needs**
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/goetmar/team-bookmarks.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+
+## ⚙️ How to Use
+
+1. Go to `/src/data` and create a new `bookmarks.json` file:
+
+   ```json
+   {
+     "$schema": "bookmarks.schema.json",
+     "name": "Bookmarks",
+     "bookmarks": []
+   }
+   ```
+
+   This defines your root folder. You can name it freely and nest bookmarks or folders as needed.
+
+2. Add your links and folders inside the `bookmarks` array. See `example.bookmarks.json` for a complete example.
+
+3. Adjust the import in `src/hooks/useBookmarkStore.ts` to use the new file:
+
+   ```ts
+   import bookmarksJson from "../data/bookmarks.json";
+   ```
+
+4. Done! To update your bookmarks, simply edit the JSON file and redeploy.
