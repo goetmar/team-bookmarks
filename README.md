@@ -5,7 +5,7 @@ Manage and share your essential links via a simple JSON file.
 
 ## 🖼️ Preview
 
-![App Screenshot](./src/assets/demo.png)
+![App Screenshot](./docs/demo.png)
 
 ## ✨ Core Features
 
