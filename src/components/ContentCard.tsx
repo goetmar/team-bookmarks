@@ -1,26 +1,22 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { useMemo } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
-import { isBookmark } from "../utils/bookmarkHelper";
+import {
+  findFolderById,
+  findParentFolderById,
+  isBookmark,
+} from "../utils/bookmarkHelper";
 import { BookmarkEntry } from "./BookmarkEntry";
 import { FolderEntry } from "./FolderEntry";
 
 export const ContentCard = () => {
-  const {
-    isSearching,
-    searchResults,
-    settings,
-    rootFolder,
-    currentFolderId,
-    getCurrentFolder,
-    getParentFolder,
-  } = useBookmarkStore();
-  const [currentFolder, parentFolder] = useMemo(() => {
-    return [getCurrentFolder(), getParentFolder()];
-    // TODO check alternatives
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rootFolder, currentFolderId, getCurrentFolder, getParentFolder]);
+  const { isSearching, searchResults, settings } = useBookmarkStore();
+  const currentFolder = useBookmarkStore((state) =>
+    findFolderById([state.rootFolder], state.currentFolderId)
+  );
+  const parentFolder = useBookmarkStore((state) =>
+    findParentFolderById(state.rootFolder, state.currentFolderId)
+  );
 
   const showParent = settings.parent;
   const cardItems = isSearching

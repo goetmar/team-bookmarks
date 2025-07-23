@@ -25,31 +25,25 @@ export const FolderListItem = (props: FolderListItemProps) => {
     useBookmarkStore();
   const hasSubfolders = props.folder.bookmarks.length > 0;
   const isSelected = !isSearching && currentFolderId === props.folder.id;
+  const [open, setOpen] = useState(props.isRoot || !hasSubfolders);
+  const toggleOpen = () => {
+    setOpen((open) => !open);
+  };
   const selectFolder = () => {
     if (isSearching) setIsSearching(false);
     if (!isSelected) setCurrentFolderId(props.folder.id);
   };
 
-  const isParentOfCurrentFolder = useMemo(() => {
+  const isParentOfCurrentFolder: boolean = useMemo(() => {
+    if (!hasSubfolders || currentFolderId === props.folder.id) return false;
     return (
-      currentFolderId !== props.folder.id &&
       findFolderById(props.folder.bookmarks, currentFolderId) !== undefined
     );
-    // TODO check if all deps can be included
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFolderId]);
+  }, [currentFolderId, hasSubfolders, props.folder]);
 
-  const [open, setOpen] = useState(props.isRoot || !hasSubfolders);
   useEffect(() => {
-    if (hasSubfolders && !open) {
-      if (isParentOfCurrentFolder) setOpen(true);
-    }
-    // TODO check if all deps can be included
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentFolderId]);
-  const toggleOpen = () => {
-    setOpen((open) => !open);
-  };
+    if (isParentOfCurrentFolder && !open) setOpen(true);
+  }, [isParentOfCurrentFolder, open]);
 
   const color = isSelected ? "primary.main" : "text.secondary";
   const hoverStyle = (theme: Theme, mode: "light" | "dark") => {

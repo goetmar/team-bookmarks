@@ -1,12 +1,7 @@
 import { create } from "zustand";
 import bookmarksJson from "../data/example.bookmarks.json";
 import { AppSetting, BookmarkFolder, BookmarkItem } from "../types/types";
-import {
-  findFolderById,
-  findParentFolderById,
-  indexBookmarks,
-  sortBookmarks,
-} from "../utils/bookmarkHelper";
+import { indexBookmarks, sortBookmarks } from "../utils/bookmarkHelper";
 
 const indexedBookmarks = indexBookmarks(bookmarksJson.bookmarks)[0];
 const sortedBookmarks = sortBookmarks(indexedBookmarks);
@@ -45,8 +40,6 @@ type BookmarkStoreState = {
 };
 
 type BookmarkStoreActions = {
-  getParentFolder: () => BookmarkFolder | undefined;
-  getCurrentFolder: () => BookmarkFolder | undefined;
   setCurrentFolderId: (id: number) => void;
   setIsSearching: (searching: boolean) => void;
   setSearchResults: (results: BookmarkItem[]) => void;
@@ -62,12 +55,6 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
   isSearching: false,
   searchResults: [],
   settings: storedSettings,
-  getParentFolder: () => {
-    return findParentFolderById(get().rootFolder, get().currentFolderId);
-  },
-  getCurrentFolder: () => {
-    return findFolderById([get().rootFolder], get().currentFolderId);
-  },
   setCurrentFolderId: (id: number) => {
     set(() => ({
       currentFolderId: id,
@@ -84,13 +71,15 @@ export const useBookmarkStore = create<BookmarkStore>((set, get) => ({
     }));
   },
   toggleSetting: (setting: AppSetting) => {
+    const currentSettings = get().settings;
+    const newValue = !currentSettings[setting];
     set(() => ({
       settings: {
-        ...get().settings,
-        [setting]: !get().settings[setting],
+        ...currentSettings,
+        [setting]: newValue,
       },
     }));
-    localStorage.setItem(setting, JSON.stringify(get().settings[setting]));
+    localStorage.setItem(setting, JSON.stringify(newValue));
   },
   sortBookmarks: (sort: boolean) => {
     set(() => ({

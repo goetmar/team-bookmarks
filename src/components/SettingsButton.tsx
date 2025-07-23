@@ -14,9 +14,7 @@ export const SettingsButton = () => {
 
   useEffect(() => {
     sortBookmarks(settings.sort);
-    // TODO check if all deps can be included
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings.sort]);
+  }, [settings.sort, sortBookmarks]);
 
   const labels: Record<AppSetting, string> = {
     sort: "Sort by Name",

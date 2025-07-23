@@ -16,7 +16,6 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-// TODO check flagged options
 // TODO make react-refresh optional
 export default defineConfig([
   {
@@ -25,8 +24,8 @@ export default defineConfig([
       globals: { ...globals.browser, ...globals.es2021 },
       parser: tsParser,
       parserOptions: {
-        ecmaVersion: "latest", // needed?
-        sourceType: "module", // needed?
+        ecmaVersion: "latest",
+        sourceType: "module",
         project: ["./tsconfig.json", "./tsconfig.node.json"],
         tsconfigRootDir: __dirname,
       },
@@ -36,7 +35,7 @@ export default defineConfig([
     },
     settings: {
       react: {
-        version: "detect", // needed?
+        version: "detect",
       },
     },
     rules: {
@@ -52,17 +51,17 @@ export default defineConfig([
       ],
 
       "@typescript-eslint/no-unused-vars": [
-        "warn", // keep?
-        { argsIgnorePattern: "^_" }, // keep?
+        "warn",
+        { argsIgnorePattern: "^_" },
       ],
-      "react/prop-types": "off", // keep?
+      "react/prop-types": "off",
     },
     extends: compat.extends(
-      "eslint:recommended", // repetitive?
+      "eslint:recommended",
       "plugin:@typescript-eslint/recommended-type-checked",
       //"plugin:@typescript-eslint/stylistic-type-checked", // include?
       "plugin:react/recommended",
-      "plugin:react/jsx-runtime", // keep?
+      "plugin:react/jsx-runtime",
       "plugin:react-hooks/recommended",
       "prettier"
     ),

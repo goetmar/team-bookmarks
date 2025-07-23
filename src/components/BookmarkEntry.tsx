@@ -6,7 +6,6 @@ import { getFaviconByGoogleApi, getFaviconByUrl } from "../utils/faviconHelper";
 import { CardItem } from "./CardItem";
 import { ClipboardCopy } from "./ClipboardCopy";
 
-// TODO get optional props from store
 export type BookmarkEntryProps = {
   bookmark: Bookmark;
   clipboard?: boolean;
