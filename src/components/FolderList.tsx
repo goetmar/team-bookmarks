@@ -17,7 +17,7 @@ export const FolderList = (props: FolderListProps) => (
           <FolderListItem
             key={item.id}
             folder={item}
-            inset={props.inset || 2}
+            inset={props.inset ?? 2}
             isRoot={props.isRoot}
           />
         )

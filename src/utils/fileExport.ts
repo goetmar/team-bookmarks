@@ -4,7 +4,7 @@ import { isBookmarkRaw } from "./bookmarkHelper";
 function mapBookmarkItems(
   items: BookmarkItemRaw[],
   unixTimestamp: number,
-  indentTimes: number = 0
+  indentTimes = 0
 ): string {
   const newLineIndent = "\n" + "    ".repeat(indentTimes);
   return items

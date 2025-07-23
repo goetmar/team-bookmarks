@@ -39,6 +39,7 @@ export default defineConfig([
       },
     },
     rules: {
+      "react/prop-types": "off",
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
@@ -49,17 +50,16 @@ export default defineConfig([
           patterns: [{ regex: "^@mui/[^/]+$" }],
         },
       ],
-
       "@typescript-eslint/no-unused-vars": [
         "warn",
         { argsIgnorePattern: "^_" },
       ],
-      "react/prop-types": "off",
+      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     },
     extends: compat.extends(
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended-type-checked",
-      //"plugin:@typescript-eslint/stylistic-type-checked", // include?
+      "plugin:@typescript-eslint/stylistic-type-checked",
       "plugin:react/recommended",
       "plugin:react/jsx-runtime",
       "plugin:react-hooks/recommended",

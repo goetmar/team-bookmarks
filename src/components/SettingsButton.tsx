@@ -24,7 +24,7 @@ export const SettingsButton = () => {
 
   return (
     <MenuButton label="Settings" icon={<SettingsIcon />}>
-      {(Object.keys(settings) as Array<AppSetting>).map((setting, index) => {
+      {(Object.keys(settings) as AppSetting[]).map((setting, index) => {
         return (
           <MenuItem
             key={index}

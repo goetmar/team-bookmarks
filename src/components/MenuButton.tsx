@@ -24,9 +24,7 @@ export const MenuButton = (props: MenuButtonProps) => {
         <IconButton
           sx={(theme) => ({
             borderRadius: theme.shape.borderRadius + "px",
-            backgroundColor: anchorEl
-              ? theme.palette.action.hover
-              : null,
+            backgroundColor: anchorEl ? theme.palette.action.hover : null,
           })}
           color="inherit"
           aria-label={props.label}

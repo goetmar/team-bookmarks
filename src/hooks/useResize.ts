@@ -18,7 +18,7 @@ const setLocalWidth = (width: number) => {
 
 const useResize = (initialWidth?: number | string): Resize => {
   const [width, setWidth] = useState<number | string>(
-    getLocalWidth() || initialWidth || 0
+    getLocalWidth() ?? initialWidth ?? 0
   );
 
   const resize = useCallback((e: MouseEvent) => {

@@ -11,5 +11,5 @@ export const getFaviconByUrl = (url: string) => {
 };
 
 export const getFaviconByGoogleApi = (url: string, size?: number) => {
-  return `https://www.google.com/s2/favicons?domain=${url}&size=${size || 16}`;
+  return `https://www.google.com/s2/favicons?domain=${url}&size=${size ?? 16}`;
 };

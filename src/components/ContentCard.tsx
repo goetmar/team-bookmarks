@@ -21,7 +21,7 @@ export const ContentCard = () => {
   const showParent = settings.parent;
   const cardItems = isSearching
     ? searchResults
-    : currentFolder?.bookmarks || [];
+    : currentFolder?.bookmarks ?? [];
 
   return (!isSearching && showParent && currentFolder) ||
     cardItems.length > 0 ? (

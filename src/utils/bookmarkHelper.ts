@@ -48,7 +48,7 @@ export function indexBookmarks(
 ): [BookmarkItem[], number] {
   const itemsCopy = cloneDeep(items);
   const bookmarks: BookmarkItem[] = [];
-  let index = startId || 0;
+  let index = startId ?? 0;
   itemsCopy.forEach((item) => {
     if (isBookmarkRaw(item)) {
       bookmarks.push({ ...item, id: index++ });

@@ -25,7 +25,7 @@ export const FolderListItem = (props: FolderListItemProps) => {
     useBookmarkStore();
   const hasSubfolders = props.folder.bookmarks.length > 0;
   const isSelected = !isSearching && currentFolderId === props.folder.id;
-  const [open, setOpen] = useState(props.isRoot || !hasSubfolders);
+  const [open, setOpen] = useState((props.isRoot ?? false) || !hasSubfolders);
   const toggleOpen = () => {
     setOpen((open) => !open);
   };

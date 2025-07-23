@@ -9,7 +9,6 @@ type CodeConfig = { code: KeyboardEvent["code"]; key?: never };
 type KeyConfig = { key: KeyboardEvent["key"]; code?: never };
 
 type ShortcutConfig = Partial<OptionalConfig> & (CodeConfig | KeyConfig);
-
 type ShortcutAction = (e: KeyboardEvent) => void;
 
 const isKeyBoardEvent = generateTypeCheck<Event, KeyboardEvent>([
@@ -21,7 +20,7 @@ export default function useKeyboardShortcut(
   shortcutAction: ShortcutAction,
   config: ShortcutConfig
 ) {
-  const targetElement = config.shortcutTarget || document;
+  const targetElement = config.shortcutTarget ?? document;
 
   const eventHandler = useCallback(
     (e: Event) => {
