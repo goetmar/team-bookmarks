@@ -63,7 +63,7 @@ export const AppDrawer = () => {
     >
       {/* Offset for the AppNavBar */}
       <Toolbar />
-      <Divider />
+      <Divider style={{ visibility: "hidden" }} />
       <Box
         ref={ref}
         sx={(theme) => ({
