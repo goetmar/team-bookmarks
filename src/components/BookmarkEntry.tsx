@@ -1,8 +1,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { SyntheticEvent } from "react";
+import { useState } from "react";
 import { Bookmark } from "../types/types";
-import { getFaviconByGoogleApi, getFaviconByUrl } from "../utils/faviconHelper";
+import { getFaviconSrc } from "../utils/faviconHelper";
 import { CardItem } from "./CardItem";
 import { ClipboardCopy } from "./ClipboardCopy";
 
@@ -13,9 +13,13 @@ export type BookmarkEntryProps = {
 };
 
 export const BookmarkEntry = (props: BookmarkEntryProps) => {
-  const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
-    event.currentTarget.onerror = null;
-    event.currentTarget.src = getFaviconByGoogleApi(props.bookmark.url);
+  const [imgSrc, setImgSrc] = useState(getFaviconSrc(props.bookmark.url));
+  const fallbackSrc = `${import.meta.env.BASE_URL}globe.svg`;
+
+  const handleImageError = () => {
+    if (imgSrc !== fallbackSrc) {
+      setImgSrc(fallbackSrc);
+    }
   };
 
   return (
@@ -56,7 +60,7 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           justifyContent="center"
         >
           <img
-            src={getFaviconByUrl(props.bookmark.url)}
+            src={imgSrc}
             alt="favicon"
             height="16px"
             width="16px"

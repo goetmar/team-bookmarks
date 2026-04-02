@@ -1,15 +1,15 @@
-const getBaseUrl = (url: string) => {
-  const pathSegments = url.split("/");
-  const protocol = pathSegments[0];
-  const host = pathSegments[2];
-  const baseUrl = protocol + "//" + host;
-  return baseUrl;
+const getDomain = (url: string) => {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname;
+  } catch {
+    const pathSegments = url.split("/");
+    return pathSegments[2] || url;
+  }
 };
 
-export const getFaviconByUrl = (url: string) => {
-  return getBaseUrl(url) + "/favicon.ico";
-};
-
-export const getFaviconByGoogleApi = (url: string, size?: number) => {
-  return `https://www.google.com/s2/favicons?domain=${url}&size=${size ?? 16}`;
+export const getFaviconSrc = (url: string, size?: number) => {
+  return `https://www.google.com/s2/favicons?domain=${getDomain(url)}&sz=${
+    size ?? 16
+  }`;
 };
