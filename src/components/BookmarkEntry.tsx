@@ -6,6 +6,8 @@ import { getFaviconSrc } from "../utils/faviconHelper";
 import { CardItem } from "./CardItem";
 import { ClipboardCopy } from "./ClipboardCopy";
 
+const fallbackSrc = `${import.meta.env.BASE_URL}globe.svg`;
+
 export type BookmarkEntryProps = {
   bookmark: Bookmark;
   clipboard?: boolean;
@@ -14,7 +16,6 @@ export type BookmarkEntryProps = {
 
 export const BookmarkEntry = (props: BookmarkEntryProps) => {
   const [imgSrc, setImgSrc] = useState(getFaviconSrc(props.bookmark.url));
-  const fallbackSrc = `${import.meta.env.BASE_URL}globe.svg`;
 
   const handleImageError = () => {
     if (imgSrc !== fallbackSrc) {
