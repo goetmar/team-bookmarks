@@ -1,17 +1,19 @@
 {
   "name": "team-bookmarks",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "homepage": "https://goetmar.github.io/team-bookmarks",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "prebuild": "npm run validate-bookmarks",
     "build": "tsc && vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "dev": "vite",
     "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "validate-bookmarks": "node src/utils/validateBookmarks.js"
   },
-  "homepage": "https://goetmar.github.io/team-bookmarks",
   "dependencies": {
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^7.2.0",
