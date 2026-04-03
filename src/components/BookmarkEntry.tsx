@@ -7,6 +7,7 @@ import { CardItem } from "./CardItem";
 import { ClipboardCopy } from "./ClipboardCopy";
 
 const fallbackSrc = `${import.meta.env.BASE_URL}globe.svg`;
+const requestedSize = 32;
 
 export type BookmarkEntryProps = {
   bookmark: Bookmark;
@@ -15,10 +16,22 @@ export type BookmarkEntryProps = {
 };
 
 export const BookmarkEntry = (props: BookmarkEntryProps) => {
-  const [imgSrc, setImgSrc] = useState(getFaviconSrc(props.bookmark.url));
+  const [imgSrc, setImgSrc] = useState(
+    getFaviconSrc(props.bookmark.url, requestedSize),
+  );
 
   const handleImageError = () => {
     if (imgSrc !== fallbackSrc) {
+      setImgSrc(fallbackSrc);
+    }
+  };
+
+  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    if (imgSrc === fallbackSrc) {
+      return;
+    }
+    // Google's favicon API returns a 16x16 placeholder image when no favicon is found, in that case we want to use our own placeholder
+    if (event.currentTarget.naturalWidth !== requestedSize) {
       setImgSrc(fallbackSrc);
     }
   };
@@ -65,6 +78,7 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
             alt="favicon"
             height="16px"
             width="16px"
+            onLoad={handleImageLoad}
             onError={handleImageError}
           />
         </Box>
