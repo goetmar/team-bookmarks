@@ -11,41 +11,41 @@ import { filterBookmarks } from "../utils/bookmarkHelper";
 
 export const SearchField = () => {
   const rootFolder = useBookmarkStore((state) => state.rootFolder);
-  const isSearching = useBookmarkStore((state) => state.isSearching);
+  const searchQuery = useBookmarkStore((state) => state.searchQuery);
   const setIsSearching = useBookmarkStore((state) => state.setIsSearching);
   const setSearchResults = useBookmarkStore((state) => state.setSearchResults);
+  const setSearchQuery = useBookmarkStore((state) => state.setSearchQuery);
 
   const allBookmarksSorted = useMemo(() => {
     return filterBookmarks([rootFolder]).sort((a, b) =>
-      a.name.localeCompare(b.name)
+      a.name.localeCompare(b.name),
     );
   }, [rootFolder]);
 
-  const initialValue = "";
-  const [searchValue, setSearchValue] = useState(initialValue);
+  const [inputValue, setInputValue] = useState(searchQuery ?? "");
+
+  useEffect(() => {
+    setInputValue(searchQuery);
+  }, [searchQuery]);
 
   const { groupedOptions, getInputLabelProps, getInputProps } = useAutocomplete(
     {
       id: "use-autocomplete",
-      inputValue: searchValue,
+      inputValue: inputValue,
       options: allBookmarksSorted,
       getOptionLabel: (option) => option.name,
       open: true,
-    }
+    },
   );
 
   useEffect(() => {
-    if (searchValue.trim().length > 0) {
+    if (searchQuery.length > 0) {
       setSearchResults(groupedOptions);
       setIsSearching(true);
     } else {
       setIsSearching(false);
     }
-  }, [searchValue, groupedOptions, setSearchResults, setIsSearching]);
-
-  useEffect(() => {
-    if (!isSearching) setSearchValue(initialValue);
-  }, [isSearching]);
+  }, [searchQuery, groupedOptions, setSearchResults, setIsSearching]);
 
   const textInputRef = useRef<HTMLInputElement>(null);
 
@@ -63,8 +63,14 @@ export const SearchField = () => {
       size="small"
       type="search"
       label="Search"
-      value={searchValue}
-      onChange={(e) => setSearchValue(e.target.value)}
+      value={inputValue}
+      onChange={(e) => {
+        const raw = e.target.value;
+        setInputValue(raw);
+        if (raw !== searchQuery) {
+          setSearchQuery(raw);
+        }
+      }}
       autoFocus
       inputRef={textInputRef}
       sx={{
@@ -80,12 +86,13 @@ export const SearchField = () => {
           sx: (theme) => ({
             backgroundColor: alpha(theme.palette.background.default, 0.6),
           }),
-          endAdornment: searchValue && (
+          endAdornment: inputValue && (
             <InputAdornment position="end">
               <IconButton
                 size="small"
                 onClick={() => {
-                  setSearchValue("");
+                  setInputValue("");
+                  setSearchQuery("");
                   textInputRef.current?.focus();
                 }}
               >

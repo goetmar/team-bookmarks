@@ -25,10 +25,6 @@ export const FolderListItem = (props: FolderListItemProps) => {
     useBookmarkStore();
   const hasSubfolders = props.folder.bookmarks.length > 0;
   const isSelected = !isSearching && currentFolderId === props.folder.id;
-  const [open, setOpen] = useState((props.isRoot ?? false) || !hasSubfolders);
-  const toggleOpen = () => {
-    setOpen((open) => !open);
-  };
   const selectFolder = () => {
     if (isSearching) setIsSearching(false);
     if (!isSelected) setCurrentFolderId(props.folder.id);
@@ -40,6 +36,13 @@ export const FolderListItem = (props: FolderListItemProps) => {
       findFolderById(props.folder.bookmarks, currentFolderId) !== undefined
     );
   }, [currentFolderId, hasSubfolders, props.folder]);
+
+  const [open, setOpen] = useState(
+    (props.isRoot ?? false) || !hasSubfolders || isParentOfCurrentFolder
+  );
+  const toggleOpen = () => {
+    setOpen((open) => !open);
+  };
 
   useEffect(() => {
     if (isParentOfCurrentFolder && !open) setOpen(true);
