@@ -10,6 +10,6 @@ const getDomain = (url: string) => {
 
 export const getFaviconSrc = (url: string, size?: number) => {
   return `https://www.google.com/s2/favicons?domain=${getDomain(url)}&sz=${
-    size ?? 16
+    size ?? 32
   }`;
 };
