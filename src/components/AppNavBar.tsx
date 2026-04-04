@@ -11,7 +11,7 @@ import { SettingsButton } from "./SettingsButton";
 export default function AppNavBar() {
   return (
     <AppBar
-      position="sticky"
+      position="fixed"
       color="transparent"
       elevation={0}
       sx={(theme) => ({
