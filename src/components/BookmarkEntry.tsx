@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Bookmark } from "../types/types";
 import { getFaviconSrc } from "../utils/faviconHelper";
@@ -40,16 +39,22 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
     <Box
       sx={(theme) => ({
         position: "relative",
-        "& .hidden-element": {
+        "& .clipboard-copy, & .bookmark-name::after": {
           opacity: 0,
           transition: theme.transitions.create(["opacity"], {
             duration: theme.transitions.duration.short,
           }),
-          "&:focus-visible": {
-            opacity: 1,
-          },
         },
-        "&:hover .hidden-element": {
+        "& .bookmark-name::after": {
+          color: theme.palette.text.secondary,
+          fontWeight: theme.typography.body2.fontWeight,
+          textTransform: "lowercase",
+          marginLeft: theme.spacing(2),
+        },
+        "&:hover .clipboard-copy, &:hover .bookmark-name::after": {
+          opacity: 1,
+        },
+        "& .clipboard-copy:focus-within": {
           opacity: 1,
         },
       })}
@@ -61,9 +66,10 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           rel: props.openInNewTab ? "noopener" : undefined,
           sx: {
             pr: props.clipboard ? "50px" : null,
-            "&:focus-visible .hidden-element": {
-              opacity: 1,
-            },
+            "&:focus-visible .clipboard-copy, &:focus-visible .bookmark-name::after":
+              {
+                opacity: 1,
+              },
           },
         }}
       >
@@ -82,18 +88,21 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
             onError={handleImageError}
           />
         </Box>
-        {props.bookmark.name}
-        <Typography
-          variant="body2"
-          className="hidden-element"
-          color={"text.secondary"}
-          textTransform={"lowercase"}
+        <Box
+          component="span"
+          className="bookmark-name"
+          data-url={props.bookmark.url}
+          sx={{
+            "&::after": {
+              content: "attr(data-url)",
+            },
+          }}
         >
-          {props.bookmark.url}
-        </Typography>
+          {props.bookmark.name}
+        </Box>
       </CardItem>
       {props.clipboard && (
-        <ClipboardCopy url={props.bookmark.url} className="hidden-element" />
+        <ClipboardCopy url={props.bookmark.url} className="clipboard-copy" />
       )}
     </Box>
   );
