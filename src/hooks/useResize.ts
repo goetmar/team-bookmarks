@@ -18,7 +18,7 @@ const setLocalWidth = (width: number) => {
 
 const useResize = (initialWidth?: number | string): Resize => {
   const [width, setWidth] = useState<number | string>(
-    getLocalWidth() ?? initialWidth ?? 0
+    getLocalWidth() ?? initialWidth ?? 0,
   );
 
   const resize = useCallback((e: MouseEvent) => {
@@ -29,12 +29,11 @@ const useResize = (initialWidth?: number | string): Resize => {
 
   const disableResize = useCallback(() => {
     document.removeEventListener("mousemove", resize);
-    document.removeEventListener("mouseup", disableResize);
   }, [resize]);
 
   const enableResize = useCallback(() => {
     document.addEventListener("mousemove", resize);
-    document.addEventListener("mouseup", disableResize);
+    document.addEventListener("mouseup", disableResize, { once: true });
   }, [resize, disableResize]);
 
   return { width, enableResize };

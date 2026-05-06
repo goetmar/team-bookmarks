@@ -8,7 +8,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import { Theme } from "@mui/material/styles";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import { BookmarkFolder } from "../types/types";
 import { findFolderById } from "../utils/bookmarkHelper";
@@ -31,22 +31,24 @@ export const FolderListItem = (props: FolderListItemProps) => {
   };
 
   const isParentOfCurrentFolder: boolean = useMemo(() => {
-    if (!hasSubfolders || currentFolderId === props.folder.id) return false;
     return (
+      hasSubfolders &&
+      currentFolderId !== props.folder.id &&
       findFolderById(props.folder.bookmarks, currentFolderId) !== undefined
     );
   }, [currentFolderId, hasSubfolders, props.folder]);
 
   const [open, setOpen] = useState(
-    (props.isRoot ?? false) || !hasSubfolders || isParentOfCurrentFolder
+    (props.isRoot ?? false) || !hasSubfolders || isParentOfCurrentFolder,
   );
   const toggleOpen = () => {
     setOpen((open) => !open);
   };
 
-  useEffect(() => {
-    if (isParentOfCurrentFolder && !open) setOpen(true);
-  }, [isParentOfCurrentFolder, open]);
+  // Open this folder if a child folder is selected from anywhere
+  if (isParentOfCurrentFolder && !open) {
+    setOpen(true);
+  }
 
   const color = isSelected ? "primary.main" : "text.secondary";
   const hoverStyle = (theme: Theme, mode: "light" | "dark") => {
