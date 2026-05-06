@@ -54,7 +54,7 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
         "&:hover .clipboard-copy, &:hover .bookmark-name::after": {
           opacity: 1,
         },
-        "& .clipboard-copy:focus-within": {
+        "& .clipboard-copy:focus-visible": {
           opacity: 1,
         },
       })}
