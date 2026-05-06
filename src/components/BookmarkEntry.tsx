@@ -42,7 +42,7 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
         "& .clipboard-copy, & .bookmark-name::after": {
           opacity: 0,
           transition: theme.transitions.create(["opacity"], {
-            duration: theme.transitions.duration.short,
+            duration: theme.transitions.duration.shortest,
           }),
         },
         "& .bookmark-name::after": {

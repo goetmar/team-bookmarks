@@ -25,17 +25,24 @@ export type CardItemProps = {
 };
 
 export const CardItem = (props: CardItemProps) => {
+  const sx = props.buttonProps?.sx;
   return (
     <Button
       fullWidth
       {...props.buttonProps}
-      sx={{
-        justifyContent: "flex-start",
-        borderRadius: 0,
-        px: 2,
-        textTransform: "none",
-        ...props.buttonProps?.sx,
-      }}
+      sx={[
+        (theme) => ({
+          justifyContent: "flex-start",
+          borderRadius: 0,
+          px: 2,
+          textTransform: "none",
+          transition: theme.transitions.create(["background-color"], {
+            duration: theme.transitions.duration.shortest,
+          }),
+        }),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
       <Box {...boxProps}>{props.children}</Box>
     </Button>
