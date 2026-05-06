@@ -4,7 +4,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { alpha } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import useAutocomplete from "@mui/material/useAutocomplete";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useBookmarkStore } from "../hooks/useBookmarkStore";
 import useKeyboardShortcut from "../hooks/useKeyboardShortcut";
 import { filterBookmarks } from "../utils/bookmarkHelper";
@@ -22,16 +22,10 @@ export const SearchField = () => {
     );
   }, [rootFolder]);
 
-  const [inputValue, setInputValue] = useState(searchQuery ?? "");
-
-  useEffect(() => {
-    setInputValue(searchQuery);
-  }, [searchQuery]);
-
   const { groupedOptions, getInputLabelProps, getInputProps } = useAutocomplete(
     {
       id: "use-autocomplete",
-      inputValue: inputValue,
+      inputValue: searchQuery,
       options: allBookmarksSorted,
       getOptionLabel: (option) => option.name,
       open: true,
@@ -63,10 +57,9 @@ export const SearchField = () => {
       size="small"
       type="search"
       label="Search"
-      value={inputValue}
+      value={searchQuery}
       onChange={(e) => {
         const raw = e.target.value;
-        setInputValue(raw);
         if (raw !== searchQuery) {
           setSearchQuery(raw);
         }
@@ -86,12 +79,11 @@ export const SearchField = () => {
           sx: (theme) => ({
             backgroundColor: alpha(theme.palette.background.default, 0.6),
           }),
-          endAdornment: inputValue && (
+          endAdornment: searchQuery && (
             <InputAdornment position="end">
               <IconButton
                 size="small"
                 onClick={() => {
-                  setInputValue("");
                   setSearchQuery("");
                   textInputRef.current?.focus();
                 }}
