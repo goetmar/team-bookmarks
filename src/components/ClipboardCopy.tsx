@@ -10,7 +10,6 @@ export const ClipboardCopy = (props: ClipboardCopyProps) => {
 
   return (
     <Tooltip
-      className={props.className}
       title={copied ? "Link Copied!" : "Copy to clipboard"}
       placement="left"
       disableInteractive
@@ -25,6 +24,7 @@ export const ClipboardCopy = (props: ClipboardCopyProps) => {
       }}
     >
       <IconButton
+        className={props.className}
         sx={{
           position: "absolute",
           right: 8,
@@ -40,7 +40,7 @@ export const ClipboardCopy = (props: ClipboardCopyProps) => {
             () => setCopied(true),
             (reason) => {
               console.error(reason);
-            }
+            },
           );
         }}
       >

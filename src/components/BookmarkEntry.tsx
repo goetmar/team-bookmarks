@@ -39,19 +39,28 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
     <Box
       sx={(theme) => ({
         position: "relative",
-        "& .clipboard-copy, & .bookmark-name::after": {
+        "& .clipboard-copy, & .bookmark-url": {
           opacity: 0,
           transition: theme.transitions.create(["opacity"], {
             duration: theme.transitions.duration.shortest,
           }),
         },
-        "& .bookmark-name::after": {
+        "& .bookmark-url": {
           color: theme.palette.text.secondary,
           fontWeight: theme.typography.body2.fontWeight,
           textTransform: "lowercase",
           marginLeft: theme.spacing(2),
         },
-        "&:hover .clipboard-copy, &:hover .bookmark-name::after": {
+        "& .bookmark-url::before": {
+          content: "attr(data-url)",
+        },
+        "& .bookmark-name, & .bookmark-url": {
+          minWidth: 0,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        },
+        "&:hover .clipboard-copy, &:hover .bookmark-url": {
           opacity: 1,
         },
         "& .clipboard-copy:focus-visible": {
@@ -66,10 +75,9 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
           rel: props.openInNewTab ? "noopener" : undefined,
           sx: {
             pr: props.clipboard ? "50px" : null,
-            "&:focus-visible .clipboard-copy, &:focus-visible .bookmark-name::after":
-              {
-                opacity: 1,
-              },
+            "&:focus-visible .clipboard-copy, &:focus-visible .bookmark-url": {
+              opacity: 1,
+            },
           },
         }}
       >
@@ -81,24 +89,44 @@ export const BookmarkEntry = (props: BookmarkEntryProps) => {
         >
           <img
             src={imgSrc}
-            alt="favicon"
+            alt=""
             height="16px"
             width="16px"
             onLoad={handleImageLoad}
             onError={handleImageError}
+            aria-hidden
           />
         </Box>
         <Box
-          component="span"
-          className="bookmark-name"
-          data-url={props.bookmark.url}
           sx={{
-            "&::after": {
-              content: "attr(data-url)",
-            },
+            display: "flex",
+            alignItems: "baseline",
+            flexGrow: 1,
+            minWidth: 0,
+            overflow: "hidden",
           }}
         >
-          {props.bookmark.name}
+          <Box
+            component="span"
+            className="bookmark-name"
+            sx={{
+              flexGrow: 0,
+              flexShrink: 0,
+              maxWidth: "100%",
+            }}
+          >
+            {props.bookmark.name}
+          </Box>
+          <Box
+            component="span"
+            className="bookmark-url"
+            data-url={props.bookmark.url}
+            aria-hidden
+            sx={{
+              flexGrow: 1,
+              flexShrink: 1,
+            }}
+          />
         </Box>
       </CardItem>
       {props.clipboard && (
